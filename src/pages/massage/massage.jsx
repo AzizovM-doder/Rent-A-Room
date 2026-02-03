@@ -1,0 +1,207 @@
+import React from "react";
+import { useParams, Link } from "react-router-dom";
+import axios from "axios";
+import { baseData } from "../../data/base/baseData";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import {
+  MapPin,
+  Bed,
+  Home as HomeIcon,
+  ArrowLeft,
+  MessageCircle,
+  Phone,
+  ShieldCheck,
+} from "lucide-react";
+
+const Message = () => {
+  const { id } = useParams();
+  const item = baseData.find((e) => String(e.id) === id);
+
+  const submitRequest = async (ev) => {
+    ev.preventDefault();
+
+    const data = {
+      name: ev.target.name.value,
+      phone: ev.target.phone.value,
+      message: ev.target.message.value,
+      days: ev.target.days.value,
+    };
+
+    const token = "8288912810:AAF4ccMayE1GQj6IVji9bQ5YhquyKMDvIrQ";
+    const chatId = "8030302693";
+
+    try {
+      const request = `New request:
+Name: ${data.name}
+Number: ${data.phone}
+House id : ${item.id}
+Requested house: ${item?.name}
+Per night: $${item?.price}
+Requested days: ${data.days}
+Message: ${data.message}`;
+
+      await axios.post(`https://api.telegram.org/bot${token}/sendMessage`, {
+        chat_id: chatId,
+        text: request,
+      });
+
+      ev.target.reset();
+      return true;
+    } catch (error) {
+      console.log("Error sending message:", error);
+      return false;
+    }
+  };
+
+  if (!item) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center px-4">
+        <Card className="max-w-md w-full rounded-2xl">
+          <CardContent className="p-10 text-center flex flex-col gap-3">
+            <p className="text-lg font-semibold">Not found</p>
+            <p className="text-sm text-muted-foreground">
+              This listing does not exist.
+            </p>
+            <Button asChild className="bg-emerald-600 hover:bg-emerald-700">
+              <Link to="/">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to home
+              </Link>
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-[70vh] px-4 py-8">
+      <div className="mx-auto max-w-6xl flex flex-col gap-6">
+        <Button variant="ghost" asChild className="w-fit">
+          <Link to={`/explore/${item.id}`}>
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back
+          </Link>
+        </Button>
+
+        <div className="grid gap-6 lg:grid-cols-2">
+          <Card className="rounded-2xl pt-0 overflow-hidden">
+            <div className="relative h-64 w-full">
+              <img
+                src={item.image}
+                alt={item.name}
+                className="h-full w-full object-cover"
+              />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.15), transparent)",
+                }}
+              />
+              <div className="absolute left-4 right-4 bottom-4 flex items-end justify-between gap-3">
+                <div className="flex flex-col gap-1">
+                  <p className="text-white text-xl font-semibold leading-tight">
+                    {item.name}
+                  </p>
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-white/80">
+                    <span className="inline-flex items-center gap-1">
+                      <MapPin className="h-3.5 w-3.5" />
+                      {item.location}
+                    </span>
+                    <span className="inline-flex items-center gap-1">
+                      <Bed className="h-3.5 w-3.5" />
+                      {item.rooms} rooms
+                    </span>
+                    <span className="inline-flex items-center gap-1 capitalize">
+                      <HomeIcon className="h-3.5 w-3.5" />
+                      {item.type}
+                    </span>
+                  </div>
+                </div>
+
+                <Badge className="bg-emerald-600 hover:bg-emerald-600 h-fit">
+                  ${item.price} / night
+                </Badge>
+              </div>
+            </div>
+
+            <CardContent className="p-5 flex flex-col gap-4">
+              <div className="rounded-2xl border p-4 flex items-start justify-between gap-3">
+                <div className="flex flex-col gap-1">
+                  <p className="text-sm font-semibold">Owner status</p>
+                  <p className="text-sm text-muted-foreground">
+                    Verified listing, quick response.
+                  </p>
+                </div>
+                <div className="h-10 w-10 rounded-2xl bg-emerald-600/10 flex items-center justify-center">
+                  <ShieldCheck className="h-5 w-5 text-emerald-600" />
+                </div>
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                <Button variant="outline" className="justify-between">
+                  Call owner
+                  <Phone className="h-4 w-4 text-muted-foreground" />
+                </Button>
+                <Button variant="outline" className="justify-between">
+                  Ask questions
+                  <MessageCircle className="h-4 w-4 text-muted-foreground" />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="rounded-2xl pt-0 overflow-hidden">
+            <div className="relative border-b p-6">
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(to right, rgba(5,150,105,0.55), rgba(5,150,105,0.18), transparent)",
+                }}
+              />
+              <div className="relative flex flex-col gap-1">
+                <p className="text-xl font-semibold text-white">Send a message</p>
+                <p className="text-sm text-white">
+                  Contact the owner about this listing.
+                </p>
+              </div>
+            </div>
+
+            <CardContent className="p-6">
+              <form onSubmit={submitRequest} className="flex flex-col gap-4">
+                <div className="rounded-xl border p-3 bg-muted/30">
+                  <p className="text-xs text-muted-foreground">Listing</p>
+                  <p className="text-sm font-medium">{item.name}</p>
+                </div>
+
+                <Input name="name" placeholder="Your name" />
+                <Input name="phone" placeholder="Your phone number" />
+                <Input name="message" placeholder="Your message" />
+                <Input
+                  name="days"
+                  placeholder="How many days you want to be..."
+                  type="number"
+                />
+
+                <Button className="bg-emerald-600 hover:bg-emerald-700">
+                  Send message
+                </Button>
+
+                <p className="text-xs text-muted-foreground">
+                  By sending, you agree to communicate respectfully.
+                </p>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Message;
