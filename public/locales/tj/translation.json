@@ -1,31 +1,93 @@
 {
   "main": {
     "hero": {
-      "titleBefore": "Find your next",
-      "titleHighlight": "home",
-      "titleAfter": "in Tajikistan",
-      "desc": "Houses, dachas, and apartments for rent. Clean listings. No stress.",
-      "browseBtn": "Browse homes",
-      "listBtn": "List property"
+      "titleBefore": "Хонаи навбатии худро",
+      "titleHighlight": "ёбед",
+      "titleAfter": "дар Тоҷикистон",
+      "desc": "Хонаҳо, дачаҳо ва квартираҳо барои иҷора. Эълонҳои тоза. Бе ташвиш.",
+      "browseBtn": "Дидани хонаҳо",
+      "listBtn": "Иловаи эълон"
     },
     "features": {
       "verified": {
-        "title": "Verified listings",
-        "desc": "Only real homes from trusted owners."
+        "title": "Эълонҳои санҷидашуда",
+        "desc": "Танҳо хонаҳои ҳақиқӣ аз соҳибони боэътимод."
       },
       "natureCity": {
-        "title": "Nature & city",
-        "desc": "From quiet green areas to city centers."
+        "title": "Табиат ва шаҳр",
+        "desc": "Аз ҷойҳои ором то маркази шаҳр."
       },
       "topRated": {
-        "title": "Top rated",
-        "desc": "Quality homes with real reviews."
+        "title": "Баҳои баланд",
+        "desc": "Хонаҳои босифат бо назарҳои воқеӣ."
       }
     },
     "cta": {
-      "title": "Own a house or dacha?",
-      "desc": "Publish your property and reach thousands of renters.",
-      "button": "Add listing"
+      "title": "Хона ё дача доред?",
+      "desc": "Эълони худро нашр кунед ва ҳазорон иҷорагир пайдо кунед.",
+      "button": "Иловаи эълон"
+    }
+  },
+
+  "common": {
+    "rooms": "ҳуҷра",
+    "night": "шаб",
+    "explore": "ДИДАН"
+  },
+
+  "favorites": {
+    "title": "Дӯстдоштаҳо",
+    "emptyTitle": "Ҳоло холист",
+    "emptyDesc": "Хонаҳои писандидаи худро нигоҳ доред ва онҳо дар ин ҷо пайдо мешаванд.",
+    "browseBtn": "Дидани хонаҳо"
+  },
+
+  "info": {
+    "notFound": "Ёфт нашуд",
+    "notFoundDesc": "Ин хона вуҷуд надорад ё ҳазф шудааст.",
+    "backHome": "Ба саҳифаи асосӣ",
+    "back": "Бозгашт",
+    "descBeforeType": "Хонаи бароҳат",
+    "descBetween": "воқеъ дар",
+    "descAfter": "барои иқомати кӯтоҳ ва дароз бо",
+    "messageOwner": "Паём ба соҳиб",
+    "call": "Занг задан",
+    "save": "Нигоҳ доштан",
+    "saved": "Нигоҳ дошта шуд"
+  },
+
+  "message": {
+    "notFound": "Ёфт нашуд",
+    "notFoundDesc": "Ин эълон вуҷуд надорад.",
+    "backHome": "Ба саҳифаи асосӣ",
+    "back": "Бозгашт",
+    "ownerStatus": "Ҳолати соҳиб",
+    "ownerStatusDesc": "Эълони санҷидашуда, ҷавоби зуд.",
+    "callOwner": "Занг ба соҳиб",
+    "askQuestions": "Савол додан",
+    "sendTitle": "Фиристодани паём",
+    "sendDesc": "Бо соҳиби ин хона тамос гиред.",
+    "listing": "Эълон",
+    "yourName": "Номи шумо",
+    "yourPhone": "Рақами телефони шумо",
+    "yourMessage": "Паёми шумо",
+    "daysPlaceholder": "Чанд рӯз мондан мехоҳед...",
+    "sendBtn": "Фиристодани паём",
+    "respect": "Бо фиристодани паём шумо ба муоширати боэҳтиром розӣ мешавед."
+  },
+  "nav": {
+    "home": "Асосӣ",
+    "about": "Дар бораи мо",
+    "contact": "Тамос",
+    "favorites": "Дӯстдоштаҳо",
+    "login": "Даромадан",
+    "register": "Қайдгирӣ",
+    "profile": "Профил",
+    "language": "Забон",
+    "lang": {
+      "en": "English",
+      "ru": "Русский",
+      "tj": "Тоҷикӣ"
     }
   }
 }

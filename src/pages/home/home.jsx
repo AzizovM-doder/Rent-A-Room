@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
 import { ShieldCheck, Leaf, Star } from "lucide-react";
-import { baseData } from "../../data/base/baseData";
 import { Button } from "@/components/ui/button";
 import Filter from "../../components/extra/filter";
 import Slider from "../../components/extra/slider";
@@ -8,7 +6,6 @@ import { useTranslation } from "react-i18next";
 
 const Home = () => {
   const { t } = useTranslation();
-  console.log(t);
 
   return (
     <div className="flex flex-col gap-24">

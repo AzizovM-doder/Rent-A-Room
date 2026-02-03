@@ -27,5 +27,67 @@
       "desc": "Publish your property and reach thousands of renters.",
       "button": "Add listing"
     }
+  },
+
+  "common": {
+    "rooms": "rooms",
+    "night": "night",
+    "explore": "EXPLORE"
+  },
+
+  "favorites": {
+    "title": "Favorites",
+    "emptyTitle": "No favorites yet",
+    "emptyDesc": "Save homes you like and they’ll appear here for quick access.",
+    "browseBtn": "Browse homes"
+  },
+
+  "info": {
+    "notFound": "Not found",
+    "notFoundDesc": "This property does not exist or was removed.",
+    "backHome": "Back to home",
+    "back": "Back",
+    "descBeforeType": "Comfortable",
+    "descBetween": "located in",
+    "descAfter": "Perfect for short or long stays with",
+    "messageOwner": "Message owner",
+    "call": "Call",
+    "save": "Save",
+    "saved": "Saved"
+  },
+
+  "message": {
+    "notFound": "Not found",
+    "notFoundDesc": "This listing does not exist.",
+    "backHome": "Back to home",
+    "back": "Back",
+    "ownerStatus": "Owner status",
+    "ownerStatusDesc": "Verified listing, quick response.",
+    "callOwner": "Call owner",
+    "askQuestions": "Ask questions",
+    "sendTitle": "Send a message",
+    "sendDesc": "Contact the owner about this listing.",
+    "listing": "Listing",
+    "yourName": "Your name",
+    "yourPhone": "Your phone number",
+    "yourMessage": "Your message",
+    "daysPlaceholder": "How many days you want to be...",
+    "sendBtn": "Send message",
+    "respect": "By sending, you agree to communicate respectfully."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "favorites": "Favorites",
+    "login": "Login",
+    "register": "Register",
+    "profile": "Profile",
+    "language": "Language",
+    "lang": {
+      "en": "English",
+      "ru": "Russian",
+      "tj": "Tajik"
+    }
   }
 }

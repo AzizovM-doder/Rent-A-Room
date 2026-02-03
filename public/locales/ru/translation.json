@@ -1,31 +1,93 @@
 {
   "main": {
     "hero": {
-      "titleBefore": "Find your next",
-      "titleHighlight": "home",
-      "titleAfter": "in Tajikistan",
-      "desc": "Houses, dachas, and apartments for rent. Clean listings. No stress.",
-      "browseBtn": "Browse homes",
-      "listBtn": "List property"
+      "titleBefore": "Найдите свой следующий",
+      "titleHighlight": "дом",
+      "titleAfter": "в Таджикистане",
+      "desc": "Дома, дачи и квартиры в аренду. Чистые объявления. Без стресса.",
+      "browseBtn": "Смотреть жильё",
+      "listBtn": "Добавить объявление"
     },
     "features": {
       "verified": {
-        "title": "Verified listings",
-        "desc": "Only real homes from trusted owners."
+        "title": "Проверенные объявления",
+        "desc": "Только реальные дома от надёжных владельцев."
       },
       "natureCity": {
-        "title": "Nature & city",
-        "desc": "From quiet green areas to city centers."
+        "title": "Природа и город",
+        "desc": "От тихих зелёных мест до центра города."
       },
       "topRated": {
-        "title": "Top rated",
-        "desc": "Quality homes with real reviews."
+        "title": "Лучший рейтинг",
+        "desc": "Качественное жильё с реальными отзывами."
       }
     },
     "cta": {
-      "title": "Own a house or dacha?",
-      "desc": "Publish your property and reach thousands of renters.",
-      "button": "Add listing"
+      "title": "У вас есть дом или дача?",
+      "desc": "Опубликуйте объявление и найдите тысячи арендаторов.",
+      "button": "Добавить объявление"
+    }
+  },
+
+  "common": {
+    "rooms": "комнат",
+    "night": "ночь",
+    "explore": "СМОТРЕТЬ"
+  },
+
+  "favorites": {
+    "title": "Избранное",
+    "emptyTitle": "Пока пусто",
+    "emptyDesc": "Сохраняйте понравившиеся дома, и они появятся здесь.",
+    "browseBtn": "Смотреть жильё"
+  },
+
+  "info": {
+    "notFound": "Не найдено",
+    "notFoundDesc": "Этот объект не существует или был удалён.",
+    "backHome": "На главную",
+    "back": "Назад",
+    "descBeforeType": "Удобное",
+    "descBetween": "расположено в",
+    "descAfter": "Отлично подходит для короткого и долгого проживания с",
+    "messageOwner": "Написать владельцу",
+    "call": "Позвонить",
+    "save": "Сохранить",
+    "saved": "Сохранено"
+  },
+
+  "message": {
+    "notFound": "Не найдено",
+    "notFoundDesc": "Такого объявления не существует.",
+    "backHome": "На главную",
+    "back": "Назад",
+    "ownerStatus": "Статус владельца",
+    "ownerStatusDesc": "Проверенное объявление, быстрый ответ.",
+    "callOwner": "Позвонить владельцу",
+    "askQuestions": "Задать вопрос",
+    "sendTitle": "Отправить сообщение",
+    "sendDesc": "Свяжитесь с владельцем этого жилья.",
+    "listing": "Объявление",
+    "yourName": "Ваше имя",
+    "yourPhone": "Ваш номер телефона",
+    "yourMessage": "Ваше сообщение",
+    "daysPlaceholder": "На сколько дней вы планируете остаться...",
+    "sendBtn": "Отправить сообщение",
+    "respect": "Отправляя сообщение, вы соглашаетесь общаться уважительно."
+  },
+  "nav": {
+    "home": "Главная",
+    "about": "О нас",
+    "contact": "Контакты",
+    "favorites": "Избранное",
+    "login": "Войти",
+    "register": "Регистрация",
+    "profile": "Профиль",
+    "language": "Язык",
+    "lang": {
+      "en": "English",
+      "ru": "Русский",
+      "tj": "Тоҷикӣ"
     }
   }
 }
