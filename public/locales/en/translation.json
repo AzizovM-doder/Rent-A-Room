@@ -89,5 +89,100 @@
       "ru": "Russian",
       "tj": "Tajik"
     }
+  },
+  "filter": {
+    "title": "Filter homes",
+    "subtitle": "Find the right place fast.",
+    "reset": "Reset",
+    "searchPlaceholder": "Search name, city, type...",
+    "city": "City",
+    "allCities": "All cities",
+    "allCitiesShort": "all cities",
+    "typeLabel": "Type",
+    "allTypes": "All types",
+    "type": {
+      "house": "House",
+      "apartment": "Apartment",
+      "dacha": "Dacha"
+    },
+    "rooms": "Rooms",
+    "anyRoomsLabel": "Any rooms",
+    "anyRooms": "any rooms",
+    "rooms4plus": "4+ rooms",
+    "priceRange": "Price range",
+    "results": "results",
+    "homes": "Homes",
+    "noResults": "No results",
+    "tryDifferent": "Try different filters.",
+    "resetFilters": "Reset filters",
+    "prev": "Prev",
+    "next": "Next"
+  },
+  "about": {
+    "title": "About us",
+    "subtitle": "Rent a Room is a platform built to make renting houses, dachas, and apartments across Tajikistan simple, transparent, and reliable.",
+    "features": {
+      "realHomes": {
+        "title": "Real homes",
+        "text": "Only real listings from verified property owners."
+      },
+      "forPeople": {
+        "title": "For people",
+        "text": "Built for renters and owners with zero unnecessary steps."
+      },
+      "trust": {
+        "title": "Trust first",
+        "text": "Transparency and safety are always our priority."
+      },
+      "green": {
+        "title": "Green mindset",
+        "text": "We support sustainable living and nature-friendly locations."
+      }
+    },
+    "mission": {
+      "title": "Our mission",
+      "text": "To connect people with comfortable places to live and relax, while helping property owners reach the right audience with ease, confidence, and long-term trust."
+    }
+  },
+  "footer": {
+    "brand": {
+      "subtitle": "Homes • Dachas • Apartments",
+      "desc": "A simple platform to rent houses, dachas, and apartments across Tajikistan. Clean listings. No stress."
+    },
+    "badges": {
+      "verified": "Verified listings",
+      "support": "Support 24/7"
+    },
+    "quickLinks": {
+      "title": "Quick links",
+      "home": "Home",
+      "about": "About",
+      "contact": "Contact",
+      "login": "Login"
+    },
+    "contact": {
+      "title": "Contact",
+      "emailLabel": "Email",
+      "phoneLabel": "Phone",
+      "locationLabel": "Location",
+      "locationValue": "Dushanbe, Tajikistan"
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "desc": "Get new lisFftings and updates. No spam.",
+      "placeholder": "Your email",
+      "join": "Join"
+    },
+    "cta": {
+      "title": "Want to list your home?",
+      "desc": "Create an account and start posting in minutes.",
+      "button": "Get started"
+    },
+    "bottom": {
+      "rights": "All rights reserved.",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "support": "Support"
+    }
   }
 }

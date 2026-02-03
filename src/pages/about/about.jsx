@@ -1,8 +1,11 @@
 import React from "react";
 import { Users, Home, ShieldCheck, Leaf } from "lucide-react";
 import Logo from "/logo.png";
+import { useTranslation } from "react-i18next";
 
 const About = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col gap-24">
       <section className="flex flex-col gap-6 max-w-4xl">
@@ -13,10 +16,11 @@ const About = () => {
             className="h-20 w-20 object-contain"
           />
           <div className="flex flex-col gap-2">
-            <h1 className="text-3xl md:text-4xl font-bold">About us</h1>
+            <h1 className="text-3xl md:text-4xl font-bold">
+              {t("about.title")}
+            </h1>
             <p className="text-muted-foreground">
-              Rent a Room is a platform built to make renting houses, dachas, and
-              apartments across Tajikistan simple, transparent, and reliable.
+              {t("about.subtitle")}
             </p>
           </div>
         </div>
@@ -26,23 +30,23 @@ const About = () => {
         {[
           {
             icon: Home,
-            title: "Real homes",
-            text: "Only real listings from verified property owners.",
+            title: t("about.features.realHomes.title"),
+            text: t("about.features.realHomes.text"),
           },
           {
             icon: Users,
-            title: "For people",
-            text: "Built for renters and owners with zero unnecessary steps.",
+            title: t("about.features.forPeople.title"),
+            text: t("about.features.forPeople.text"),
           },
           {
             icon: ShieldCheck,
-            title: "Trust first",
-            text: "Transparency and safety are always our priority.",
+            title: t("about.features.trust.title"),
+            text: t("about.features.trust.text"),
           },
           {
             icon: Leaf,
-            title: "Green mindset",
-            text: "We support sustainable living and nature-friendly locations.",
+            title: t("about.features.green.title"),
+            text: t("about.features.green.text"),
           },
         ].map((e, i) => (
           <div
@@ -62,11 +66,11 @@ const About = () => {
         <div className="absolute -left-16 -bottom-16 h-56 w-56 rounded-full bg-black/10" />
 
         <div className="relative flex flex-col gap-4">
-          <h2 className="text-2xl font-semibold">Our mission</h2>
+          <h2 className="text-2xl font-semibold">
+            {t("about.mission.title")}
+          </h2>
           <p className="text-white/90 leading-relaxed max-w-3xl">
-            To connect people with comfortable places to live and relax, while
-            helping property owners reach the right audience with ease,
-            confidence, and long-term trust.
+            {t("about.mission.text")}
           </p>
         </div>
       </section>
