@@ -15,8 +15,19 @@ import {
   Phone,
   ShieldCheck,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const Message = () => {
+  const { i18n, t } = useTranslation();
+  const lang = (i18n.language || "en").slice(0, 2);
+
+  const getText = (v) => {
+    if (!v) return "";
+    if (typeof v === "string") return v;
+    if (typeof v === "object") return v[lang] || v.en || v.ru || v.tj || "";
+    return String(v);
+  };
+
   const { id } = useParams();
   const item = baseData.find((e) => String(e.id) === id);
 
@@ -38,7 +49,7 @@ const Message = () => {
 Name: ${data.name}
 Number: ${data.phone}
 House id : ${item.id}
-Requested house: ${item?.name}
+Requested house: ${getText(item?.name)}
 Per night: $${item?.price}
 Requested days: ${data.days}
 Message: ${data.message}`;
@@ -61,14 +72,14 @@ Message: ${data.message}`;
       <div className="min-h-[60vh] flex items-center justify-center px-4">
         <Card className="max-w-md w-full rounded-2xl">
           <CardContent className="p-10 text-center flex flex-col gap-3">
-            <p className="text-lg font-semibold">Not found</p>
+            <p className="text-lg font-semibold">{t("message.notFound", "Not found")}</p>
             <p className="text-sm text-muted-foreground">
-              This listing does not exist.
+              {t("message.notFoundDesc", "This listing does not exist.")}
             </p>
             <Button asChild className="bg-emerald-600 hover:bg-emerald-700">
               <Link to="/">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to home
+                {t("message.backHome", "Back to home")}
               </Link>
             </Button>
           </CardContent>
@@ -83,7 +94,7 @@ Message: ${data.message}`;
         <Button variant="ghost" asChild className="w-fit">
           <Link to={`/explore/${item.id}`}>
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back
+            {t("message.back", "Back")}
           </Link>
         </Button>
 
@@ -92,7 +103,7 @@ Message: ${data.message}`;
             <div className="relative h-64 w-full">
               <img
                 src={item.image}
-                alt={item.name}
+                alt={getText(item.name)}
                 className="h-full w-full object-cover"
               />
               <div
@@ -105,26 +116,26 @@ Message: ${data.message}`;
               <div className="absolute left-4 right-4 bottom-4 flex items-end justify-between gap-3">
                 <div className="flex flex-col gap-1">
                   <p className="text-white text-xl font-semibold leading-tight">
-                    {item.name}
+                    {getText(item.name)}
                   </p>
                   <div className="flex flex-wrap items-center gap-2 text-xs text-white/80">
                     <span className="inline-flex items-center gap-1">
                       <MapPin className="h-3.5 w-3.5" />
-                      {item.location}
+                      {getText(item.location)}
                     </span>
                     <span className="inline-flex items-center gap-1">
                       <Bed className="h-3.5 w-3.5" />
-                      {item.rooms} rooms
+                      {item.rooms} {t("common.rooms", "rooms")}
                     </span>
                     <span className="inline-flex items-center gap-1 capitalize">
                       <HomeIcon className="h-3.5 w-3.5" />
-                      {item.type}
+                      {getText(item.type)}
                     </span>
                   </div>
                 </div>
 
                 <Badge className="bg-emerald-600 hover:bg-emerald-600 h-fit">
-                  ${item.price} / night
+                  ${item.price} / {t("common.night", "night")}
                 </Badge>
               </div>
             </div>
@@ -132,9 +143,11 @@ Message: ${data.message}`;
             <CardContent className="p-5 flex flex-col gap-4">
               <div className="rounded-2xl border p-4 flex items-start justify-between gap-3">
                 <div className="flex flex-col gap-1">
-                  <p className="text-sm font-semibold">Owner status</p>
+                  <p className="text-sm font-semibold">
+                    {t("message.ownerStatus", "Owner status")}
+                  </p>
                   <p className="text-sm text-muted-foreground">
-                    Verified listing, quick response.
+                    {t("message.ownerStatusDesc", "Verified listing, quick response.")}
                   </p>
                 </div>
                 <div className="h-10 w-10 rounded-2xl bg-emerald-600/10 flex items-center justify-center">
@@ -144,11 +157,11 @@ Message: ${data.message}`;
 
               <div className="grid gap-3 sm:grid-cols-2">
                 <Button variant="outline" className="justify-between">
-                  Call owner
+                  {t("message.callOwner", "Call owner")}
                   <Phone className="h-4 w-4 text-muted-foreground" />
                 </Button>
                 <Button variant="outline" className="justify-between">
-                  Ask questions
+                  {t("message.askQuestions", "Ask questions")}
                   <MessageCircle className="h-4 w-4 text-muted-foreground" />
                 </Button>
               </div>
@@ -165,9 +178,11 @@ Message: ${data.message}`;
                 }}
               />
               <div className="relative flex flex-col gap-1">
-                <p className="text-xl font-semibold text-white">Send a message</p>
+                <p className="text-xl font-semibold text-white">
+                  {t("message.sendTitle", "Send a message")}
+                </p>
                 <p className="text-sm text-white">
-                  Contact the owner about this listing.
+                  {t("message.sendDesc", "Contact the owner about this listing.")}
                 </p>
               </div>
             </div>
@@ -175,25 +190,33 @@ Message: ${data.message}`;
             <CardContent className="p-6">
               <form onSubmit={submitRequest} className="flex flex-col gap-4">
                 <div className="rounded-xl border p-3 bg-muted/30">
-                  <p className="text-xs text-muted-foreground">Listing</p>
-                  <p className="text-sm font-medium">{item.name}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {t("message.listing", "Listing")}
+                  </p>
+                  <p className="text-sm font-medium">{getText(item.name)}</p>
                 </div>
 
-                <Input name="name" placeholder="Your name" />
-                <Input name="phone" placeholder="Your phone number" />
-                <Input name="message" placeholder="Your message" />
+                <Input name="name" placeholder={t("message.yourName", "Your name")} />
+                <Input
+                  name="phone"
+                  placeholder={t("message.yourPhone", "Your phone number")}
+                />
+                <Input
+                  name="message"
+                  placeholder={t("message.yourMessage", "Your message")}
+                />
                 <Input
                   name="days"
-                  placeholder="How many days you want to be..."
+                  placeholder={t("message.daysPlaceholder", "How many days you want to be...")}
                   type="number"
                 />
 
                 <Button className="bg-emerald-600 hover:bg-emerald-700">
-                  Send message
+                  {t("message.sendBtn", "Send message")}
                 </Button>
 
                 <p className="text-xs text-muted-foreground">
-                  By sending, you agree to communicate respectfully.
+                  {t("message.respect", "By sending, you agree to communicate respectfully.")}
                 </p>
               </form>
             </CardContent>

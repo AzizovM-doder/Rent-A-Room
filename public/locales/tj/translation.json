@@ -1,5 +1,31 @@
 {
-    "home" :{
-        "1" : "j"
+  "main": {
+    "hero": {
+      "titleBefore": "Find your next",
+      "titleHighlight": "home",
+      "titleAfter": "in Tajikistan",
+      "desc": "Houses, dachas, and apartments for rent. Clean listings. No stress.",
+      "browseBtn": "Browse homes",
+      "listBtn": "List property"
+    },
+    "features": {
+      "verified": {
+        "title": "Verified listings",
+        "desc": "Only real homes from trusted owners."
+      },
+      "natureCity": {
+        "title": "Nature & city",
+        "desc": "From quiet green areas to city centers."
+      },
+      "topRated": {
+        "title": "Top rated",
+        "desc": "Quality homes with real reviews."
+      }
+    },
+    "cta": {
+      "title": "Own a house or dacha?",
+      "desc": "Publish your property and reach thousands of renters.",
+      "button": "Add listing"
     }
+  }
 }

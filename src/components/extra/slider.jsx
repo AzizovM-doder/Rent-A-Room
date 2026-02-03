@@ -2,13 +2,22 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { baseData } from "../../data/base/baseData";
 import {
-  ArrowBigLeft,
-  ArrowBigRightDash,
   ArrowLeftCircleIcon,
   ArrowRightCircleIcon,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const Slider = () => {
+  const { i18n } = useTranslation();
+  const lang = (i18n.language || "en").slice(0, 2);
+
+  const getText = (v) => {
+    if (!v) return "";
+    if (typeof v === "string") return v;
+    if (typeof v === "object") return v[lang] || v.en || v.ru || v.tj || "";
+    return String(v);
+  };
+
   const slides = baseData.slice(0, 7);
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -42,7 +51,7 @@ const Slider = () => {
           >
             <img
               src={s.image}
-              alt={s.name}
+              alt={getText(s.name)}
               className="h-full w-full object-cover"
               loading="lazy"
             />
@@ -53,11 +62,11 @@ const Slider = () => {
           <div className="flex items-end justify-between gap-4">
             <div className="flex flex-col gap-1">
               <p className="text-white font-semibold leading-tight">
-                {slides[active]?.name}
+                {getText(slides[active]?.name)}
               </p>
               <p className="text-white/80 text-sm">
-                {slides[active]?.location} · {slides[active]?.rooms} rooms ·{" "}
-                {slides[active]?.type}
+                {getText(slides[active]?.location)} · {slides[active]?.rooms} rooms ·{" "}
+                {getText(slides[active]?.type)}
               </p>
             </div>
             <div className="text-white font-semibold">
@@ -113,7 +122,7 @@ const Slider = () => {
             >
               <img
                 src={t.image}
-                alt={t.name}
+                alt={getText(t.name)}
                 className="h-full w-full object-cover transition-transform duration-300 hover:scale-[1.06]"
                 loading="lazy"
               />

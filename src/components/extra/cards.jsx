@@ -4,8 +4,19 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Bed, HomeIcon, MapPin, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { addUserFav, removeUserFav, isFav } from "../../utils/url";
+import { useTranslation } from "react-i18next";
 
 const Cards = ({ e }) => {
+  const { i18n, t } = useTranslation();
+  const lang = (i18n.language || "en").slice(0, 2);
+
+  const getText = (v) => {
+    if (!v) return "";
+    if (typeof v === "string") return v;
+    if (typeof v === "object") return v[lang] || v.en || v.ru || v.tj || "";
+    return String(v);
+  };
+
   const [liked, setLiked] = useState(isFav(e.id));
 
   const toggleFav = () => {
@@ -22,7 +33,7 @@ const Cards = ({ e }) => {
       <div className="h-48 w-full relative">
         <img
           src={e.image}
-          alt={e.name}
+          alt={getText(e.name)}
           className="h-full w-full object-cover"
         />
 
@@ -42,30 +53,30 @@ const Cards = ({ e }) => {
       </div>
 
       <CardContent className="p-5 pb-0 flex flex-col gap-2">
-        <h3 className="font-semibold">{e.name}</h3>
+        <h3 className="font-semibold">{getText(e.name)}</h3>
 
         <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
           <span className="flex items-center gap-1">
             <MapPin className="h-4 w-4" />
-            {e.location}
+            {getText(e.location)}
           </span>
           <span className="flex items-center gap-1">
             <Bed className="h-4 w-4" />
-            {e.rooms} rooms
+            {e.rooms} {t("common.rooms", "rooms")}
           </span>
           <span className="flex items-center gap-1 capitalize">
             <HomeIcon className="h-4 w-4" />
-            {e.type}
+            {getText(e.type)}
           </span>
         </div>
 
         <div className="flex w-full justify-between items-center">
           <span className="font-medium text-emerald-600">
-            ${e.price} / night
+            ${e.price} / {t("common.night", "night")}
           </span>
           <Link to={`/explore/${e.id}`}>
             <Button className="bg-emerald-500 hover:bg-emerald-600">
-              EXPLORE
+              {t("common.explore", "EXPLORE")}
             </Button>
           </Link>
         </div>
