@@ -8,7 +8,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 const Slider = () => {
-  const { i18n } = useTranslation();
+  const {t, i18n } = useTranslation();
   const lang = (i18n.language || "en").slice(0, 2);
 
   const getText = (v) => {
@@ -70,7 +70,7 @@ const Slider = () => {
               </p>
             </div>
             <div className="text-white font-semibold">
-              ${slides[active]?.price}/night
+              ${slides[active]?.price}/{t("common.night", "night")}
             </div>
           </div>
 
