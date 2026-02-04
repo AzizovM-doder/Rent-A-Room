@@ -79,7 +79,7 @@ const Filter = () => {
 
     setFilteredData(next);
     setPage(1);
-  }, [search, city, type, rooms, price, lang, dispatch]);
+  }, [search, city, type, rooms, price, lang,]);
 
   const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE) || 1;
   const safePage = Math.min(page, totalPages);
@@ -87,7 +87,7 @@ const Filter = () => {
   const end = start + ITEMS_PER_PAGE;
   const pageData = filteredData.slice(start, end);
 
-  const reset = () => {
+  function reset(){
     setSearch("");
     setCity("all");
     setType("all");
@@ -128,7 +128,7 @@ const Filter = () => {
                 </p>
               </div>
             </div>
-            <Button variant="outline" onClick={reset}>
+            <Button variant="outline">
               {t("filter.reset", "Reset")}
             </Button>
           </div>

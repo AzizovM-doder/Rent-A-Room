@@ -30,7 +30,7 @@ export const listingsApi = {
     req(
       BASE,
       { method: "POST", body: JSON.stringify(payload) },
-      { loading: "Creating...", success: "Created" }
+      { loading: "Creating...", success: "Created", error: "Erroe "}
     ),
 
   update: (id, payload) =>

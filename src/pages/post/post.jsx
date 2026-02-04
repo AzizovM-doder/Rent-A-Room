@@ -11,13 +11,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ImagePlus, MapPin, Bed, Home as HomeIcon, DollarSign } from "lucide-react";
+import {
+  ImagePlus,
+  MapPin,
+  Bed,
+  Home as HomeIcon,
+  DollarSign,
+} from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchListings } from "../../reducers/listingSlice";
+import { createListing, fetchListings } from "../../reducers/listingSlice";
+import toast from "react-hot-toast";
 
 const Post = () => {
   const dispatch = useDispatch();
-  const { items = [] } = useSelector((s) => s.listings || {});
+  const { items = [], saving } = useSelector((s) => s.listings || {});
   const baseData = items;
 
   const [imageBase64, setImageBase64] = useState("");
@@ -64,20 +71,47 @@ const Post = () => {
     reader.readAsDataURL(file);
   };
 
-  const submit = (ev) => {
+  const reset = () => {
+    setImageBase64("");
+    setNameEn("");
+    setNameRu("");
+    setNameTj("");
+    setPrice("");
+    setAbout("");
+    setLocation("");
+    setRooms("");
+    setType("");
+  };
+
+  const submit = async (ev) => {
     ev.preventDefault();
+
+    if (!imageBase64) return toast.error("Pick an image");
+    if (!nameEn && !nameRu && !nameTj) return toast.error("Write a name");
+    if (!location) return toast.error("Select location");
+    if (!type) return toast.error("Select type");
+    if (!rooms) return toast.error("Write rooms");
+    if (!price) return toast.error("Write price");
 
     const payload = {
       image: imageBase64,
       name: { en: nameEn, ru: nameRu, tj: nameTj },
       price: Number(price || 0),
-      about,
+      about: about || "",
       location: { en: location, ru: location, tj: location },
       rooms: Number(rooms || 0),
       type: { en: type, ru: type, tj: type },
     };
 
-    console.log(payload);
+    try {
+      await toast.promise(dispatch(createListing(payload)).unwrap(), {
+        loading: "Posting...",
+        success: "Posted",
+        error: (e) => e?.message || "Something went wrong",
+      });
+      reset();
+      dispatch(fetchListings());
+    } catch {}
   };
 
   return (
@@ -161,7 +195,12 @@ const Post = () => {
             <form onSubmit={submit} className="flex flex-col gap-4">
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-medium">Image</label>
-                <Input name="image" type="file" accept="image/*" onChange={onPickImage} />
+                <Input
+                  name="image"
+                  type="file"
+                  accept="image/*"
+                  onChange={onPickImage}
+                />
                 {imageBase64 ? (
                   <p className="text-xs text-muted-foreground break-all">
                     {imageBase64.slice(0, 80)}...
@@ -275,24 +314,18 @@ const Post = () => {
               </div>
 
               <div className="flex flex-col gap-2 pt-2">
-                <Button type="submit" className="bg-emerald-600 hover:bg-emerald-700 w-full">
-                  Post
+                <Button
+                  type="submit"
+                  className="bg-emerald-600 hover:bg-emerald-700 w-full"
+                  disabled={!!saving}
+                >
+                  {saving ? "Posting..." : "Post"}
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
                   className="w-full"
-                  onClick={() => {
-                    setImageBase64("");
-                    setNameEn("");
-                    setNameRu("");
-                    setNameTj("");
-                    setPrice("");
-                    setAbout("");
-                    setLocation("");
-                    setRooms("");
-                    setType("");
-                  }}
+                  onClick={reset}
                 >
                   Reset
                 </Button>
