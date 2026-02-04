@@ -11,6 +11,8 @@ import { Toaster } from "react-hot-toast";
 import Profile from "./pages/profile/profile";
 import Favorites from "./pages/favorites/favorites";
 import Massage from "./pages/massage/massage";
+import Post from "./pages/post/post";
+import AdminListings from "./pages/admin/adminListing";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -51,6 +53,14 @@ const App = () => {
           element : <Massage/>
         },
         {
+          path : "post",
+          element :<Post/>
+        },
+        {
+          path : "admin",
+          element :<AdminListings/>
+        },
+        {
           path: "/explore/:id",
           element: <Info />,
         },
@@ -59,7 +69,7 @@ const App = () => {
   ]);
   return (
     <div>
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position="bottom-left" reverseOrder={false} />
       <RouterProvider router={router} />
     </div>
   );

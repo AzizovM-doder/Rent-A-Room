@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import { baseData } from "../../data/base/baseData";
+// import { baseData } from "../../data/base/baseData";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,11 +16,22 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { getUserToken } from "../../utils/url";
+import { Label } from "@/components/ui/label";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchListings } from "../../reducers/listingSlice";
 
 const Message = () => {
   const { i18n, t } = useTranslation();
   const lang = (i18n.language || "en").slice(0, 2);
 
+  const dispatch = useDispatch();
+  const { items = [] } = useSelector((s) => s.listings || {});
+  const baseData = [...items];
+  useEffect(() => {
+    dispatch(fetchListings());
+  }, []);
+  const user = JSON.parse(getUserToken());
   const getText = (v) => {
     if (!v) return "";
     if (typeof v === "string") return v;
@@ -72,7 +83,9 @@ Message: ${data.message}`;
       <div className="min-h-[60vh] flex items-center justify-center px-4">
         <Card className="max-w-md w-full rounded-2xl">
           <CardContent className="p-10 text-center flex flex-col gap-3">
-            <p className="text-lg font-semibold">{t("message.notFound", "Not found")}</p>
+            <p className="text-lg font-semibold">
+              {t("message.notFound", "Not found")}
+            </p>
             <p className="text-sm text-muted-foreground">
               {t("message.notFoundDesc", "This listing does not exist.")}
             </p>
@@ -87,7 +100,6 @@ Message: ${data.message}`;
       </div>
     );
   }
-
   return (
     <div className="min-h-[70vh] px-4 py-8">
       <div className="mx-auto max-w-6xl flex flex-col gap-6">
@@ -147,7 +159,10 @@ Message: ${data.message}`;
                     {t("message.ownerStatus", "Owner status")}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    {t("message.ownerStatusDesc", "Verified listing, quick response.")}
+                    {t(
+                      "message.ownerStatusDesc",
+                      "Verified listing, quick response.",
+                    )}
                   </p>
                 </div>
                 <div className="h-10 w-10 rounded-2xl bg-emerald-600/10 flex items-center justify-center">
@@ -182,7 +197,10 @@ Message: ${data.message}`;
                   {t("message.sendTitle", "Send a message")}
                 </p>
                 <p className="text-sm text-white">
-                  {t("message.sendDesc", "Contact the owner about this listing.")}
+                  {t(
+                    "message.sendDesc",
+                    "Contact the owner about this listing.",
+                  )}
                 </p>
               </div>
             </div>
@@ -196,19 +214,36 @@ Message: ${data.message}`;
                   <p className="text-sm font-medium">{getText(item.name)}</p>
                 </div>
 
-                <Input name="name" placeholder={t("message.yourName", "Your name")} />
+                <Input
+                  name="name"
+                  required
+                  defaultValue={user?.name || ""}
+                  placeholder={t("message.yourName", "Your name")}
+                />
                 <Input
                   name="phone"
+                  required
+                  defaultValue={user?.phone || ""}
                   placeholder={t("message.yourPhone", "Your phone number")}
                 />
-                <Input
+                <textarea
                   name="message"
+                  className="min-h-30 file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive"
                   placeholder={t("message.yourMessage", "Your message")}
+                  required
                 />
+                <Label>Rent Days</Label>
                 <Input
                   name="days"
-                  placeholder={t("message.daysPlaceholder", "How many days you want to be...")}
+                  placeholder={t(
+                    "message.daysPlaceholder",
+                    "How many days you want to be...",
+                  )}
                   type="number"
+                  required
+                  defaultValue={3}
+                  min={3}
+                  step=""
                 />
 
                 <Button className="bg-emerald-600 hover:bg-emerald-700">
@@ -216,7 +251,10 @@ Message: ${data.message}`;
                 </Button>
 
                 <p className="text-xs text-muted-foreground">
-                  {t("message.respect", "By sending, you agree to communicate respectfully.")}
+                  {t(
+                    "message.respect",
+                    "By sending, you agree to communicate respectfully.",
+                  )}
                 </p>
               </form>
             </CardContent>

@@ -1,3 +1,6 @@
+//URL
+// export const BASE_URL = import.meta.filename.env
+
 // TOKEN
 export function saveUserToken(userToken) {
   localStorage.setItem("userToken", userToken);
@@ -20,7 +23,7 @@ export function getUserFav() {
   return JSON.parse(localStorage.getItem("userFav")) || [];
 }
 export function getUserFavLength() {
-  return JSON.parse(localStorage.getItem("userFav")).length || 0
+  return JSON.parse(localStorage.getItem("userFav"))?.length || 0
 }
 
 export function addUserFav(item) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { baseData } from "../../data/base/baseData";
+// import { baseData } from "../../data/base/baseData";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
@@ -15,11 +15,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Search, MapPin, Home as HomeIcon, Bed, Tag } from "lucide-react";
 import Cards from "./cards";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchListings } from "../../reducers/listingSlice";
 
 const Filter = () => {
   const { i18n, t } = useTranslation();
   const lang = (i18n.language || "en").slice(0, 2);
 
+  const dispatch = useDispatch();
+  const { items = [] } = useSelector((s) => s.listings || {});
+  const baseData = [...items];
   const getText = (v) => {
     if (!v) return "";
     if (typeof v === "string") return v;
@@ -35,21 +40,17 @@ const Filter = () => {
   const [rooms, setRooms] = useState("all");
   const [price, setPrice] = useState([10, 200]);
 
-  const [filteredData, setFilteredData] = useState(baseData);
+  const [filteredData, setFilteredData] = useState([...baseData]);
   const [page, setPage] = useState(1);
 
-  const cities = [
-    "Dushanbe",
-    "Hisor",
-    "Varzob",
-    "Khujand",
-    "Kulob",
-    "Norak",
-    "Vahdat",
-    "Vose",
-  ];
-
+  const cities = [];
+  baseData.map((e) => {
+    if (!cities.includes(e?.location?.en)) {
+      cities.push(e?.location?.en);
+    }
+  });
   useEffect(() => {
+    dispatch(fetchListings());
     const q = search.trim().toLowerCase();
 
     const next = baseData.filter((e) => {
@@ -61,7 +62,8 @@ const Filter = () => {
         !q || name.includes(q) || loc.includes(q) || typ.includes(q);
 
       const matchCity =
-        city === "all" || getText(e.location).toLowerCase() === city.toLowerCase();
+        city === "all" ||
+        getText(e.location).toLowerCase() === city.toLowerCase();
 
       const matchType =
         type === "all" || getText(e.type).toLowerCase() === type.toLowerCase();
@@ -77,7 +79,7 @@ const Filter = () => {
 
     setFilteredData(next);
     setPage(1);
-  }, [search, city, type, rooms, price, lang]);
+  }, [search, city, type, rooms, price, lang, dispatch]);
 
   const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE) || 1;
   const safePage = Math.min(page, totalPages);
@@ -138,7 +140,10 @@ const Filter = () => {
                 <Input
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  placeholder={t("filter.searchPlaceholder", "Search name, city, type...")}
+                  placeholder={t(
+                    "filter.searchPlaceholder",
+                    "Search name, city, type...",
+                  )}
                   className="pl-9"
                 />
               </div>
@@ -150,7 +155,9 @@ const Filter = () => {
                   <SelectValue placeholder={t("filter.city", "City")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">{t("filter.allCities", "All cities")}</SelectItem>
+                  <SelectItem value="all">
+                    {t("filter.allCities", "All cities")}
+                  </SelectItem>
                   {cities.map((c) => (
                     <SelectItem key={c} value={c}>
                       {c}
@@ -166,10 +173,18 @@ const Filter = () => {
                   <SelectValue placeholder={t("filter.typeLabel", "Type")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">{t("filter.allTypes", "All types")}</SelectItem>
-                  <SelectItem value="house">{t("filter.type.house", "House")}</SelectItem>
-                  <SelectItem value="apartment">{t("filter.type.apartment", "Apartment")}</SelectItem>
-                  <SelectItem value="dacha">{t("filter.type.dacha", "Dacha")}</SelectItem>
+                  <SelectItem value="all">
+                    {t("filter.allTypes", "All types")}
+                  </SelectItem>
+                  <SelectItem value="house">
+                    {t("filter.type.house", "House")}
+                  </SelectItem>
+                  <SelectItem value="apartment">
+                    {t("filter.type.apartment", "Apartment")}
+                  </SelectItem>
+                  <SelectItem value="dacha">
+                    {t("filter.type.dacha", "Dacha")}
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -180,7 +195,9 @@ const Filter = () => {
                   <SelectValue placeholder={t("filter.rooms", "Rooms")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">{t("filter.anyRoomsLabel", "Any rooms")}</SelectItem>
+                  <SelectItem value="all">
+                    {t("filter.anyRoomsLabel", "Any rooms")}
+                  </SelectItem>
                   <SelectItem value="1">1</SelectItem>
                   <SelectItem value="2">2</SelectItem>
                   <SelectItem value="3">3</SelectItem>
@@ -192,12 +209,20 @@ const Filter = () => {
 
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between text-sm">
-              <span className="font-medium">{t("filter.priceRange", "Price range")}</span>
+              <span className="font-medium">
+                {t("filter.priceRange", "Price range")}
+              </span>
               <span className="text-muted-foreground">
                 ${price[0]} – ${price[1]}
               </span>
             </div>
-            <Slider value={price} onValueChange={setPrice} min={0} max={300} step={5} />
+            <Slider
+              value={price}
+              onValueChange={setPrice}
+              min={0}
+              max={300}
+              step={5}
+            />
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
@@ -234,10 +259,17 @@ const Filter = () => {
       {filteredData.length === 0 ? (
         <Card className="rounded-2xl">
           <CardContent className="p-10 text-center">
-            <p className="text-lg font-semibold">{t("filter.noResults", "No results")}</p>
-            <p className="text-sm text-muted-foreground">{t("filter.tryDifferent", "Try different filters.")}</p>
+            <p className="text-lg font-semibold">
+              {t("filter.noResults", "No results")}
+            </p>
+            <p className="text-sm text-muted-foreground">
+              {t("filter.tryDifferent", "Try different filters.")}
+            </p>
             <div className="pt-4">
-              <Button onClick={reset} className="bg-emerald-600 hover:bg-emerald-700">
+              <Button
+                onClick={reset}
+                className="bg-emerald-600 hover:bg-emerald-700"
+              >
                 {t("filter.resetFilters", "Reset filters")}
               </Button>
             </div>
@@ -263,7 +295,9 @@ const Filter = () => {
 
               <Button
                 variant={safePage === 1 ? "default" : "outline"}
-                className={safePage === 1 ? "bg-emerald-600 hover:bg-emerald-700" : ""}
+                className={
+                  safePage === 1 ? "bg-emerald-600 hover:bg-emerald-700" : ""
+                }
                 onClick={() => setPage(1)}
               >
                 1
@@ -271,14 +305,18 @@ const Filter = () => {
 
               <Button
                 variant={safePage === 2 ? "default" : "outline"}
-                className={safePage === 2 ? "bg-emerald-600 hover:bg-emerald-700" : ""}
+                className={
+                  safePage === 2 ? "bg-emerald-600 hover:bg-emerald-700" : ""
+                }
                 onClick={() => setPage(2)}
               >
                 2
               </Button>
 
               {totalPages > 3 && safePage > 3 && (
-                <span className="px-1 text-muted-foreground select-none">...</span>
+                <span className="px-1 text-muted-foreground select-none">
+                  ...
+                </span>
               )}
 
               {safePage > 2 && safePage < totalPages && (
@@ -292,14 +330,18 @@ const Filter = () => {
               )}
 
               {totalPages > 3 && safePage < totalPages - 1 && (
-                <span className="px-1 text-muted-foreground select-none">...</span>
+                <span className="px-1 text-muted-foreground select-none">
+                  ...
+                </span>
               )}
 
               {totalPages > 2 && (
                 <Button
                   variant={safePage === totalPages ? "default" : "outline"}
                   className={
-                    safePage === totalPages ? "bg-emerald-600 hover:bg-emerald-700" : ""
+                    safePage === totalPages
+                      ? "bg-emerald-600 hover:bg-emerald-700"
+                      : ""
                   }
                   onClick={() => setPage(totalPages)}
                 >

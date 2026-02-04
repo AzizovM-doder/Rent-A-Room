@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { baseData } from "../../data/base/baseData";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -15,6 +14,8 @@ import {
 } from "lucide-react";
 import { addUserFav, isFav, removeUserFav } from "../../utils/url";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchListings } from "../../reducers/listingSlice";
 
 const Info = () => {
   const { i18n, t } = useTranslation();
@@ -27,10 +28,31 @@ const Info = () => {
     return String(v);
   };
 
+  const dispatch = useDispatch();
+  const { items = [] } = useSelector((s) => s.listings || {});
   const { id } = useParams();
-  const item = baseData.find((e) => String(e.id) === id);
 
-  const [liked, setLiked] = useState(item ? isFav(item.id) : false);
+  useEffect(() => {
+    dispatch(fetchListings());
+  }, [dispatch]);
+
+  const item = (items || []).find((e) => String(e.id) === String(id));
+
+  const [liked, setLiked] = useState(() => isFav(id));
+
+  useEffect(() => {
+    setLiked(isFav(id));
+  }, [id]);
+
+  const toggleFav = () => {
+    if (!item) return;
+    if (liked) {
+      removeUserFav(item.id);
+    } else {
+      addUserFav(item);
+    }
+    setLiked((v) => !v);
+  };
 
   if (!item) {
     return (
@@ -44,7 +66,10 @@ const Info = () => {
               {t("info.notFound", "Not found")}
             </h2>
             <p className="text-sm text-muted-foreground">
-              {t("info.notFoundDesc", "This property does not exist or was removed.")}
+              {t(
+                "info.notFoundDesc",
+                "This property does not exist or was removed.",
+              )}
             </p>
             <Button
               asChild
@@ -60,15 +85,6 @@ const Info = () => {
       </div>
     );
   }
-
-  const toggleFav = () => {
-    if (liked) {
-      removeUserFav(item.id);
-    } else {
-      addUserFav(item); // FULL OBJECT
-    }
-    setLiked((v) => !v);
-  };
 
   return (
     <div className="flex flex-col gap-10">

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { LogIn, Menu, UserPlus, User, Heart } from "lucide-react";
+import { LogIn, Menu, UserPlus, User, Heart, UserCheckIcon } from "lucide-react";
 import logo from "/logo.png";
 import { isAuthenticated } from "../../utils/url";
 import { useTranslation } from "react-i18next";
@@ -13,18 +13,21 @@ const Nav = () => {
   const [open, setOpen] = useState(false);
   const { i18n, t } = useTranslation();
 
+  const admin = localStorage.getItem("admin") || "";
+  const isAdmin = admin.length > 10;
+
   const navLinkClass = ({ isActive }) =>
     cn(
       "px-3 py-2 rounded-md text-sm font-medium transition-colors",
       isActive
         ? "bg-emerald-600 text-white"
-        : "text-muted-foreground hover:text-foreground hover:bg-muted"
+        : "text-muted-foreground hover:text-foreground hover:bg-muted",
     );
 
   const navItems = [
     { to: "/", label: t("nav.home") },
     { to: "/about", label: t("nav.about") },
-    { to: "/contact", label: t("nav.contact") }
+    { to: "/contact", label: t("nav.contact") },
   ];
 
   const authed = isAuthenticated();
@@ -57,7 +60,6 @@ const Nav = () => {
           </nav>
 
           <div className="flex items-center gap-2">
-            {/* language select (desktop) */}
             <div className="hidden md:flex">
               <select
                 value={langValue}
@@ -72,15 +74,15 @@ const Nav = () => {
             </div>
 
             <div className="hidden md:flex gap-3">
+              <NavLink to="/favorites" className={navLinkClass} end>
+                <div className="flex gap-1 items-center">
+                  {t("nav.favorites")}
+                  <Heart className="w-5 h-5" />
+                </div>
+              </NavLink>
+
               {!authed ? (
                 <>
-                  <NavLink to="/favorites" className={navLinkClass} end>
-                    <div className="flex gap-1 items-center">
-                      {t("nav.favorites")}
-                      <Heart className="w-5 h-5" />
-                    </div>
-                  </NavLink>
-
                   <NavLink to="/login" className={navLinkClass} end>
                     <div className="flex gap-1 items-center">
                       {t("nav.login")}
@@ -96,22 +98,22 @@ const Nav = () => {
                   </NavLink>
                 </>
               ) : (
-                <>
-                  <NavLink to="/favorites" className={navLinkClass} end>
-                    <div className="flex gap-1 items-center">
-                      {t("nav.favorites")}
-                      <Heart className="w-5 h-5" />
-                    </div>
-                  </NavLink>
-
-                  <NavLink to="/profile" className={navLinkClass} end>
-                    <div className="flex gap-1 items-center">
-                      {t("nav.profile")}
-                      <User className="w-5 h-5" />
-                    </div>
-                  </NavLink>
-                </>
+                <NavLink to="/profile" className={navLinkClass} end>
+                  <div className="flex gap-1 items-center">
+                    {t("nav.profile")}
+                    <User className="w-5 h-5" />
+                  </div>
+                </NavLink>
               )}
+
+              {isAdmin ? (
+                <NavLink to="/admin" className={navLinkClass} end>
+                  <div className="flex gap-1 items-center">
+                    Admin
+                    <UserCheckIcon className="w-5 h-5" />
+                  </div>
+                </NavLink>
+              ) : null}
             </div>
 
             <div className="md:hidden">
@@ -147,7 +149,7 @@ const Nav = () => {
                             "w-full px-3 py-3 rounded-md text-sm font-medium transition-colors",
                             isActive
                               ? "bg-emerald-600 text-white"
-                              : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                              : "text-muted-foreground hover:text-foreground hover:bg-muted",
                           )
                         }
                       >
@@ -155,7 +157,20 @@ const Nav = () => {
                       </NavLink>
                     ))}
 
-                    {/* language select (mobile) */}
+                    {isAdmin ? (
+                      <NavLink
+                        to="/admin"
+                        onClick={() => setOpen(false)}
+                        className={navLinkClass}
+                        end
+                      >
+                        <div className="flex w-full justify-between gap-1 items-center">
+                          Admin
+                          <UserCheckIcon className="w-5 h-5" />
+                        </div>
+                      </NavLink>
+                    ) : null}
+
                     <div className="pt-2">
                       <select
                         value={langValue}
@@ -195,19 +210,49 @@ const Nav = () => {
                               <UserPlus className="w-5 h-5" />
                             </div>
                           </NavLink>
+
+                          {isAdmin ? (
+                            <NavLink
+                              to="/admin"
+                              onClick={() => setOpen(false)}
+                              className={navLinkClass}
+                              end
+                            >
+                              <div className="flex w-full justify-between gap-1 items-center">
+                                Admin
+                                <UserCheckIcon className="w-5 h-5" />
+                              </div>
+                            </NavLink>
+                          ) : null}
                         </>
                       ) : (
-                        <NavLink
-                          to="/profile"
-                          onClick={() => setOpen(false)}
-                          className={navLinkClass}
-                          end
-                        >
-                          <div className="flex w-full justify-between items-center">
-                            {t("nav.profile")}
-                            <User className="w-5 h-5" />
-                          </div>
-                        </NavLink>
+                        <>
+                          <NavLink
+                            to="/profile"
+                            onClick={() => setOpen(false)}
+                            className={navLinkClass}
+                            end
+                          >
+                            <div className="flex w-full justify-between items-center">
+                              {t("nav.profile")}
+                              <User className="w-5 h-5" />
+                            </div>
+                          </NavLink>
+
+                          {isAdmin ? (
+                            <NavLink
+                              to="/admin"
+                              onClick={() => setOpen(false)}
+                              className={navLinkClass}
+                              end
+                            >
+                              <div className="flex w-full justify-between gap-1 items-center">
+                                Admin
+                                <UserCheckIcon className="w-5 h-5" />
+                              </div>
+                            </NavLink>
+                          ) : null}
+                        </>
                       )}
                     </div>
                   </div>

@@ -5,10 +5,27 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Eye, EyeOff, LogIn } from "lucide-react";
+import toast from "react-hot-toast";
+import { saveUserToken } from "../../../utils/url";
 
 const Login = () => {
   const [show, setShow] = useState(false);
-
+  const loginRequest = (e) =>{
+    e.preventDefault()
+    const admin = {
+      name : e.target.name.value,
+      password : e.target.password.value
+    }
+    if(admin.name.toLowerCase() == 'admin' && admin.password == 'admin1111'){
+      localStorage.setItem("admin", JSON.stringify(admin))
+      saveUserToken(JSON.stringify({...admin, email : 'admin@mail.com', phone : "12345678"}))
+      window.location = '/'
+      toast.success("Loged as Admin!")
+    }
+    else{
+      toast.error("Password or username is wrong!")
+    }
+  }
   return (
     <div className="min-h-[65vh] flex items-center justify-center">
       <div className="w-full max-w-md lg:py-20">
@@ -28,10 +45,10 @@ const Login = () => {
           </CardHeader>
 
           <CardContent className="space-y-5">
-            <form className="space-y-4">
+            <form onSubmit={loginRequest} className="space-y-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium">Email</label>
-                <Input type="email" placeholder="you@gmail.com" />
+                <label className="text-sm font-medium">User Name</label>
+                <Input type="text" name='name' placeholder="you@gmail.com" />
               </div>
 
               <div className="space-y-2">
@@ -47,6 +64,7 @@ const Login = () => {
 
                 <div className="relative">
                   <Input
+                  name="password"
                     type={show ? "text" : "password"}
                     placeholder="••••••••"
                     className="pr-10"

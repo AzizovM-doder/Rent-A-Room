@@ -15,14 +15,19 @@ import {
   Heart,
   Home as HomeIcon,
 } from "lucide-react";
-import { getUserFavLength, getUserToken, removeUserToken } from "../../utils/url";
+import {
+  getUserFavLength,
+  getUserToken,
+  removeUserToken,
+} from "../../utils/url";
 
 const Profile = () => {
   const logout = () => {
     removeUserToken();
+    localStorage.removeItem("admin")
     window.location.href = "/login";
   };
-  const user = JSON.parse(getUserToken())
+  const user = JSON.parse(getUserToken());
   return (
     <div className="px-4 pb-10">
       <div className="mx-auto max-w-7xl flex flex-col gap-8">
@@ -43,7 +48,10 @@ const Profile = () => {
                     {/* <Badge className="bg-emerald-600 hover:bg-emerald-600">
                       Active
                     </Badge> */}
-                    <Badge variant="secondary" className="gap-1 bg-red-500 text-white">
+                    <Badge
+                      variant="secondary"
+                      className="gap-1 bg-red-500 text-white"
+                    >
                       <ShieldCheck className="h-3.5  w-3.5" />
                       Not Verified
                     </Badge>
@@ -75,9 +83,7 @@ const Profile = () => {
                 </div>
                 <div className="flex flex-col leading-tight">
                   <p className="text-xs text-muted-foreground">Email</p>
-                  <p className="text-sm font-medium">
-                    {user?.email}
-                  </p>
+                  <p className="text-sm font-medium">{user?.email}</p>
                 </div>
               </div>
 
@@ -87,9 +93,7 @@ const Profile = () => {
                 </div>
                 <div className="flex flex-col leading-tight">
                   <p className="text-xs text-muted-foreground">Phone</p>
-                  <p className="text-sm font-medium">
-                    {user?.phone}
-                  </p>
+                  <p className="text-sm font-medium">{user?.phone}</p>
                 </div>
               </div>
             </div>
@@ -111,7 +115,9 @@ const Profile = () => {
                 </div>
                 <div className="rounded-xl border p-4">
                   <p className="text-xs text-muted-foreground">Saved homes</p>
-                  <p className="text-2xl font-bold mt-1">{getUserFavLength()}</p>
+                  <p className="text-2xl font-bold mt-1">
+                    {getUserFavLength()}
+                  </p>
                 </div>
                 <div className="rounded-xl border p-4">
                   <p className="text-xs text-muted-foreground">Messages</p>
@@ -121,14 +127,12 @@ const Profile = () => {
 
               <Separator />
 
-              <div  className="flex flex-col gap-3">
-                <p className="text-sm text-muted-foreground">
-                  Quick actions
-                </p>
+              <div className="flex flex-col gap-3">
+                <p className="text-sm text-muted-foreground">Quick actions</p>
 
                 <div className="grid gap-3 sm:grid-cols-2">
                   <Button
-                  disabled  
+                    disabled
                     variant="outline"
                     className="justify-between"
                     asChild
@@ -142,11 +146,7 @@ const Profile = () => {
                     </Link>
                   </Button>
 
-                  <Button
-                    variant="outline"
-                    className="justify-between"
-                    asChild
-                  >
+                  <Button variant="outline" className="justify-between" asChild>
                     <Link to="/my-listings">
                       <span className="flex items-center gap-2">
                         <HomeIcon className="h-4 w-4" />

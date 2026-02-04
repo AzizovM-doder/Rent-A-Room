@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Filter from "../../components/extra/filter";
 import Slider from "../../components/extra/slider";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -67,9 +68,11 @@ const Home = () => {
           <h2 className="text-3xl font-semibold">{t("main.cta.title")}</h2>
           <p className="text-white/80 max-w-lg">{t("main.cta.desc")}</p>
         </div>
+        <Link to={'post'}>
         <Button variant="secondary" className="text-emerald-700">
           {t("main.cta.button")}
         </Button>
+        </Link>
       </section>
     </div>
   );
