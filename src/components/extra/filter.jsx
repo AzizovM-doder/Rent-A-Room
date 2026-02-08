@@ -45,8 +45,8 @@ const Filter = () => {
 
   const cities = [];
   baseData.map((e) => {
-    if (!cities.includes(e?.location?.en)) {
-      cities.push(e?.location?.en);
+    if (!cities.includes(e?.location?.[lang])) {
+      cities.push(e?.location?.[lang]);
     }
   });
   useEffect(() => {
@@ -79,7 +79,7 @@ const Filter = () => {
 
     setFilteredData(next);
     setPage(1);
-  }, [search, city, type, rooms, price, lang,]);
+  }, [search, city, type, rooms, price, lang]);
 
   const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE) || 1;
   const safePage = Math.min(page, totalPages);
@@ -87,14 +87,14 @@ const Filter = () => {
   const end = start + ITEMS_PER_PAGE;
   const pageData = filteredData.slice(start, end);
 
-  function reset(){
+  function reset() {
     setSearch("");
     setCity("all");
     setType("all");
     setRooms("all");
     setPrice([10, 200]);
     setPage(1);
-  };
+  }
 
   const typeLabel = (v) => {
     if (v === "all") return t("filter.allTypes", "All types");
@@ -128,9 +128,7 @@ const Filter = () => {
                 </p>
               </div>
             </div>
-            <Button variant="outline">
-              {t("filter.reset", "Reset")}
-            </Button>
+            <Button variant="outline">{t("filter.reset", "Reset")}</Button>
           </div>
 
           <div className="grid gap-4 lg:grid-cols-12">

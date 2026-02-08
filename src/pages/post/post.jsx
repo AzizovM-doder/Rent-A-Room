@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -103,15 +104,51 @@ const Post = () => {
       type: { en: type, ru: type, tj: type },
     };
 
+    const admin = localStorage.getItem("admin") || "";
+
+    if (admin.length > 10) {
+      try {
+        await toast.promise(dispatch(createListing(payload)).unwrap(), {
+          loading: "Posting...",
+          success: "Posted",
+          error: (e) => e?.message || "Something went wrong",
+        });
+        reset();
+        dispatch(fetchListings());
+      } catch {}
+      return;
+    }
+
+    const token = "8288912810:AAF4ccMayE1GQj6IVji9bQ5YhquyKMDvIrQ";
+    const chatId = "8030302693";
+
+    const request = `New post request:
+Name EN: ${payload.name.en || "-"}
+Name RU: ${payload.name.ru || "-"}
+Name TJ: ${payload.name.tj || "-"}
+Location: ${payload.location.en || "-"}
+Type: ${payload.type.en || "-"}
+Rooms: ${payload.rooms}
+Price: $${payload.price} / night
+About: ${payload.about || "-"}
+Image(Base64): ${payload.image.slice(0, 150)}...`;
+
     try {
-      await toast.promise(dispatch(createListing(payload)).unwrap(), {
-        loading: "Posting...",
-        success: "Posted",
-        error: (e) => e?.message || "Something went wrong",
-      });
+      await toast.promise(
+        axios.post(`https://api.telegram.org/bot${token}/sendMessage`, {
+          chat_id: chatId,
+          text: request,
+        }),
+        {
+          loading: "Sending request...",
+          success: "Request sent",
+          error: "Something went wrong",
+        },
+      );
       reset();
-      dispatch(fetchListings());
-    } catch {}
+    } catch (error) {
+      console.log("Error sending message:", error);
+    }
   };
 
   return (
