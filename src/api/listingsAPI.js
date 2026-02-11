@@ -2,7 +2,7 @@ import { toast } from "react-hot-toast";
 
 const BASE = "http://localhost:3000/listings";
 
-async function req(url, options = {}, toastMsg) {
+async function req(url, options = {}) {
   const doFetch = async () => {
     const res = await fetch(url, {
       headers: { "Content-Type": "application/json" },
@@ -11,13 +11,6 @@ async function req(url, options = {}, toastMsg) {
     if (!res.ok) throw new Error(`Request failed (${res.status})`);
     return res.status === 204 ? null : res.json();
   };
-
-  if (toastMsg) {
-    return toast.promise(doFetch(), {
-      loading: toastMsg.loading || "Loading...",
-      error: (err) => toastMsg.error || err?.message || "Something went wrong",
-    });
-  }
 
   return doFetch();
 }
