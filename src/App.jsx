@@ -13,11 +13,13 @@ import Favorites from "./pages/favorites/favorites";
 import Massage from "./pages/massage/massage";
 import Post from "./pages/post/post";
 import AdminListings from "./pages/admin/adminListing";
+import Error from "./pages/error/error";
 
 const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
+      errorElement : <Error/>,
       element: <Layout />,
       children: [
         {
