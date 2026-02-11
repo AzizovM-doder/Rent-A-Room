@@ -20,7 +20,7 @@ const Error = () => {
   return (
     <div className="min-h-[80vh] px-4 py-10 flex items-center justify-center">
       <div className="w-full max-w-2xl">
-        <Card className="rounded-2xl overflow-hidden">
+        <Card className="rounded-2xl pt-0 mt-5 overflow-hidden">
           <div className="relative p-8 border-b">
             <div
               className="absolute inset-0"
@@ -82,7 +82,7 @@ const Error = () => {
               <p className="text-xs font-semibold text-muted-foreground">
                 Debug info
               </p>
-              <p className="text-xs text-muted-foreground break-words mt-1">
+              <p className="text-xs text-muted-foreground mt-1">
                 {typeof err === "string" ? err : JSON.stringify(err, null, 2)}
               </p>
             </div>

@@ -24,7 +24,7 @@ async function req(url, options = {}, toastMsg) {
 
 export const listingsApi = {
   getAll: () =>
-    req(BASE, {}, { loading: "Loading listings...",}),
+    req(BASE, {}),
 
   create: (payload) =>
     req(
