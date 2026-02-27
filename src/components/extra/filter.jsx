@@ -51,35 +51,27 @@ const Filter = () => {
   });
   useEffect(() => {
     dispatch(fetchListings());
-    const q = search.trim().toLowerCase();
+  }, [dispatch]);
 
+  useEffect(() => {
+    const q = search.trim().toLowerCase();
     const next = baseData.filter((e) => {
       const name = getText(e.name).toLowerCase();
-      const loc = getText(e.location).toLowerCase();
-      const typ = getText(e.type).toLowerCase();
+      const loc  = getText(e.location).toLowerCase();
+      const typ  = getText(e.type).toLowerCase();
 
-      const matchSearch =
-        !q || name.includes(q) || loc.includes(q) || typ.includes(q);
-
-      const matchCity =
-        city === "all" ||
-        getText(e.location).toLowerCase() === city.toLowerCase();
-
-      const matchType =
-        type === "all" || getText(e.type).toLowerCase() === type.toLowerCase();
-
-      const matchRooms =
-        rooms === "all" ||
-        (rooms === "4+" ? e.rooms >= 4 : e.rooms === Number(rooms));
-
-      const matchPrice = e.price >= price[0] && e.price <= price[1];
+      const matchSearch = !q || name.includes(q) || loc.includes(q) || typ.includes(q);
+      const matchCity   = city === "all" || getText(e.location).toLowerCase() === city.toLowerCase();
+      const matchType   = type === "all" || getText(e.type).toLowerCase() === type.toLowerCase();
+      const matchRooms  = rooms === "all" || (rooms === "4+" ? e.rooms >= 4 : e.rooms === Number(rooms));
+      const matchPrice  = e.price >= price[0] && e.price <= price[1];
 
       return matchSearch && matchCity && matchType && matchRooms && matchPrice;
     });
-
     setFilteredData(next);
+
     setPage(1);
-  }, [search, city, type, rooms, price, lang]);
+  }, [items, search, city, type, rooms, price, lang]);
 
   const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE) || 1;
   const safePage = Math.min(page, totalPages);
@@ -112,8 +104,8 @@ const Filter = () => {
 
   return (
     <div className="flex flex-col gap-10">
-      <Card className="rounded-2xl">
-        <CardContent className="p-4 md:p-5 flex flex-col gap-5">
+      <Card className="rounded-2xl border-emerald-100/50 dark:border-emerald-900/30 shadow-lg shadow-emerald-500/5 backdrop-blur-sm">
+        <CardContent className="p-5 md:p-6 flex flex-col gap-5">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 rounded-xl bg-emerald-600/10 flex items-center justify-center">
@@ -243,7 +235,7 @@ const Filter = () => {
               ${price[0]}–${price[1]}
             </Badge>
 
-            <Badge className="bg-emerald-600 hover:bg-emerald-600">
+            <Badge className="bg-emerald-600 hover:bg-emerald-600 shadow-sm shadow-emerald-600/30">
               {filteredData.length} {t("filter.results", "results")}
             </Badge>
           </div>
@@ -251,33 +243,32 @@ const Filter = () => {
       </Card>
 
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-semibold">{t("filter.homes", "Homes")}</h2>
+        <div>
+          <h2 className="text-2xl font-bold">{t("filter.homes", "Homes")}</h2>
+          <p className="text-sm text-muted-foreground">{filteredData.length} properties found</p>
+        </div>
       </div>
 
       {filteredData.length === 0 ? (
-        <Card className="rounded-2xl">
-          <CardContent className="p-10 text-center">
-            <p className="text-lg font-semibold">
-              {t("filter.noResults", "No results")}
-            </p>
-            <p className="text-sm text-muted-foreground">
-              {t("filter.tryDifferent", "Try different filters.")}
-            </p>
-            <div className="pt-4">
-              <Button
-                onClick={reset}
-                className="bg-emerald-600 hover:bg-emerald-700"
-              >
-                {t("filter.resetFilters", "Reset filters")}
-              </Button>
+        <Card className="rounded-2xl border-dashed">
+          <CardContent className="p-14 text-center flex flex-col items-center gap-4">
+            <div className="h-16 w-16 rounded-2xl bg-muted flex items-center justify-center">
+              <HomeIcon className="h-8 w-8 text-muted-foreground/50" />
             </div>
+            <div>
+              <p className="text-lg font-semibold">{t("filter.noResults", "No results")}</p>
+              <p className="text-sm text-muted-foreground mt-1">{t("filter.tryDifferent", "Try different filters.")}</p>
+            </div>
+            <Button onClick={reset} className="bg-emerald-600 hover:bg-emerald-700">
+              {t("filter.resetFilters", "Reset filters")}
+            </Button>
           </CardContent>
         </Card>
       ) : (
         <>
-          <div className="grid gap-6 md:grid-cols-3">
-            {pageData.map((e) => (
-              <Cards key={e.id} e={e} />
+          <div className="grid gap-6 md:grid-cols-3 animate-stagger">
+            {pageData.map((e, i) => (
+              <Cards key={e.id} e={e} index={i} />
             ))}
           </div>
 
