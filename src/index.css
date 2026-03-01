@@ -134,8 +134,31 @@ button, a, [role="button"] {
 }
 
 /* ── Scrollbar ────────────────────────────────────────────────── */
-* { scrollbar-width: none; }
-*::-webkit-scrollbar { display: none; }
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: oklch(0.6 0.118 184.704 / 40%); /* Subtle emerald-600 match */
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 0.2s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: oklch(0.6 0.118 184.704 / 80%); /* Darker emerald on hover */
+}
 
 /* ── Keyframes ────────────────────────────────────────────────── */
 @keyframes fadeUp {
