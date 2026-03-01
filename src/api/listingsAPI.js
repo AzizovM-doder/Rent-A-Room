@@ -1,21 +1,7 @@
 import { toast } from "react-hot-toast";
 
-const API = import.meta.env.VITE_API_URL;
-const BASE = `${API}/listings`;
-const AUTH = `${API}/auth`;
-const MSG  = `${API}/messages`;
-const USERS = `${API}/users`;
+const BASE = "http://localhost:3000/listings";
 
-// ── Auth header helper ─────────────────────────────────────────────
-function getToken() {
-  return localStorage.getItem("token") || "";
-}
-function authHeaders() {
-  const token = getToken();
-  return token ? { Authorization: `Bearer ${token}` } : {};
-}
-
-// ── Generic JSON fetcher ───────────────────────────────────────────
 async function req(url, options = {}, toastMsg) {
   const doFetch = async () => {
     const isFormData = options.body instanceof FormData;
