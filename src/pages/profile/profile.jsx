@@ -5,33 +5,40 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { User, Mail, Phone, ShieldCheck, LogOut, Heart, Home as HomeIcon, PenLine, Star, Save, X, CalendarDays, KeyRound } from "lucide-react";
+import { User, Mail, Phone, ShieldCheck, LogOut, Heart, Home as HomeIcon, PenLine, Star, X, CalendarDays, KeyRound, Settings, Bell, ChevronRight } from "lucide-react";
 import { getUserFavLength, getUserToken } from "../../utils/url";
 import { clearAuth, authApi } from "../../api/listingsAPI";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Profile = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(() => { try { return JSON.parse(getUserToken()); } catch { return null; } });
   const [favCount] = useState(getUserFavLength());
-  const [editing, setEditing] = useState(false);
+  
+  // Tabs: overview, settings
+  const [activeTab, setActiveTab] = useState("overview");
+
+  // Edit states
   const [editName, setEditName] = useState(user?.name || "");
   const [editPhone, setEditPhone] = useState(user?.phone || "");
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     if (!user) { navigate("/login"); return; }
+    window.scrollTo(0, 0);
     authApi.getMe().then(u => {
       setUser(u);
       localStorage.setItem("userToken", JSON.stringify(u));
       setEditName(u.name || ""); setEditPhone(u.phone || "");
     }).catch(() => {});
-  }, []);
+  }, [navigate]);
 
   const logout = () => { clearAuth(); navigate("/login"); };
 
-  const saveProfile = async () => {
+  const saveProfile = async (e) => {
+    e?.preventDefault();
     setSaving(true);
     try {
       const updated = await authApi.updateMe({ name: editName, phone: editPhone });
@@ -39,192 +46,289 @@ const Profile = () => {
       localStorage.setItem("userToken", JSON.stringify(updated));
       if (updated.isAdmin) localStorage.setItem("admin", JSON.stringify(updated));
       toast.success("Profile updated seamlessly");
-      setEditing(false);
-    } catch (err) { toast.error(err.message || "Failed to update"); }
-    finally { setSaving(false); }
+    } catch (err) { 
+      toast.error(err.message || "Failed to update"); 
+    } finally { 
+      setSaving(false); 
+    }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+  };
+  
+  const fadeUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
   };
 
   if (!user) return null;
 
   return (
-    <div className="pb-10 pt-4 animate-fade-up">
-      <div className="mx-auto max-w-5xl flex flex-col gap-6">
+    <div className="min-h-screen px-4 py-8">
+      <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="mx-auto max-w-6xl flex flex-col gap-8">
 
-        {/* Hero Banner */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 via-emerald-700 to-teal-800 p-8 md:p-10 text-white shadow-2xl">
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/5 rounded-full -translate-y-1/3 translate-x-1/3 blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/4 blur-2xl pointer-events-none" />
+        {/* ── Hero Banner ───────────────────────────────────────── */}
+        <motion.div variants={fadeUp} className="relative overflow-hidden rounded-[2.5rem] bg-slate-950 p-8 md:p-12 text-white shadow-2xl shadow-emerald-900/10">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/10 rounded-full -translate-y-1/3 translate-x-1/3 blur-[80px] pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-teal-500/10 rounded-full translate-y-1/2 -translate-x-1/4 blur-[80px] pointer-events-none" />
           
-          <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div className="flex items-center gap-6">
-              <div className="h-24 w-24 rounded-3xl bg-white/10 backdrop-blur-md flex items-center justify-center ring-4 ring-white/20 shadow-xl overflow-hidden">
-                <User className="h-12 w-12 text-white/90" />
+          <div className="relative flex flex-col lg:flex-row lg:items-center justify-between gap-8 z-10">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6 md:gap-8">
+              <div className="h-28 w-28 rounded-3xl bg-white/10 backdrop-blur-xl flex items-center justify-center ring-4 ring-white/10 shadow-2xl overflow-hidden shrink-0 relative group">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <User className="h-12 w-12 text-white/80 group-hover:scale-110 transition-transform duration-500" />
               </div>
-              <div className="flex flex-col gap-1.5">
-                <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-none">{user.name}</h1>
-                <div className="flex items-center gap-2 mt-2 flex-wrap">
+              <div className="flex flex-col gap-2 pt-2">
+                <h1 className="text-3xl md:text-5xl font-black tracking-tight leading-none">{user.name}</h1>
+                <div className="flex items-center justify-center sm:justify-start gap-2 mt-2 flex-wrap">
                   {user.isAdmin && (
-                    <Badge className="bg-amber-400/20 hover:bg-amber-400/30 text-amber-200 border-amber-400/50 gap-1.5 px-3 py-1">
-                      <KeyRound className="h-3 w-3" /> Admin
+                    <Badge className="bg-amber-400/20 hover:bg-amber-400/30 text-amber-300 border border-amber-400/30 gap-1.5 px-3 py-1 shadow-sm font-bold">
+                      <KeyRound className="h-3.5 w-3.5" /> Administrator
                     </Badge>
                   )}
-                  <Badge className="bg-white/10 hover:bg-white/20 text-white border-white/20 gap-1.5 px-3 py-1 shadow-sm">
-                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-300" /> Verified Member
+                  <Badge className="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 gap-1.5 px-3 py-1 shadow-sm font-bold">
+                    <ShieldCheck className="h-3.5 w-3.5" /> Verified Profile
                   </Badge>
-                  <span className="text-white/60 text-sm flex items-center gap-1.5 ml-2">
+                  <span className="text-white/60 text-sm font-medium flex items-center gap-1.5 ml-1">
                     <CalendarDays className="h-4 w-4" /> Joined {user.createdAt ? new Date(user.createdAt).getFullYear() : "recently"}
                   </span>
                 </div>
               </div>
             </div>
             
-            <div className="flex gap-3 md:self-start">
-              {!editing && (
-                <Button onClick={() => setEditing(true)} variant="outline" className="gap-2 bg-white/10 hover:bg-white/20 text-white border-white/20 rounded-xl">
-                  <PenLine className="h-4 w-4" /> Edit Profile
-                </Button>
-              )}
-              <Button variant="ghost" onClick={logout} className="gap-2 hover:bg-rose-500/20 text-white hover:text-rose-100 rounded-xl">
-                <LogOut className="h-4 w-4" /> Logout
+            <div className="flex flex-wrap justify-center sm:justify-start gap-3 lg:self-start mt-2 lg:mt-0">
+              <Button variant="outline" onClick={logout} className="gap-2 bg-white/5 hover:bg-rose-500/20 text-white hover:text-rose-200 border-white/10 hover:border-rose-500/30 rounded-xl transition-all shadow-sm">
+                <LogOut className="h-4 w-4" /> Sign Out
               </Button>
             </div>
           </div>
           
-          <div className="relative mt-8 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="relative mt-10 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 z-10 border-t border-white/10 pt-8">
             {[
-              { icon: Mail, label: "Email", value: user.email }, 
-              { icon: Phone, label: "Phone", value: user.phone || "Add your phone number" }
+              { icon: Mail, label: "Registered Email", value: user.email }, 
+              { icon: Phone, label: "Contact Phone", value: user.phone || "Please add a phone number" }
             ].map(({ icon: Icon, label, value }) => (
-              <div key={label} className="flex flex-col gap-1 rounded-2xl bg-black/10 backdrop-blur border border-white/10 p-4 transition-colors hover:bg-black/20">
-                <div className="flex items-center gap-2 text-emerald-200/80 mb-1">
+              <div key={label} className="flex flex-col gap-1.5 rounded-2xl bg-white/5 backdrop-blur-md border border-white/5 p-4 transition-all hover:bg-white/10 hover:-translate-y-0.5 shadow-sm">
+                <div className="flex items-center gap-2 text-emerald-400 mb-1">
                   <Icon className="h-4 w-4" />
-                  <span className="text-xs font-semibold uppercase tracking-wider">{label}</span>
+                  <span className="text-xs font-black uppercase tracking-widest">{label}</span>
                 </div>
                 <span className="text-white font-medium truncate">{value}</span>
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Quick Stats Grid */}
-        <div className="grid gap-5 grid-cols-2 md:grid-cols-4">
-          {[
-            { icon: Heart, label: "Saved Listings", value: favCount, bg: "bg-rose-500/10", color: "text-rose-500" },
-            { icon: HomeIcon, label: "My Posts", value: "0", bg: "bg-emerald-500/10", color: "text-emerald-600" },
-            { icon: Star, label: "Reviews", value: "0", bg: "bg-amber-500/10", color: "text-amber-500" },
-            { icon: ShieldCheck, label: "Trust Score", value: "100", bg: "bg-blue-500/10", color: "text-blue-500" },
-          ].map(({ icon: Icon, label, value, bg, color }) => (
-            <Card key={label} className="rounded-3xl border-0 shadow-md bg-card/50 backdrop-blur flex flex-col items-center justify-center p-6 gap-3 hover:-translate-y-1 transition-all duration-300">
-              <div className={`h-14 w-14 rounded-2xl ${bg} flex items-center justify-center`}>
-                <Icon className={`h-7 w-7 ${color}`} />
-              </div>
-              <div className="text-center">
-                <p className="text-3xl font-extrabold">{value}</p>
-                <p className="text-xs text-muted-foreground font-medium mt-1">{label}</p>
-              </div>
-            </Card>
+        {/* ── Fancy Tab Navigation ───────────────────────────────────────── */}
+        <motion.div variants={fadeUp} className="flex items-center gap-2 p-1.5 bg-muted/50 backdrop-blur-md rounded-2xl w-fit border border-border/50">
+          {["overview", "settings"].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`relative px-6 py-2.5 text-sm font-bold rounded-xl transition-colors outline-none z-10 ${
+                activeTab === tab ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {activeTab === tab && (
+                <motion.div
+                  layoutId="activeProfileTab"
+                  className="absolute inset-0 bg-background shadow-sm rounded-xl border border-border/50 z-[-1]"
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
+              <span className="capitalize relative z-10">{tab === "overview" ? "Dashboard" : "Account Settings"}</span>
+            </button>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="grid gap-6 md:grid-cols-5 items-start">
-          {/* Main Content - Left side */}
-          <div className="md:col-span-3">
-            <Card className="rounded-3xl shadow-lg overflow-hidden border-0 bg-card/80 backdrop-blur">
-              <div className="p-6 md:p-8 flex flex-col gap-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-xl font-bold">Personal Information</h2>
-                    <p className="text-sm text-muted-foreground mt-1">Manage your details and contact preferences</p>
+        {/* ── Tab Content Area ───────────────────────────────────────── */}
+        <AnimatePresence mode="wait">
+          
+          {/* TAB: OVERVIEW */}
+          {activeTab === "overview" && (
+            <motion.div 
+              key="overview"
+              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }}
+              className="flex flex-col gap-8"
+            >
+              {/* Quick Stats Grid */}
+              <div className="grid gap-6 grid-cols-2 lg:grid-cols-4">
+                {[
+                  { icon: Heart, label: "Saved Listings", value: favCount, bg: "bg-rose-500/10 dark:bg-rose-500/20", color: "text-rose-500", border: "border-rose-500/20" },
+                  { icon: HomeIcon, label: "Active Posts", value: "0", bg: "bg-emerald-500/10 dark:bg-emerald-500/20", color: "text-emerald-600 dark:text-emerald-400", border: "border-emerald-500/20" },
+                  { icon: Star, label: "Total Reviews", value: "0", bg: "bg-amber-500/10 dark:bg-amber-500/20", color: "text-amber-500", border: "border-amber-500/20" },
+                  { icon: ShieldCheck, label: "Trust Score", value: "100%", bg: "bg-blue-500/10 dark:bg-blue-500/20", color: "text-blue-500 dark:text-blue-400", border: "border-blue-500/20" },
+                ].map(({ icon: Icon, label, value, bg, color, border }) => (
+                  <Card key={label} className={`rounded-3xl shadow-sm border ${border} bg-card/60 backdrop-blur-xl hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}>
+                    <CardContent className="p-6 md:p-8 flex flex-col items-center justify-center gap-4 text-center">
+                      <div className={`h-16 w-16 rounded-[1.5rem] ${bg} flex items-center justify-center shadow-inner`}>
+                        <Icon className={`h-8 w-8 ${color}`} />
+                      </div>
+                      <div>
+                        <p className="text-4xl font-black leading-none">{value}</p>
+                        <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider mt-2">{label}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              <div className="grid gap-8 md:grid-cols-12 items-start">
+                
+                {/* Quick Actions (Left on Desktop, Top on Mobile) */}
+                <div className="md:col-span-5 lg:col-span-4 flex flex-col gap-6">
+                  <h2 className="text-xl font-black px-2 flex items-center gap-2">
+                    <Sparkles className="h-5 w-5 text-emerald-500" /> Actions
+                  </h2>
+                  <div className="flex flex-col gap-4">
+                    {[
+                      { to: "/favorites", icon: Heart, label: "Manage Favorites", desc: "View and edit your saved properties", color: "text-rose-500" },
+                      { to: "/post", icon: PenLine, label: "Create Listing", desc: "Start earning from your space", color: "text-emerald-600 dark:text-emerald-400" },
+                    ].map(({ to, icon: Icon, label, desc, color }) => (
+                      <Link key={to} to={to} className="group overflow-hidden rounded-[2rem]">
+                        <Card className="rounded-[2rem] border-border/50 bg-card/60 backdrop-blur-md hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/10 transition-all duration-300">
+                          <div className="p-6 flex items-center justify-between gap-4">
+                            <div className="flex items-center gap-5">
+                              <div className="h-14 w-14 rounded-2xl bg-muted group-hover:bg-emerald-500/10 flex items-center justify-center shrink-0 transition-colors">
+                                <Icon className={`h-7 w-7 transition-colors text-muted-foreground group-hover:${color}`} />
+                              </div>
+                              <div className="flex flex-col gap-1">
+                                <p className="font-bold text-[17px] leading-tight group-hover:text-emerald-600 transition-colors">{label}</p>
+                                <p className="text-sm text-muted-foreground font-medium">{desc}</p>
+                              </div>
+                            </div>
+                            <ChevronRight className="h-5 w-5 text-muted-foreground opacity-50 group-hover:opacity-100 group-hover:text-emerald-500 transition-all group-hover:translate-x-1" />
+                          </div>
+                        </Card>
+                      </Link>
+                    ))}
+
+                    {user.isAdmin && (
+                      <Link to="/admin" className="group overflow-hidden rounded-[2rem] mt-2">
+                        <Card className="rounded-[2rem] border-amber-400/30 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 hover:border-amber-500/50 hover:shadow-xl hover:shadow-amber-500/10 transition-all duration-300 relative overflow-hidden">
+                          <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
+                          <div className="p-6 flex items-center justify-between gap-4 relative z-10">
+                            <div className="flex items-center gap-5">
+                              <div className="h-14 w-14 rounded-2xl bg-amber-500/20 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform">
+                                <KeyRound className="h-7 w-7 text-amber-600 dark:text-amber-400" />
+                              </div>
+                              <div className="flex flex-col gap-1">
+                                <p className="font-bold text-[17px] leading-tight text-amber-800 dark:text-amber-200">Admin Dashboard</p>
+                                <p className="text-sm font-medium text-amber-700/70 dark:text-amber-400/70">Manage platform resources</p>
+                              </div>
+                            </div>
+                            <ChevronRight className="h-5 w-5 text-amber-600 dark:text-amber-400 opacity-50 group-hover:opacity-100 transition-all group-hover:translate-x-1" />
+                          </div>
+                        </Card>
+                      </Link>
+                    )}
                   </div>
-                  {editing && (
-                    <div className="flex gap-2">
-                      <Button variant="outline" onClick={() => setEditing(false)} className="rounded-xl h-10 px-4">Cancel</Button>
-                      <Button onClick={saveProfile} disabled={saving} className="rounded-xl h-10 px-5 bg-emerald-600 hover:bg-emerald-700 shadow-lg shadow-emerald-600/20">
-                        {saving ? "Saving..." : "Save Changes"}
+                </div>
+                
+                {/* Recent Activity Mock */}
+                <div className="md:col-span-7 lg:col-span-8 flex flex-col gap-6">
+                  <h2 className="text-xl font-black px-2 flex items-center gap-2">
+                    <Bell className="h-5 w-5 text-emerald-500" /> Notifications
+                  </h2>
+                  <Card className="rounded-[2rem] border-border/50 bg-card/60 backdrop-blur shadow-lg">
+                    <CardContent className="p-0">
+                      <div className="flex flex-col divide-y divide-border/50">
+                        <div className="p-6 flex items-start gap-4 hover:bg-muted/30 transition-colors">
+                          <div className="h-12 w-12 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0 mt-0.5 border border-emerald-500/20">
+                             <ShieldCheck className="h-5 w-5 text-emerald-600" />
+                          </div>
+                          <div>
+                            <p className="font-bold text-[15px]">Profile verified successfully</p>
+                            <p className="text-sm text-muted-foreground font-medium mt-1 leading-snug">Thanks for verifying your account. You can now rent and host properties on Rent-A-Room.</p>
+                            <p className="text-xs text-muted-foreground font-bold uppercase tracking-wider mt-3">2 Days ago</p>
+                          </div>
+                        </div>
+                        <div className="p-6 flex items-start gap-4 hover:bg-muted/30 transition-colors">
+                          <div className="h-12 w-12 rounded-full bg-sky-500/10 flex items-center justify-center shrink-0 mt-0.5 border border-sky-500/20">
+                             <User className="h-5 w-5 text-sky-600" />
+                          </div>
+                          <div>
+                            <p className="font-bold text-[15px]">Welcome to the community!</p>
+                            <p className="text-sm text-muted-foreground font-medium mt-1 leading-snug">We are glad to have you here. Complete your profile to get the most out of the platform.</p>
+                            <p className="text-xs text-muted-foreground font-bold uppercase tracking-wider mt-3">1 Week ago</p>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+                
+              </div>
+            </motion.div>
+          )}
+
+          {/* TAB: SETTINGS */}
+          {activeTab === "settings" && (
+            <motion.div 
+              key="settings"
+              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }}
+            >
+              <Card className="rounded-[2.5rem] shadow-xl overflow-hidden border-border/50 bg-card/80 backdrop-blur-xl max-w-3xl">
+                <div className="p-8 md:p-10 flex flex-col gap-8">
+                  <div>
+                    <h2 className="text-2xl font-black flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600"><Settings className="h-6 w-6" /></div>
+                      Profile Settings
+                    </h2>
+                    <p className="text-base text-muted-foreground mt-3 font-medium">Update your personal information and how we can reach you.</p>
+                  </div>
+                  
+                  <Separator className="opacity-50" />
+                  
+                  <form onSubmit={saveProfile} className="flex flex-col gap-8">
+                    <div className="grid gap-6 sm:grid-cols-2">
+                      <div className="flex flex-col gap-2 relative">
+                        <label className="text-[11px] font-black uppercase tracking-widest text-muted-foreground pl-1">Full Name</label>
+                        <User className="h-5 w-5 absolute left-4 top-[35px] text-muted-foreground z-10" />
+                        <Input 
+                          value={editName} 
+                          onChange={e => setEditName(e.target.value)} 
+                          className="pl-12 h-14 rounded-2xl bg-muted/40 border-transparent hover:bg-muted/60 focus-visible:bg-transparent focus-visible:border-emerald-500 shadow-sm transition-all font-semibold" 
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2 relative">
+                        <label className="text-[11px] font-black uppercase tracking-widest text-muted-foreground pl-1">Phone Number</label>
+                        <Phone className="h-5 w-5 absolute left-4 top-[35px] text-muted-foreground z-10" />
+                        <Input 
+                          value={editPhone} 
+                          onChange={e => setEditPhone(e.target.value)} 
+                          className="pl-12 h-14 rounded-2xl bg-muted/40 border-transparent hover:bg-muted/60 focus-visible:bg-transparent focus-visible:border-emerald-500 shadow-sm transition-all font-semibold" 
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2 sm:col-span-2 relative opacity-60">
+                        <label className="text-[11px] font-black uppercase tracking-widest text-muted-foreground pl-1">Email Address (Locked)</label>
+                        <Mail className="h-5 w-5 absolute left-4 top-[35px] text-muted-foreground z-10" />
+                        <Input 
+                          value={user.email} 
+                          disabled 
+                          className="pl-12 h-14 rounded-2xl bg-muted/50 border-input font-semibold" 
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex justify-end gap-3 pt-6 border-t border-border/50">
+                      <Button type="button" variant="ghost" onClick={() => setActiveTab("overview")} className="rounded-xl h-12 px-6 font-bold hover:bg-muted">
+                        Cancel
+                      </Button>
+                      <Button type="submit" disabled={saving} className="rounded-xl h-12 px-8 bg-emerald-600 hover:bg-emerald-700 shadow-lg shadow-emerald-600/20 font-bold transition-all hover:-translate-y-0.5">
+                        {saving ? "Saving Changes..." : "Save Changes"}
                       </Button>
                     </div>
-                  )}
-                </div>
-                
-                <Separator className="opacity-50" />
-                
-                <div className="flex flex-col gap-5">
-                  {editing ? (
-                    <div className="grid gap-5 sm:grid-cols-2 animate-in fade-in slide-in-from-top-2 duration-300">
-                      <div className="flex flex-col gap-2">
-                        <label className="text-sm font-semibold text-foreground/80">Full Name</label>
-                        <Input value={editName} onChange={e => setEditName(e.target.value)} className="h-12 rounded-xl bg-muted/50" />
-                      </div>
-                      <div className="flex flex-col gap-2">
-                        <label className="text-sm font-semibold text-foreground/80">Phone Number</label>
-                        <Input value={editPhone} onChange={e => setEditPhone(e.target.value)} className="h-12 rounded-xl bg-muted/50" />
-                      </div>
-                      <div className="flex flex-col gap-2 sm:col-span-2">
-                        <label className="text-sm font-semibold text-foreground/80">Email Address (Cannot be changed)</label>
-                        <Input value={user.email} disabled className="h-12 rounded-xl bg-muted text-muted-foreground opacity-70" />
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="grid gap-y-6 gap-x-4 sm:grid-cols-2">
-                      {[
-                        ["Full Name", user.name], 
-                        ["Email Address", user.email], 
-                        ["Phone Number", user.phone || "Not provided"],
-                        ["Account Role", user.isAdmin ? "Administrator" : "Standard User"],
-                      ].map(([label, value]) => (
-                        <div key={label} className="flex flex-col gap-1">
-                          <span className="text-sm text-muted-foreground font-medium">{label}</span>
-                          <span className="text-base font-semibold">{value}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          {/* Sidebar - Right side */}
-          <div className="md:col-span-2 flex flex-col gap-5">
-            <Card className="rounded-3xl shadow-lg border-0 bg-card/80 backdrop-blur">
-              <div className="p-6 flex flex-col gap-5">
-                <h2 className="text-lg font-bold">Quick Actions</h2>
-                <div className="flex flex-col gap-3">
-                  {[
-                    { to: "/favorites", icon: Heart, label: "View Favorites", desc: "Access your saved properties", color: "text-rose-500", bg: "bg-rose-500/10" },
-                    { to: "/post", icon: PenLine, label: "Post Listing", desc: "Rent out your room or apartment", color: "text-emerald-600", bg: "bg-emerald-600/10" },
-                  ].map(({ to, icon: Icon, label, desc, color, bg }) => (
-                    <Link key={to} to={to} className="flex items-center gap-4 rounded-2xl border p-4 hover:border-emerald-500 hover:shadow-md transition-all group bg-card">
-                      <div className={`h-12 w-12 rounded-xl ${bg} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}>
-                        <Icon className={`h-6 w-6 ${color}`} />
-                      </div>
-                      <div className="flex flex-col">
-                        <p className="font-semibold">{label}</p>
-                        <p className="text-xs text-muted-foreground">{desc}</p>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </Card>
-
-            {user.isAdmin && (
-              <Card className="rounded-3xl shadow-lg border-2 border-amber-400/20 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20">
-                <div className="p-6 flex flex-col gap-4">
-                  <div className="flex items-center gap-3 text-amber-600 dark:text-amber-500 mb-2">
-                    <KeyRound className="h-6 w-6" />
-                    <h2 className="text-lg font-bold">Admin Zone</h2>
-                  </div>
-                  <p className="text-sm text-foreground/80 mb-2">You have special privileges to manage all listings and user accounts on the platform.</p>
-                  <Button asChild className="w-full h-12 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold shadow-lg shadow-amber-500/20">
-                    <Link to="/admin">Open Admin Dashboard</Link>
-                  </Button>
+                  </form>
                 </div>
               </Card>
-            )}
-          </div>
-        </div>
-      </div>
+            </motion.div>
+          )}
+
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 };
