@@ -1,6 +1,7 @@
 import { toast } from "react-hot-toast";
+import { BASE_URL } from "../utils/url";
 
-const API = import.meta.env.VITE_API_URL;
+const API = BASE_URL;
 const BASE = `${API}/listings`;
 const AUTH = `${API}/auth`;
 const MSG  = `${API}/messages`;
