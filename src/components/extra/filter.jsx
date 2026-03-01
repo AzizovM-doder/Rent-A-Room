@@ -124,24 +124,22 @@ const Filter = () => {
           </div>
 
           <div className="grid gap-4 lg:grid-cols-12">
-            <div className="lg:col-span-5">
-              <div className="relative">
-                <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder={t(
-                    "filter.searchPlaceholder",
-                    "Search name, city, type...",
-                  )}
-                  className="pl-9"
-                />
-              </div>
+            <div className="lg:col-span-5 relative">
+              <Search className="h-4 w-4 absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder={t(
+                  "filter.searchPlaceholder",
+                  "Search name, city, type...",
+                )}
+                className="pl-11 h-12 rounded-xl bg-background/50 backdrop-blur-sm border-muted-foreground/20 focus-visible:ring-emerald-500/30 transition-shadow"
+              />
             </div>
 
             <div className="lg:col-span-3">
               <Select value={city} onValueChange={setCity}>
-                <SelectTrigger>
+                <SelectTrigger className="h-12 rounded-xl bg-background/50 backdrop-blur-sm border-muted-foreground/20 focus:ring-emerald-500/30 transition-shadow">
                   <SelectValue placeholder={t("filter.city", "City")} />
                 </SelectTrigger>
                 <SelectContent>
@@ -159,7 +157,7 @@ const Filter = () => {
 
             <div className="lg:col-span-2">
               <Select value={type} onValueChange={setType}>
-                <SelectTrigger>
+                <SelectTrigger className="h-12 rounded-xl bg-background/50 backdrop-blur-sm border-muted-foreground/20 focus:ring-emerald-500/30 transition-shadow">
                   <SelectValue placeholder={t("filter.typeLabel", "Type")} />
                 </SelectTrigger>
                 <SelectContent>
@@ -181,7 +179,7 @@ const Filter = () => {
 
             <div className="lg:col-span-2">
               <Select value={rooms} onValueChange={setRooms}>
-                <SelectTrigger>
+                <SelectTrigger className="h-12 rounded-xl bg-background/50 backdrop-blur-sm border-muted-foreground/20 focus:ring-emerald-500/30 transition-shadow">
                   <SelectValue placeholder={t("filter.rooms", "Rooms")} />
                 </SelectTrigger>
                 <SelectContent>
@@ -250,20 +248,20 @@ const Filter = () => {
       </div>
 
       {filteredData.length === 0 ? (
-        <Card className="rounded-2xl border-dashed">
-          <CardContent className="p-14 text-center flex flex-col items-center gap-4">
-            <div className="h-16 w-16 rounded-2xl bg-muted flex items-center justify-center">
-              <HomeIcon className="h-8 w-8 text-muted-foreground/50" />
+        <div className="rounded-3xl border border-dashed border-emerald-200 dark:border-emerald-800/40 bg-emerald-50/30 dark:bg-emerald-950/20">
+          <div className="p-16 text-center flex flex-col items-center gap-4">
+            <div className="h-20 w-20 rounded-3xl bg-background flex items-center justify-center shadow-sm border border-emerald-100 dark:border-emerald-900/50">
+              <Search className="h-8 w-8 text-emerald-600/50 dark:text-emerald-400/50" />
             </div>
             <div>
-              <p className="text-lg font-semibold">{t("filter.noResults", "No results")}</p>
-              <p className="text-sm text-muted-foreground mt-1">{t("filter.tryDifferent", "Try different filters.")}</p>
+              <p className="text-xl font-bold">{t("filter.noResults", "No properties found")}</p>
+              <p className="text-muted-foreground mt-2">{t("filter.tryDifferent", "Try adjusting your filters or searching for something else.")}</p>
             </div>
-            <Button onClick={reset} className="bg-emerald-600 hover:bg-emerald-700">
-              {t("filter.resetFilters", "Reset filters")}
+            <Button onClick={reset} className="mt-2 h-12 rounded-full px-8 bg-emerald-600 hover:bg-emerald-700 shadow-md transition-all font-semibold">
+              {t("filter.resetFilters", "Reset all filters")}
             </Button>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       ) : (
         <>
           <div className="grid gap-6 md:grid-cols-3 animate-stagger">

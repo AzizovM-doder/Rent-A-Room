@@ -2,6 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { LogIn, Menu, UserPlus, User, Heart, UserCheckIcon, Sun, Moon, PlusCircle } from "lucide-react";
 import logo from "/logo.png";
 import { isAuthenticated } from "../../utils/url";
@@ -94,16 +101,16 @@ const Nav = () => {
 
             {/* Language */}
             <div className="hidden md:flex">
-              <select
-                value={langValue}
-                onChange={(e) => changeLang(e.target.value)}
-                className="h-9 rounded-lg border bg-background/80 px-2 text-sm text-muted-foreground outline-none focus:ring-2 focus:ring-emerald-600 cursor-pointer transition"
-                aria-label={t("nav.language")}
-              >
-                <option value="en">EN</option>
-                <option value="ru">RU</option>
-                <option value="tj">TJ</option>
-              </select>
+              <Select value={langValue} onValueChange={(val) => changeLang(val)}>
+                <SelectTrigger className="h-9 w-[70px] bg-background/80 border text-muted-foreground outline-none focus:ring-2 focus:ring-emerald-600 transition">
+                  <SelectValue placeholder={t("nav.language")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="en">EN</SelectItem>
+                  <SelectItem value="ru">RU</SelectItem>
+                  <SelectItem value="tj">TJ</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Desktop actions */}
@@ -186,15 +193,19 @@ const Nav = () => {
                     ))}
 
                     <div className="pt-2 flex items-center gap-2">
-                      <select value={langValue} onChange={(e) => changeLang(e.target.value)}
-                        className="flex-1 h-11 rounded-lg border bg-background px-3 text-sm text-muted-foreground outline-none"
-                        aria-label={t("nav.language")}
-                      >
-                        <option value="en">{t("nav.lang.en")}</option>
-                        <option value="ru">{t("nav.lang.ru")}</option>
-                        <option value="tj">{t("nav.lang.tj")}</option>
-                      </select>
-                      <button onClick={toggleDark} className="h-11 w-11 rounded-lg border flex items-center justify-center">
+                      <div className="flex-1">
+                        <Select value={langValue} onValueChange={(val) => changeLang(val)}>
+                          <SelectTrigger className="w-full h-11 bg-background text-muted-foreground outline-none">
+                            <SelectValue placeholder={t("nav.language")} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="en">{t("nav.lang.en")}</SelectItem>
+                            <SelectItem value="ru">{t("nav.lang.ru")}</SelectItem>
+                            <SelectItem value="tj">{t("nav.lang.tj")}</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <button onClick={toggleDark} className="h-11 w-11 shrink-0 rounded-lg border flex items-center justify-center">
                         {dark ? <Sun className="h-5 w-5 text-amber-500" /> : <Moon className="h-5 w-5" />}
                       </button>
                     </div>

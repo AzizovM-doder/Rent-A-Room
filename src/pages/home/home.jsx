@@ -44,128 +44,165 @@ const Home = () => {
   ];
 
   return (
-    <div className="flex flex-col gap-24 lg:gap-32">
+    <div className="flex flex-col gap-24 lg:gap-32 overflow-x-hidden">
+      {/* ── High-End Hero ──────────────────────────────── */}
+      <section ref={heroRef} className="relative w-full min-h-[85vh] flex items-center justify-center pt-24 pb-12">
+        {/* Subtle, contained background effects (no overflow) */}
+        <div className="absolute inset-0 z-0 bg-background" />
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-900/10 via-background to-background dark:from-emerald-900/20" />
+        
+        {/* Decorative Grid */}
+        <div className="absolute inset-0 z-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAzNHYtbGgyNHYybC0yNCAuLjEiIGZpbGw9IiM5Q0EwQUEiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjxwYXRoIGQ9Ik0zNCAzNnYyNGgtMnYtMjRsLjEuLi4iIGZpbGw9IiM5Q0EwQUEiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvZz48L3N2Zz4=')] opacity-50 dark:opacity-30 mask-image:linear-gradient(to_bottom,white,transparent)]" />
+        
+        {/* Contained Glows - Using max-w-full to prevent x-overflow */}
+        <div 
+          className="absolute top-0 right-0 w-[800px] h-[600px] max-w-full bg-emerald-500/10 dark:bg-emerald-500/20 blur-[120px] rounded-full pointer-events-none translate-x-1/3 -translate-y-1/4"
+          style={{ transform: `translate3d(30%, ${-20 + scrollY * 0.05}%, 0)` }}
+        />
+        <div 
+          className="absolute bottom-10 left-0 w-[600px] h-[600px] max-w-full bg-teal-500/10 dark:bg-teal-500/15 blur-[120px] rounded-full pointer-events-none -translate-x-1/3"
+          style={{ transform: `translate3d(-30%, ${scrollY * 0.02}%, 0)` }}
+        />
 
-      {/* ── Hero ──────────────────────────────── */}
-      <section ref={heroRef} className="relative grid gap-10 lg:grid-cols-2 items-center min-h-[75vh] pt-4">
-        {/* Enormous ambient blurs for the premium look */}
-        <div className="pointer-events-none absolute top-0 -left-1/4 h-[600px] w-[600px] rounded-full bg-emerald-500/20 blur-[150px]" style={{ transform: `translateY(${scrollY * 0.1}px)` }} />
-        <div className="pointer-events-none absolute -bottom-32 -right-1/4 h-[500px] w-[500px] rounded-full bg-teal-400/20 blur-[130px]" style={{ transform: `translateY(${-scrollY * 0.08}px)` }} />
-
-        <div className="relative flex flex-col gap-8 animate-fade-up z-10">
-          <div className="inline-flex items-center gap-2.5 rounded-full border border-emerald-200/50 bg-emerald-50/50 dark:border-emerald-800/50 dark:bg-emerald-900/20 backdrop-blur-md px-4 py-2 text-sm font-semibold text-emerald-700 dark:text-emerald-300 w-fit shadow-sm">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
-            </span>
-            {liveStats ? `${liveStats.total} properties available today` : "Live listings — updated daily"}
-          </div>
-
-          <h1 className="text-5xl md:text-7xl lg:text-[5rem] font-extrabold leading-[1.05] tracking-tight text-foreground">
-            {t("main.hero.titleBefore")}{" "}
-            <span className="relative inline-block whitespace-nowrap">
-              <span className="relative z-10 bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">{t("main.hero.titleHighlight")}</span>
-              <span className="absolute bottom-2 left-0 h-4 w-full rounded-full bg-emerald-200/60 dark:bg-emerald-800/40 -z-0 skew-x-[-12deg]" />
-            </span>
-            <br />{t("main.hero.titleAfter")}
-          </h1>
-
-          <p className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed font-medium">{t("main.hero.desc")}</p>
-
-          <div className="flex flex-wrap items-center gap-4">
-            <Link to="/#listings">
-              <Button size="lg" className="h-14 rounded-2xl px-8 text-base bg-emerald-600 hover:bg-emerald-700 gap-2 shadow-xl shadow-emerald-600/20 hover:shadow-emerald-600/30 transition-all font-bold group">
-                {t("main.hero.browseBtn")} <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-            <Link to={user ? "/post" : "/login"}>
-              <Button size="lg" variant="outline" className="h-14 rounded-2xl px-8 text-base gap-2 hover:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 hover:text-emerald-600 font-bold transition-all bg-background/50 backdrop-blur">
-                {t("main.hero.listBtn")}
-              </Button>
-            </Link>
-          </div>
-
-          {/* REAL stats row */}
-          <div className="flex items-center divide-x border rounded-2xl bg-card/60 backdrop-blur shadow-sm w-fit mt-2">
-            {statCards.map(({ icon: Icon, value, label }, idx) => (
-              <div key={label} className={`flex items-center gap-4 px-6 py-4 ${idx === 0 ? "pl-5" : ""} ${idx === statCards.length - 1 ? "pr-6" : ""}`}>
-                <div className="h-10 w-10 rounded-2xl bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center shrink-0">
-                  <Icon className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
-                </div>
-                <div>
-                  <p className="text-xl font-extrabold leading-none">{value}</p>
-                  <p className="text-xs font-semibold text-muted-foreground mt-1 uppercase tracking-wider">{label}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Hero visual */}
-        <div className="relative hidden lg:flex items-center justify-center h-[600px] animate-fade-in z-10 w-full pl-10" style={{ transform: `translateY(${scrollY * 0.05}px)` }}>
-          {/* Main big central card */}
-          <div className="relative z-10 w-full max-w-[340px] aspect-[4/5] rounded-[36px] bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 p-8 flex flex-col justify-between shadow-2xl shadow-emerald-600/40 overflow-hidden ring-4 ring-background">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-2xl" />
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full translate-y-1/2 -translate-x-1/2 blur-2xl" />
-            
-            <div className="relative flex justify-between items-start">
-              <div className="h-14 w-14 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/20">
-                <Building2 className="h-7 w-7 text-white" />
-              </div>
-              <div className="h-8 rounded-full bg-white/20 backdrop-blur-md px-4 flex items-center border border-white/20 text-white text-sm font-bold">
-                {liveStats?.total || 0} listings
-              </div>
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 md:px-8 grid lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Left Text Column */}
+          <div className="lg:col-span-7 flex flex-col items-start gap-8 animate-fade-up">
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-emerald-200/40 bg-white/40 dark:border-emerald-800/50 dark:bg-emerald-950/40 backdrop-blur-xl px-4 py-1.5 text-sm font-semibold text-emerald-800 dark:text-emerald-300 shadow-sm transition-transform hover:scale-105">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+              </span>
+              <span className="tracking-wide">
+                {liveStats ? `${liveStats.total} properties active today` : "Live listings worldwide"}
+              </span>
             </div>
 
-            <div className="relative text-white">
-              <h3 className="text-3xl font-extrabold tracking-tight mb-2">Find your perfect stay.</h3>
-              <p className="text-emerald-100/90 font-medium">Browse thousands of rooms and apartments in any city.</p>
+            <h1 className="text-5xl sm:text-6xl lg:text-[5.5rem] font-black leading-[1.05] tracking-tight text-foreground">
+              {t("main.hero.titleBefore")}{" "}
+              <div className="relative inline-block mt-2 mb-2">
+                <span className="relative z-10 bg-gradient-to-br from-emerald-600 to-teal-400 dark:from-emerald-400 dark:to-teal-300 bg-clip-text text-transparent pb-2">{t("main.hero.titleHighlight")}</span>
+              </div>
+              <br />{t("main.hero.titleAfter")}
+            </h1>
+
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-xl leading-relaxed font-medium">
+              {t("main.hero.desc")}
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mt-4">
+              <Link to="/#listings" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto h-14 rounded-full px-8 text-base bg-emerald-600 hover:bg-emerald-700 text-white gap-2 shadow-[0_0_40px_-10px_rgba(5,150,105,0.4)] hover:shadow-[0_0_60px_-15px_rgba(5,150,105,0.6)] transition-all duration-300 font-bold group">
+                  {t("main.hero.browseBtn")} <ArrowRight className="h-5 w-5 group-hover:translate-x-1.5 transition-transform" />
+                </Button>
+              </Link>
+              <Link to={user ? "/post" : "/login"} className="w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto h-14 rounded-full px-8 text-base gap-2 border-emerald-200 dark:border-emerald-800 hover:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 font-bold transition-all bg-background/50 backdrop-blur-md">
+                  {t("main.hero.listBtn")}
+                </Button>
+              </Link>
+            </div>
+
+            {/* Seamless Stat Row */}
+            <div className="grid grid-cols-3 gap-8 pt-8 mt-4 border-t border-border/50 w-full max-w-lg">
+              {statCards.map(({ icon: Icon, value, label }, idx) => (
+                <div key={label} className="flex flex-col gap-2">
+                  <div className="text-3xl sm:text-4xl font-black text-foreground">{value}</div>
+                  <div className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-muted-foreground">
+                    <Icon className="h-4 w-4 text-emerald-500" />
+                    <span className="uppercase tracking-wider">{label}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Visual Column (Absolute Masterpiece) */}
+          <div className="lg:col-span-5 relative hidden lg:block h-[700px] animate-fade-in" style={{ transform: `translateY(${scrollY * 0.08}px)` }}>
+            {/* The Main floating glass device */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[400px] aspect-[9/16] rounded-[2.5rem] bg-background/40 backdrop-blur-2xl border border-white/20 dark:border-white/10 p-4 shadow-2xl flex flex-col gap-4 overflow-hidden z-20">
+              {/* Inner screen glare */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-white/20 dark:from-white/0 dark:to-white/5 pointer-events-none" />
               
-              <div className="mt-8 h-12 w-full rounded-xl bg-white/20 backdrop-blur-md border border-white/20 flex items-center justify-center group cursor-pointer hover:bg-white/30 transition-colors">
-                <span className="font-bold">Explore properties</span>
-                <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
+              {/* Top Image Area */}
+              <div className="relative w-full h-[55%] rounded-[1.75rem] overflow-hidden bg-muted group">
+                <img 
+                  src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                  alt="Mansion" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end text-white">
+                  <div>
+                    <Badge className="bg-emerald-500 hover:bg-emerald-600 border-none mb-2">Featured</Badge>
+                    <h3 className="font-bold text-lg leading-tight">Modern Villa</h3>
+                    <p className="text-white/80 text-sm flex items-center gap-1"><MapPin className="h-3 w-3"/> Beverly Hills</p>
+                  </div>
+                  <div className="font-bold text-xl">$450<span className="text-sm font-normal text-white/70">/mo</span></div>
+                </div>
+              </div>
+
+              {/* Bottom UI Mockup */}
+              <div className="flex-1 rounded-[1.75rem] bg-card p-5 border shadow-sm flex flex-col gap-4 relative">
+                <div className="flex items-center justify-between">
+                  <div className="h-2 w-24 bg-muted rounded-full skeleton" />
+                  <div className="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center"><Heart className="h-4 w-4 text-emerald-600" /></div>
+                </div>
+                <div className="h-2 w-full bg-muted rounded-full skeleton" />
+                <div className="h-2 w-2/3 bg-muted rounded-full skeleton" />
+                
+                <div className="mt-auto flex gap-3">
+                  <div className="h-12 w-full bg-emerald-600 rounded-xl" />
+                  <div className="h-12 w-12 bg-muted rounded-xl shrink-0" />
+                </div>
+              </div>
+            </div>
+
+            {/* Floating UI Elements matching the theme */}
+            <div className="absolute top-[15%] -left-12 bg-background/80 backdrop-blur-xl border p-4 rounded-2xl shadow-xl flex items-center gap-4 animate-float z-30" style={{ animationDelay: '0s' }}>
+              <div className="h-12 w-12 rounded-full bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center font-bold text-emerald-600 text-lg">4.9</div>
+              <div>
+                <p className="text-sm font-bold">Excellent Rating</p>
+                <div className="flex gap-1 mt-1">
+                  {[1,2,3,4,5].map(i => <div key={i} className="h-3 w-3 rounded-sm bg-amber-400" />)}
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute bottom-[25%] -right-8 bg-background/80 backdrop-blur-xl border p-4 rounded-2xl shadow-xl flex items-center gap-3 animate-float z-30" style={{ animationDelay: '1.5s' }}>
+              <Users className="h-8 w-8 text-emerald-600" />
+              <div>
+                <p className="text-xs text-muted-foreground font-semibold uppercase">Active Renters</p>
+                <p className="text-lg font-black leading-none mt-0.5">10,000+</p>
               </div>
             </div>
           </div>
-
-          {[
-            { top: "5%", left: "-5%", label: "Dushanbe Centre", price: liveStats?.minPrice ? `from $${liveStats.minPrice}/night` : "Available now", delay: "0ms", i: Building2 },
-            { top: "50%", right: "-10%", label: liveStats?.cities?.[1] || "Mountain view", price: "Highly rated", delay: "200ms", i: TrendingUp },
-            { bottom: "10%", left: "5%", label: liveStats?.types?.join(" · ") || "All types", price: `${liveStats?.total || "—"} listings`, delay: "100ms", i: Users },
-          ].map(({ label, price, delay, i: Icon, ...pos }) => (
-            <div key={label} className="absolute flex items-center gap-3.5 rounded-2xl bg-card border shadow-xl p-4 animate-float hover:scale-105 transition-transform cursor-default z-20" style={{ animationDelay: delay, ...pos }}>
-              <div className="h-10 w-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center shrink-0">
-                <Icon className="h-5 w-5 text-emerald-600" />
-              </div>
-              <div>
-                <p className="text-sm font-bold leading-none">{label}</p>
-                <p className="text-xs text-emerald-600 font-bold mt-1.5 bg-emerald-50 dark:bg-emerald-900/40 w-fit px-1.5 py-0.5 rounded-md">{price}</p>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
 
       {/* ── Features ───────────────────────────── */}
-      <section className="animate-fade-up border-y bg-muted/30 -mx-4 px-4 py-16">
-        <div className="mx-auto max-w-7xl grid gap-8 md:grid-cols-3">
+      <section className="relative z-10 mx-auto max-w-7xl px-4 md:px-8 w-full -mt-10 mb-10">
+        <div className="grid gap-6 md:grid-cols-3">
           {FEATURES.map((f, i) => (
-            <div key={i} className="flex flex-col items-center text-center p-6 bg-card rounded-3xl shadow-sm border hover:shadow-md transition-all hover:-translate-y-1">
-              <div className="text-4xl mb-4 bg-muted h-16 w-16 rounded-2xl flex items-center justify-center">{f.emoji}</div>
-              <h3 className="text-xl font-bold mb-2">{f.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{f.desc}</p>
+            <div key={i} className="group relative overflow-hidden flex flex-col p-8 bg-card/50 backdrop-blur-sm rounded-3xl border shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="text-4xl mb-6 h-16 w-16 bg-background rounded-2xl flex items-center justify-center shadow-sm border group-hover:scale-110 transition-transform duration-300">{f.emoji}</div>
+              <h3 className="text-xl font-bold mb-3">{f.title}</h3>
+              <p className="text-muted-foreground leading-relaxed font-medium">{f.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* ── Listings ─────────────────────────── */}
-      <section id="listings" className="scroll-mt-24">
-        <div className="mb-10 text-center flex flex-col items-center">
-          <Badge className="mb-3 bg-emerald-100 text-emerald-700 hover:bg-emerald-200 dark:bg-emerald-900/40 dark:text-emerald-400 border-0 px-3 py-1">Explore</Badge>
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">Browse rooms</h2>
-          <p className="text-muted-foreground mt-3 text-lg max-w-2xl">
-            {liveStats ? `Browse ${liveStats.total} properties across ${liveStats.cities.length} cities. Use the filters below to find exactly what you're looking for.` : "Filter by city, type, rooms and price"}
+      <section id="listings" className="scroll-mt-32 max-w-7xl mx-auto px-4 md:px-8 w-full mb-32">
+        <div className="mb-12 text-center flex flex-col items-center">
+          <Badge className="mb-4 bg-emerald-100 text-emerald-800 hover:bg-emerald-200 dark:bg-emerald-500/20 dark:text-emerald-300 border-0 px-4 py-1.5 text-sm font-bold uppercase tracking-widest">
+            {t("nav.home", "Explore")}
+          </Badge>
+          <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">Discover your next home</h2>
+          <p className="text-muted-foreground text-lg sm:text-xl max-w-2xl font-medium">
+            {liveStats ? `Browse ${liveStats.total} handpicked properties across ${liveStats.cities.length} cities.` : "Filter by city, type, rooms and price to find the perfect fit."}
           </p>
         </div>
 
