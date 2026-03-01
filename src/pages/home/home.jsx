@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ArrowRight, Building2, Users, TrendingUp } from "lucide-react";
+import { ArrowRight, Building2, Users, TrendingUp, MapPin, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Filter from "../../components/extra/filter";
