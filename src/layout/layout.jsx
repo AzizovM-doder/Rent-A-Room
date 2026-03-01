@@ -24,7 +24,7 @@ const Layout = () => {
       <Nav />
       <div className="py-5" />
       <main className="flex-1">
-        <div className="m-auto max-w-7xl px-4 py-10 lg:py-20 pb-16">
+        <div className="m-auto px-4 py-10 lg:py-20 pb-16">
           <Outlet />
         </div>
       </main>

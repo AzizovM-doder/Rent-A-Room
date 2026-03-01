@@ -242,3 +242,6 @@ button, a, [role="button"] {
   animation: ping 1.2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
+*{
+  transition: all .5s ease;
+}
