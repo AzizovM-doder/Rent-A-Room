@@ -80,6 +80,8 @@ export const messagesApi = {
   getAll: () => req(MSG),
   updateStatus: (id, status) => req(`${MSG}/${id}`, { method: "PATCH", body: JSON.stringify({ status }) },
     { loading: "Updating...", success: `Marked as ${status.toLowerCase()}!` }),
+  remove: (id) => req(`${MSG}/${id}`, { method: "DELETE" },
+    { loading: "Deleting...", success: "Booking deleted!" }),
 };
 
 // ── localStorage helpers ──────────────────────────────────────────

@@ -52,6 +52,14 @@ const AdminListings = () => {
     } catch {}
   };
 
+  const deleteMessage = async (id) => {
+    try {
+      if (!confirm("Are you sure you want to delete this booking request forever?")) return;
+      await messagesApi.remove(id);
+      setMessages(ms => ms.filter(m => m.id !== id));
+    } catch {}
+  };
+
   const toggleAdmin = async (u) => {
     try {
       const updated = await usersApi.update(u.id, { isAdmin: !u.isAdmin });
@@ -282,12 +290,15 @@ const AdminListings = () => {
                               {m.status === "PENDING" && (
                                 <>
                                   <Button size="sm" onClick={() => changeMessageStatus(m.id, "ACCEPTED")} className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg h-9">Accept</Button>
-                                  <Button size="sm" variant="destructive" onClick={() => changeMessageStatus(m.id, "REJECTED")} className="flex-1 rounded-lg h-9">Reject</Button>
+                                  <Button size="sm" variant="outline" onClick={() => changeMessageStatus(m.id, "REJECTED")} className="flex-1 rounded-lg h-9 text-rose-500 hover:bg-rose-50 hover:text-rose-600">Reject</Button>
                                 </>
                               )}
                               {m.status !== "PENDING" && (
-                                <Button size="sm" variant="outline" onClick={() => changeMessageStatus(m.id, "PENDING")} className="w-full rounded-lg h-9">Move to Pending</Button>
+                                <Button size="sm" variant="outline" onClick={() => changeMessageStatus(m.id, "PENDING")} className="flex-1 rounded-lg h-9 font-medium overflow-hidden text-ellipsis whitespace-nowrap">Mask Pending</Button>
                               )}
+                              <Button size="icon" variant="ghost" className="h-9 w-9 shrink-0 rounded-lg hover:bg-rose-100 text-rose-500 hover:text-rose-600" onClick={() => deleteMessage(m.id)}>
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
                             </div>
                           </div>
                           

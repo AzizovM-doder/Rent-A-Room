@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 import { ArrowRight, Building2, MapPin, Heart, Search, Users, ShieldCheck, Sparkles, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -49,54 +50,75 @@ const Home = () => {
     { title: t("main.features.2.title", "Verified Hosts"), desc: t("main.features.2.desc", "Every property owner on our platform is thoroughly vetted."), icon: CheckCircle2, color: "text-amber-500", bg: "bg-amber-500/10 border-amber-500/20" }
   ];
 
+  /* Framer Variants */
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+  };
+  
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+  };
+
   return (
-    <div className="flex flex-col min-h-screen bg-background selection:bg-emerald-500/30">
+    <div className="flex flex-col min-h-screen bg-background selection:bg-emerald-500/30 font-sans">
       
-      {/* ── 1. The Masterpiece Hero ──────────────────────────────────────────── */}
-      {/* Note: Using overflow-hidden *strictly* on the background effect wrapper so the page itself has no x-scroll bugs, while background glows are clipped safely */}
-      <section className="relative w-full min-h-[90vh] md:min-h-screen flex items-center justify-center pt-24 pb-12">
+      {/* ── 1. The Cinematic Hero ──────────────────────────────────────────── */}
+      {/* Container carefully clips the background abstract arts, NOT the main body */}
+      <section className="relative w-full min-h-[90vh] md:min-h-screen flex items-center justify-center pt-24 pb-12 z-0">
         
-        {/* Safe Background Art Wrapper */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          <div className="absolute inset-0 bg-background" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-900/15 via-background to-background" />
+        {/* Animated Abstract Orbs contained strictly */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10 bg-background">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-900/15 via-transparent to-transparent opacity-60" />
           
-          <div 
-            className="absolute top-0 right-0 w-[600px] h-[600px] bg-emerald-500/10 blur-[120px] rounded-full translate-x-1/4 -translate-y-1/4"
-            style={{ transform: `translate3d(25%, ${-25 + scrollY * 0.05}%, 0)` }}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            className="absolute top-0 right-0 w-[40vw] h-[40vw] max-w-[600px] min-w-[300px] bg-emerald-500/10 blur-[120px] rounded-full translate-x-1/4 -translate-y-1/4"
+            style={{ y: scrollY * 0.1 }}
           />
-          <div 
-            className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-teal-500/10 blur-[120px] rounded-full -translate-x-1/4 translate-y-1/4"
-            style={{ transform: `translate3d(-25%, ${25 + scrollY * -0.05}%, 0)` }}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
+            className="absolute bottom-0 left-0 w-[30vw] h-[30vw] max-w-[500px] min-w-[250px] bg-teal-500/10 blur-[120px] rounded-full -translate-x-1/4 translate-y-1/4"
+            style={{ y: scrollY * -0.05 }}
           />
         </div>
 
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 grid lg:grid-cols-12 gap-16 lg:gap-8 items-center">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 grid lg:grid-cols-12 gap-16 lg:gap-8 items-center">
           
-          {/* Hero Typography Col */}
-          <div className="lg:col-span-6 flex flex-col items-start gap-8 z-20 mt-10 lg:mt-0">
+          {/* Hero Typography */}
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+            className="lg:col-span-6 flex flex-col items-start gap-8 z-20 mt-10 lg:mt-0"
+          >
             {/* Live Pill */}
-            <div className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-md px-4 py-1.5 text-sm font-semibold text-emerald-800 dark:text-emerald-300 shadow-sm animate-fade-in-up">
+            <motion.div variants={fadeInUp} className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-md px-4 py-1.5 text-sm font-semibold text-emerald-800 dark:text-emerald-300 shadow-sm">
               <Sparkles className="h-4 w-4 text-emerald-500" />
               <span>{liveStats ? `${liveStats.total} Premium Properties Available` : "Welcome to the future of housing"}</span>
-            </div>
+            </motion.div>
 
             {/* Title */}
-            <h1 className="text-5xl sm:text-6xl lg:text-[5.5rem] font-black leading-[1.08] tracking-tight text-foreground animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+            <motion.h1 variants={fadeInUp} className="text-5xl sm:text-6xl lg:text-[5.5rem] font-black leading-[1.08] tracking-tight text-foreground">
               Find your <br className="hidden sm:block" />
               <span className="relative inline-block mt-2 mb-2 w-fit">
                 <span className="relative z-10 bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-400 bg-clip-text text-transparent pb-2 pr-2">perfect space.</span>
                 <span className="absolute bottom-3 left-0 w-full h-4 bg-emerald-500/20 -z-0 -rotate-1 skew-x-12" />
               </span>
-            </h1>
+            </motion.h1>
 
             {/* Description */}
-            <p className="text-lg sm:text-xl text-muted-foreground/90 max-w-lg leading-relaxed font-medium animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+            <motion.p variants={fadeInUp} className="text-lg sm:text-xl text-muted-foreground/90 max-w-lg leading-relaxed font-medium">
               Discover curated luxury apartments, cozy studios, and sprawling villas worldwide. Renting has never looked this good.
-            </p>
+            </motion.p>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mt-4 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
+            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mt-4">
               <Link to="/#listings" className="w-full sm:w-auto">
                 <Button size="lg" className="h-14 w-full sm:w-auto rounded-full px-8 text-base bg-emerald-600 hover:bg-emerald-700 text-white gap-3 shadow-[0_0_30px_-5px_rgba(5,150,105,0.4)] hover:shadow-[0_0_40px_-5px_rgba(5,150,105,0.6)] hover:-translate-y-0.5 transition-all duration-300 font-bold group">
                   Start Exploring <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -109,10 +131,10 @@ const Home = () => {
                   </Button>
                 </Link>
               )}
-            </div>
+            </motion.div>
 
             {/* Mini Users Social Proof */}
-            <div className="flex items-center gap-4 mt-6 animate-fade-in-up" style={{ animationDelay: '400ms' }}>
+            <motion.div variants={fadeInUp} className="flex items-center gap-4 mt-6">
               <div className="flex -space-x-4">
                 {[1,2,3,4].map(i => (
                   <div key={i} className="w-10 h-10 rounded-full border-2 border-background overflow-hidden bg-muted">
@@ -129,15 +151,22 @@ const Home = () => {
                 </div>
                 <span className="text-sm font-semibold text-muted-foreground mt-0.5">Highly trusted community</span>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          {/* Hero Floating Artwork Col */}
-          <div className="lg:col-span-6 relative hidden lg:block h-[700px] perspective-[1000px]">
-             {/* Main Card */}
-             <div 
-                className="absolute top-[45%] left-1/2 w-full max-w-[420px] bg-background/60 backdrop-blur-2xl border border-white/20 dark:border-white/10 rounded-[2.5rem] p-5 shadow-2xl z-20 transition-transform duration-1000 origin-bottom hover:rotate-0"
-                style={{ transform: `translate(-50%, -50%) rotateY(-15deg) rotateX(5deg) translateY(${scrollY * 0.05}px)` }}
+          {/* Hero Floating Artwork - Right Col */}
+          <motion.div 
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-6 relative hidden lg:block h-[700px] perspective-[1000px]"
+          >
+             {/* Main Focus Card */}
+             <motion.div 
+                animate={{ y: [0, -15, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute top-[45%] left-1/2 w-full max-w-[420px] bg-background/60 backdrop-blur-2xl border border-white/20 dark:border-white/10 rounded-[2.5rem] p-5 shadow-2xl z-20"
+                style={{ transform: `translate(-50%, -50%) rotateY(-15deg) rotateX(5deg)`, translateY: scrollY * 0.05 }}
              >
                 <div className="relative w-full aspect-[4/5] rounded-[2rem] overflow-hidden group">
                   <img src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Premium setup" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
@@ -163,12 +192,14 @@ const Home = () => {
                     </div>
                   </div>
                 </div>
-             </div>
+             </motion.div>
 
-             {/* Backdrop Floating Elements positioned strictly inside bounds */}
-             <div 
+             {/* Backdrop Floating Element 1 - strictly inside bounds */}
+             <motion.div 
+               animate={{ y: [0, -10, 0] }}
+               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
                className="absolute top-[8%] left-[0%] bg-background/80 backdrop-blur-xl border border-border/50 p-4 rounded-3xl shadow-2xl flex items-center gap-4 z-30"
-               style={{ transform: `translateY(${scrollY * -0.05}px)` }}
+               style={{ y: scrollY * -0.05 }}
              >
                <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center shrink-0 shadow-inner">
                  <Building2 className="h-7 w-7 text-white" />
@@ -177,11 +208,14 @@ const Home = () => {
                  <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Total Properties</p>
                  <p className="text-2xl font-black">{liveStats?.total || "500+"}</p>
                </div>
-             </div>
+             </motion.div>
 
-             <div 
+             {/* Backdrop Floating Element 2 - strictly inside bounds */}
+             <motion.div 
+               animate={{ y: [0, 10, 0] }}
+               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                className="absolute bottom-[20%] right-[0%] bg-background p-4 rounded-3xl shadow-2xl border flex items-center gap-4 z-30"
-               style={{ transform: `translateY(${scrollY * 0.1}px)` }}
+               style={{ y: scrollY * 0.1 }}
              >
                <div className="flex -space-x-3">
                  <div className="h-12 w-12 rounded-full border-2 border-background bg-blue-100 flex items-center justify-center"><Users className="h-5 w-5 text-blue-600" /></div>
@@ -190,45 +224,68 @@ const Home = () => {
                <div className="pr-4 pl-2">
                  <p className="text-sm font-bold leading-tight">10k+ Happy<br/>Renters</p>
                </div>
-             </div>
-
-          </div>
+             </motion.div>
+          </motion.div>
         </div>
       </section>
 
-      {/* ── 2. Bento Grid Features ───────────────────────────────────────────── */}
-      <section className="relative w-full py-24 bg-muted/30 border-y">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="col-span-1 md:col-span-3 mb-6 text-center">
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4">Why choose us?</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">We've engineered the perfect platform for seamless property hunting.</p>
-          </div>
+      {/* ── 2. Bento Grid Features (Scroll Animated) ───────────────────────────── */}
+      <section className="relative w-full py-24 bg-muted/30 border-y overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
           
-          {FEATURES.map((feature, i) => (
-             <div key={i} className={`p-8 md:p-10 rounded-[2rem] bg-card border shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col gap-6 group`}>
-                <div className={`h-16 w-16 rounded-2xl border flex items-center justify-center ${feature.bg} group-hover:scale-110 transition-transform`}>
-                  <feature.icon className={`h-8 w-8 ${feature.color}`} />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-3">{feature.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed font-medium">{feature.desc}</p>
-                </div>
-             </div>
-          ))}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="mb-12 text-center"
+          >
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4">Why choose us?</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-medium">We've engineered the perfect platform for seamless property hunting.</p>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {FEATURES.map((feature, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                className={`p-8 md:p-10 rounded-[2rem] bg-card border shadow-sm flex flex-col gap-6 group cursor-default`}
+              >
+                  <div className={`h-16 w-16 rounded-2xl border flex items-center justify-center ${feature.bg} group-hover:scale-110 transition-transform duration-300`}>
+                    <feature.icon className={`h-8 w-8 ${feature.color}`} />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed font-medium">{feature.desc}</p>
+                  </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── 3. Listings Section with Filters ─────────────────────────────────── */}
-      <section id="listings" className="scroll-mt-32 w-full max-w-7xl mx-auto px-6 md:px-12 py-24 mb-16">
-        <div className="mb-16 text-center flex flex-col items-center">
-          <Badge className="mb-4 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-0 px-4 py-1.5 text-sm font-bold uppercase tracking-widest hover:bg-emerald-500/20">
+      {/* ── 3. Listings Section with Filters (Scroll Animated) ─────────────────── */}
+      <section id="listings" className="scroll-mt-32 w-full max-w-7xl mx-auto px-6 md:px-12 py-24 mb-16 overflow-hidden">
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-16 text-center flex flex-col items-center"
+        >
+          <Badge className="mb-4 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-0 px-4 py-1.5 text-sm font-bold uppercase tracking-widest">
             {t("nav.home", "Explore Catalog")}
           </Badge>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6">Discover your next home</h2>
+          <h2 className="text-4xl md:text-5xl lg:text-5xl font-black tracking-tight mb-6">Discover your next home</h2>
           <p className="text-muted-foreground text-lg sm:text-xl max-w-2xl font-medium">
             {liveStats ? `Browse ${liveStats.total} handpicked properties across ${liveStats.cities.length || 1} cities.` : "Filter by city, type, and price to find the perfect fit."}
           </p>
-        </div>
+        </motion.div>
 
         {/* The Filter component dynamically maps and renders the listings */}
         <Filter />

@@ -17,6 +17,7 @@ import Cards from "./cards";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchListings } from "../../reducers/listingSlice";
+import { motion } from "framer-motion";
 
 const Filter = () => {
   const { i18n, t } = useTranslation();
@@ -104,9 +105,17 @@ const Filter = () => {
 
   return (
     <div className="flex flex-col gap-10">
-      <Card className="rounded-2xl border-emerald-100/50 dark:border-emerald-900/30 shadow-lg shadow-emerald-500/5 backdrop-blur-sm">
-        <CardContent className="p-5 md:p-6 flex flex-col gap-5">
-          <div className="flex items-center justify-between gap-3">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <Card className="rounded-[2rem] border-emerald-100/50 dark:border-white/10 shadow-2xl shadow-emerald-500/10 backdrop-blur-xl bg-background/80 overflow-hidden">
+          <CardContent className="p-6 md:p-8 flex flex-col gap-6 relative">
+            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-emerald-500/5 blur-[80px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/2" />
+            
+            <div className="flex items-center justify-between gap-3 relative z-10">
             <div className="flex items-center gap-3">
               <div className="h-10 w-10 rounded-xl bg-emerald-600/10 flex items-center justify-center">
                 <HomeIcon className="h-5 w-5 text-emerald-600" />
@@ -239,6 +248,7 @@ const Filter = () => {
           </div>
         </CardContent>
       </Card>
+      </motion.div>
 
       <div className="flex items-center justify-between">
         <div>
@@ -264,11 +274,29 @@ const Filter = () => {
         </div>
       ) : (
         <>
-          <div className="grid gap-6 md:grid-cols-3 animate-stagger">
+          <motion.div 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true, margin: "-100px" }}
+            variants={{
+              visible: { transition: { staggerChildren: 0.1 } },
+              hidden: {}
+            }}
+            className="grid gap-6 md:grid-cols-3"
+          >
             {pageData.map((e, i) => (
-              <Cards key={e.id} e={e} index={i} />
+              <motion.div
+                key={e.id}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+                }}
+                whileHover={{ y: -8, transition: { duration: 0.2 } }}
+              >
+                <Cards e={e} index={i} />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {totalPages > 1 && (
             <div className="flex justify-center gap-2 pt-6 flex-wrap items-center">
