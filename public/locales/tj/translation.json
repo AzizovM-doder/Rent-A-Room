@@ -28,20 +28,23 @@
       "button": "Иловаи эълон"
     }
   },
-
   "common": {
     "rooms": "ҳуҷра",
     "night": "шаб",
-    "explore": "ДИДАН"
+    "explore": "ДИДАН",
+    "room": "room"
   },
-
   "favorites": {
     "title": "Дӯстдоштаҳо",
     "emptyTitle": "Ҳоло холист",
     "emptyDesc": "Хонаҳои писандидаи худро нигоҳ доред ва онҳо дар ин ҷо пайдо мешаванд.",
-    "browseBtn": "Дидани хонаҳо"
+    "browseBtn": "Дидани хонаҳо",
+    "removedToast": "Removed from saved",
+    "emptySubtitle": "Start saving homes you like to see them here",
+    "count": "You have {{count}} saved properties waiting for you",
+    "night": "/ night",
+    "defaultListingName": "Beautiful Listing"
   },
-
   "info": {
     "notFound": "Ёфт нашуд",
     "notFoundDesc": "Ин хона вуҷуд надорад ё ҳазф шудааст.",
@@ -53,9 +56,52 @@
     "messageOwner": "Паём ба соҳиб",
     "call": "Занг задан",
     "save": "Нигоҳ доштан",
-    "saved": "Нигоҳ дошта шуд"
+    "saved": "Нигоҳ дошта шуд",
+    "removedToast": "Removed from saved",
+    "savedToast": "Saved to favorites!",
+    "shareText": "Check out this incredible listing on Rent.A.Room",
+    "copiedToast": "Link copied to clipboard!",
+    "returnDiscover": "Return to Discover",
+    "share": "Share",
+    "reviews": "reviews",
+    "superhost": "Superhost",
+    "showMap": "Show Map",
+    "entire": "Entire",
+    "home": "home",
+    "hostedBy": "hosted by",
+    "beds": "beds",
+    "bath": "bath",
+    "fastWifi": "Fast Wifi",
+    "perks": {
+      "entirePlace": {
+        "title": "Entire place",
+        "desc": "You'll have the space to yourself."
+      },
+      "clean": {
+        "title": "Enhanced Clean",
+        "desc": "This Host committed to a 5-step enhanced cleaning process."
+      },
+      "cancel": {
+        "title": "Free cancellation for 48 hours",
+        "desc": "Lock in this price and cancel without penalty."
+      }
+    },
+    "aboutTitle": "About this space",
+    "noDesc": "The host hasn't provided a detailed description yet.",
+    "night": "night",
+    "checkIn": "Check-in",
+    "addDate": "Add date",
+    "checkout": "Checkout",
+    "guests": "Guests",
+    "guest": "guest",
+    "reserveBtn": "Reserve Space",
+    "noChargeMsg": "You won't be charged yet",
+    "nights": "nights",
+    "cleaningFee": "Cleaning fee",
+    "serviceFee": "Service fee",
+    "totalBeforeTaxes": "Total before taxes",
+    "report": "Report this listing"
   },
-
   "message": {
     "notFound": "Ёфт нашуд",
     "notFoundDesc": "Ин эълон вуҷуд надорад.",
@@ -73,7 +119,20 @@
     "yourMessage": "Паёми шумо",
     "daysPlaceholder": "Чанд рӯз мондан мехоҳед...",
     "sendBtn": "Фиристодани паём",
-    "respect": "Бо фиристодани паём шумо ба муоширати боэҳтиром розӣ мешавед."
+    "respect": "Бо фиристодани паём шумо ба муоширати боэҳтиром розӣ мешавед.",
+    "fillFields": "Please fill all fields",
+    "sendFailed": "Failed to send",
+    "sent": "Message sent!",
+    "sentDesc": "The property owner will get back to you soon.",
+    "for": "for",
+    "night": "night",
+    "viewListing": "View listing",
+    "browseMore": "Browse more",
+    "rooms": "rooms",
+    "estimate": "Estimated total",
+    "howManyNights": "How many nights? (min 1)",
+    "totalEstimate": "Total estimate",
+    "sending": "Sending..."
   },
   "nav": {
     "home": "Асосӣ",
@@ -141,10 +200,44 @@
     },
     "mission": {
       "title": "Рисолати мо",
-      "text": "Пайваст кардани одамон бо ҷойҳои бароҳат барои зиндагӣ ва истироҳат, ҳамзамон кӯмак ба соҳибони амвол барои расидан ба аудиторияи дуруст бо осонӣ, эътимод ва боварии дарозмуддат."
+      "text": "Пайваст кардани одамон бо ҷойҳои бароҳат барои зиндагӣ ва истироҳат, ҳамзамон кӯмак ба соҳибони амвол барои расидан ба аудиторияи дуруст бо осонӣ, эътимод ва боварии дарозмуддат.",
+      "label": "Our Mission"
+    },
+    "timeline": {
+      "concept": {
+        "title": "The Concept",
+        "desc": "Started as a small project to help people find reliable, affordable rooms across Tajikistan."
+      },
+      "beta": {
+        "title": "Beta Launch",
+        "desc": "Rolled out the first functional version featuring live listings, authentication, and secure messaging."
+      },
+      "evolution": {
+        "title": "The Evolution",
+        "desc": "Complete platform overhaul: JWT architecture, premium Framer Motion UX, and elite property scaling."
+      },
+      "global": {
+        "title": "Global Vision",
+        "desc": "Expanding outside regional borders with multi-language integrations and robust scaling features."
+      }
+    },
+    "ourStory": "Our Story",
+    "stats": {
+      "total": "Total Properties",
+      "cities": "Active Cities",
+      "types": "Property Types",
+      "pricing": "Pricing Range"
+    },
+    "advantage": {
+      "title": "The Rent-A-Room Advantage",
+      "desc": "We built this platform from the ground up to solve the most frustrating parts of modern renting."
+    },
+    "journey": {
+      "title": "Our evolutionary journey.",
+      "desc": "From a local hackathon concept to a premium ecosystem."
     }
   },
-    "footer": {
+  "footer": {
     "brand": {
       "subtitle": "Дома • Дачи • Квартиры",
       "desc": "Простая платформа для аренды домов, дач и квартир по всему Таджикистану. Чистые объявления. Без стресса."
@@ -183,6 +276,344 @@
       "privacy": "Конфиденциальность",
       "terms": "Условия",
       "support": "Поддержка"
+    }
+  },
+  "faq": {
+    "q1": "How do I book a property?",
+    "a1": "Simply browse our listings, select your desired dates, and click 'Contact to Book'. The host will receive your request and respond shortly to confirm your stay.",
+    "q2": "Are the hosts verified?",
+    "a2": "Yes, every host on Rent-A-Room undergoes a strict verification process including identity checks and property assessments to ensure your safety and comfort.",
+    "q3": "What payment methods are supported?",
+    "a3": "Currently, payments are handled directly between you and the host via our secure messaging system or upon arrival, depending on the host's policy.",
+    "q4": "Can I cancel a booking?",
+    "a4": "Cancellation policies vary by host. You can view the specific cancellation terms on each property's detail page before making a booking.",
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know about renting with us."
+  },
+  "categories": {
+    "flats": {
+      "title": "Luxury Flats",
+      "desc": "City-center apartments with premium amenities.",
+      "count": "320+ Properties"
+    },
+    "houses": {
+      "title": "Private Houses",
+      "desc": "Spacious suburban homes perfect for families.",
+      "count": "150+ Properties"
+    },
+    "dachas": {
+      "title": "Country Dachas",
+      "desc": "Escape the city for a quiet countryside retreat.",
+      "count": "80+ Properties"
+    },
+    "badge": "Curated Collections",
+    "title": "Property Types",
+    "viewAll": "View All Types",
+    "explore": "Explore"
+  },
+  "hero": {
+    "premiumLive": "Premium Properties Available",
+    "welcome": "Welcome to the future of housing",
+    "findYour": "Find your",
+    "perfectSpace": "perfect space.",
+    "desc": "Discover curated luxury apartments, cozy studios, and sprawling villas worldwide. Renting has never looked this good.",
+    "startExploring": "Start Exploring",
+    "becomeHost": "Become a Host",
+    "trusted": "Highly trusted community",
+    "cardBadge": "Featured Villa",
+    "cardTitle": "Emerald Estate",
+    "cardLocation": "Beverly Hills, CA",
+    "price": "Price",
+    "mo": "mo",
+    "totalProperties": "Total Properties",
+    "happyRenters": "10k+ Happy Renters"
+  },
+  "hostCta": {
+    "badge": "Earn With Us",
+    "title": "Put your unused space to work.",
+    "desc": "Join thousands of hosts earning passive income daily. We handle the marketing, payments, and security. You bring the keys.",
+    "button": "Become a Host",
+    "estimatedEarnings": "Estimated Earnings",
+    "mo": "mo"
+  },
+  "howItWorks": {
+    "step1": {
+      "title": "Discover",
+      "desc": "Use our smart filters to find listings that perfectly match your preferences and budget in seconds."
+    },
+    "step2": {
+      "title": "Book Securely",
+      "desc": "Connect directly with verified hosts through our secure messaging and payment systems."
+    },
+    "step3": {
+      "title": "Move In",
+      "desc": "Get your keys and enjoy your new premium space with 24/7 dedicated support."
+    },
+    "badge": "Simple Process",
+    "title": "How it works",
+    "subtitle": "We've engineered the perfect platform for seamless property hunting without the traditional headaches."
+  },
+  "testimonials": {
+    "review1": "The easiest way I've ever found to rent a place. The interface is stunning and the hosts are verified. Felt completely safe.",
+    "review2": "Booked a luxury flat for my business trip. The photos matched reality perfectly. Communication was seamless.",
+    "review3": "I was skeptical at first, but the booking process is flawless. Found an amazing dacha for the weekend in minutes.",
+    "badge": "Real Experiences",
+    "title": "Don't just take our word for it.",
+    "subtitle": "Thousands of renters trust us to find their next home. Here's what they have to say."
+  },
+  "admin": {
+    "deleteConfirm": "Are you sure you want to delete this booking request forever?",
+    "accessDenied": "Access Denied",
+    "accessDeniedDesc": "This area is highly restricted. Only platform administrators may enter.",
+    "tabs": {
+      "properties": "Properties",
+      "bookings": "Bookings",
+      "accounts": "Accounts"
+    },
+    "heroTitle": "Admin Command Center",
+    "heroDesc": "Platform management & analytics for Rent-A-Room",
+    "stats": {
+      "activeProps": "Active Properties",
+      "totalBookings": "Total Bookings",
+      "registeredUsers": "Registered Users"
+    },
+    "refresh": "Refresh Data",
+    "newProperty": "New Property",
+    "dismiss": "Dismiss",
+    "emptyProps": {
+      "title": "No properties yet",
+      "desc": "Your property catalog is empty. Click the button above to add your very first listing to the platform.",
+      "btn": "Create First Property"
+    },
+    "untitled": "Untitled Property",
+    "unknown": "Unknown",
+    "roomsLabel": "Rooms",
+    "edit": "Edit",
+    "deleting": "Deleting...",
+    "delete": "Delete",
+    "bookingsTitle": "Booking Requests",
+    "emptyBookings": {
+      "title": "No requests yet",
+      "desc": "When users book a property, their requests will appear here for you to approve or reject."
+    },
+    "targetProp": "Target Property",
+    "listingHash": "Listing #",
+    "bookingFor": "Booking for",
+    "days": "days",
+    "receivedOn": "Received",
+    "accept": "Accept",
+    "reject": "Reject",
+    "setPending": "Set Pending",
+    "usersTitle": "Registered Users",
+    "adminsActive": "Admins Active",
+    "emptyUsers": "No users found",
+    "adminBadge": "ADMIN",
+    "youBadge": "YOU",
+    "joinedDate": "Joined Date",
+    "revoke": "Revoke",
+    "makeAdmin": "Make Admin",
+    "form": {
+      "addTitle": "Add New Property",
+      "editTitle": "Edit Property",
+      "selectCover": "Select property cover",
+      "price": "Price per night ($)",
+      "rooms": "Total Rooms",
+      "titleLabel": "Title",
+      "locationLabel": "Location",
+      "typeLabel": "Property Type",
+      "descLabel": "Description",
+      "descPlaceholder": "Share details that highlight the property's best features...",
+      "cancel": "Cancel Edit",
+      "saving": "Saving Property...",
+      "save": "Save Property to Platform"
+    }
+  },
+  "auth": {
+    "fillAll": "Please fill in all fields",
+    "invalidCreds": "Invalid credentials",
+    "backHome": "Back to Home",
+    "loginTitle": "Welcome back_",
+    "loginDesc": "Please enter your details to sign in.",
+    "email": "Email Address",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "forgot": "Forgot password?",
+    "authenticating": "Authenticating...",
+    "signInBtn": "Sign in to account",
+    "noAccount": "Don't have an account yet?",
+    "createOne": "Create one now",
+    "secure": "Secure",
+    "encryption": "Bank-grade encryption",
+    "premium": "Premium",
+    "curated": "Curated experiences",
+    "promoTitleStart": "Unlock the door to your",
+    "promoTitleEnd": "new lifestyle.",
+    "promoDesc": "Join thousands of verified renters discovering incredible spaces around the globe.",
+    "welcomeBack": "Welcome back, ${result.user.name}!",
+    "minPassLength": "Password must be at least 6 characters",
+    "signupFailed": "Registration failed",
+    "joinFast": "Join Fast",
+    "joinTime": "Less than 2 minutes",
+    "endless": "Endless",
+    "catalog": "Vast property catalog",
+    "promoTitleStart2": "Start your journey with",
+    "promoTitleEnd2": "confidence.",
+    "promoDesc2": "Create an account to save your favorite listings and contact hosts instantly.",
+    "signupTitle": "Create Account_",
+    "signupDesc": "Join us and find your dream space.",
+    "fullName": "Full Name",
+    "phone": "Phone Number",
+    "choosePass": "Choose a Password",
+    "minPass": "Min. 6 characters",
+    "creating": "Creating...",
+    "createBtn": "Create account",
+    "hasAccount": "Already have an account?",
+    "signInHere": "Sign in here",
+    "signupSuccess": "Welcome to Rent-A-Room, ${result.user.name}! 🎉"
+  },
+  "contact": {
+    "errName": "Please provide your name.",
+    "errPhone": "Please provide your phone number.",
+    "errMessage": "Please include a message.",
+    "errSend": "Failed to send the message. Please try again or use direct email.",
+    "clientServices": "Client Services",
+    "title": "Let's Connect.",
+    "subtitle": "Whether you're looking to host an incredible space or find your perfect stay, our dedicated support team is available around the clock.",
+    "successTitle": "Transmission Successful",
+    "successDesc": "Our support concierges have received your message and will be in touch shortly.",
+    "sendAnother": "Send Additional Inquiry",
+    "formTitle": "Direct Message",
+    "formSubtitle": "We guarantee a response within 24 hours.",
+    "fullName": "Full Legal Name",
+    "namePlaceholder": "e.g. Eleanor Shellstrop",
+    "phone": "Primary Phone",
+    "inquiry": "Your Inquiry",
+    "msgPlaceholder": "Please explain how we can assist you today. The more details provided, the faster we can resolve your request...",
+    "sending": "Transmitting...",
+    "submitBtn": "Submit Inquiry",
+    "hqTitle": "Headquarters",
+    "hqSubtitle": "Additional communication channels.",
+    "vipSupport": "VIP Support Desk",
+    "location": "Physical Location",
+    "city": "Dushanbe, Tajikistan",
+    "globalHQ": "GLOBAL HQ",
+    "academy": "Softclub Academy, Dushanbe"
+  },
+  "error": {
+    "notFound": "Page not found",
+    "unauthorized": "Unauthorized access",
+    "generic": "Something went wrong",
+    "defaultMsg": "We couldn't load this page. Try again or go back home.",
+    "code": "Error Code",
+    "returnHome": "Return to Home",
+    "reload": "Reload",
+    "goBack": "Go back",
+    "techDetails": "Technical Details"
+  },
+  "post": {
+    "errors": {
+      "image": "Please provide a cover image for your listing.",
+      "title": "A title is required.",
+      "location": "Please select a location.",
+      "type": "Please select a property type.",
+      "rooms": "Please specify the number of rooms.",
+      "price": "Please set a nightly price."
+    },
+    "success": {
+      "title": "Listing Alive!",
+      "desc": "Your spectacular space is now live for thousands of renters to discover.",
+      "btn": "Post another listing"
+    },
+    "hero": {
+      "title": "Post your space.",
+      "desc": "Reach an elite audience and start earning from your incredible properties today.",
+      "networkStatus": "Network Status",
+      "thousands": "Thousands",
+      "activeWait": "of active renters waiting"
+    },
+    "form": {
+      "detailsTitle": "Property Details",
+      "detailsDesc": "Please provide accurate information to attract the best guests.",
+      "media": "Media",
+      "uploadBtn": "Click to upload your best photo",
+      "uploadHelp": "High res JPEG or PNG (Max 10MB)",
+      "titles": "Listing Titles",
+      "titleIn": "Title in",
+      "coreInfo": "Core Information",
+      "price": "Price per night ($)",
+      "rooms": "Number of rooms",
+      "location": "Location",
+      "type": "Property Type",
+      "choose": "Choose",
+      "descTitle": "Description",
+      "descPlaceholder": "Share what makes this place special. Mention cool amenities, the neighborhood, and anything guests should know..."
+    },
+    "preview": {
+      "title": "Live Preview",
+      "noPrice": "No price",
+      "awaiting": "Awaiting Image",
+      "stunningMsg": "Your Stunning Property",
+      "city": "City",
+      "rooms": "rooms",
+      "roomsEmpty": "Rooms",
+      "type": "Type",
+      "noDesc": "No Description Yet",
+      "host": "Host"
+    },
+    "publishing": "Publishing Space...",
+    "publishBtn": "Publish To Production",
+    "clearForm": "Clear Form"
+  },
+  "profile": {
+    "updateSuccess": "Profile updated seamlessly",
+    "updateFail": "Failed to update",
+    "badges": {
+      "admin": "Administrator",
+      "verified": "Verified Profile"
+    },
+    "joined": "Joined",
+    "recently": "recently",
+    "signOut": "Sign Out",
+    "registeredEmail": "Registered Email",
+    "contactPhone": "Contact Phone",
+    "addPhone": "Please add a phone number",
+    "tabs": {
+      "dashboard": "Dashboard",
+      "settings": "Account Settings"
+    },
+    "stats": {
+      "saved": "Saved Listings",
+      "active": "Active Posts",
+      "reviews": "Total Reviews",
+      "trust": "Trust Score"
+    },
+    "actions": {
+      "title": "Actions",
+      "manageFavs": "Manage Favorites",
+      "manageFavsDesc": "View and edit your saved properties",
+      "createListing": "Create Listing",
+      "createListingDesc": "Start earning from your space",
+      "adminDash": "Admin Dashboard",
+      "adminDashDesc": "Manage platform resources"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "notif1Title": "Profile verified successfully",
+      "notif1Desc": "Thanks for verifying your account. You can now rent and host properties on Rent-A-Room.",
+      "notif1Time": "2 Days ago",
+      "notif2Title": "Welcome to the community!",
+      "notif2Desc": "We are glad to have you here. Complete your profile to get the most out of the platform.",
+      "notif2Time": "1 Week ago"
+    },
+    "settings": {
+      "title": "Profile Settings",
+      "desc": "Update your personal information and how we can reach you.",
+      "fullName": "Full Name",
+      "phone": "Phone Number",
+      "emailLocked": "Email Address (Locked)",
+      "cancel": "Cancel",
+      "saving": "Saving Changes...",
+      "save": "Save Changes"
     }
   }
 }

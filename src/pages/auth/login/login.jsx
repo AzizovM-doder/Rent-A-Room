@@ -6,8 +6,10 @@ import { Eye, EyeOff, LogIn, Mail, Lock, ArrowLeft, ShieldCheck, Sparkles } from
 import toast from "react-hot-toast";
 import { authApi, saveAuth } from "../../../api/listingsAPI";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
+  const { t } = useTranslation();
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -16,16 +18,16 @@ const Login = () => {
     e.preventDefault();
     const email = e.target.email.value.trim();
     const password = e.target.password.value;
-    if (!email || !password) return toast.error("Please fill in all fields");
+    if (!email || !password) return toast.error(t("auth.fillAll", "Please fill in all fields"));
     
     setLoading(true);
     try {
       const result = await authApi.login({ email, password });
       saveAuth(result);
-      toast.success(`Welcome back, ${result.user.name}!`);
+      toast.success(t("auth.welcomeBack", { name: result.user.name, defaultValue: `Welcome back, ${result.user.name}!` }));
       navigate("/");
     } catch (err) {
-      toast.error(err.message || "Invalid credentials");
+      toast.error(err.message || t("auth.invalidCreds", "Invalid credentials"));
     } finally {
       setLoading(false);
     }
@@ -53,7 +55,7 @@ const Login = () => {
             <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-colors">
               <ArrowLeft className="h-4 w-4" />
             </div>
-            Back to Home
+            {t("auth.backHome", "Back to Home")}
           </Link>
         </motion.div>
 
@@ -68,21 +70,21 @@ const Login = () => {
             <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-emerald-500/10 mb-6 ring-1 ring-emerald-500/20 shadow-inner">
                <LogIn className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
             </div>
-            <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2">Welcome back_</h1>
-            <p className="text-muted-foreground text-lg font-medium">Please enter your details to sign in.</p>
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2">{t("auth.loginTitle", "Welcome back_")}</h1>
+            <p className="text-muted-foreground text-lg font-medium">{t("auth.loginDesc", "Please enter your details to sign in.")}</p>
           </motion.div>
 
           {/* Form */}
           <motion.form variants={fadeUp} onSubmit={handleSubmit} className="flex flex-col gap-6">
             
             <div className="flex flex-col gap-2">
-              <label className="text-sm font-bold text-foreground">Email Address</label>
+              <label className="text-sm font-bold text-foreground">{t("auth.email", "Email Address")}</label>
               <div className="relative group">
                 <Mail className="h-5 w-5 absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-emerald-600 transition-colors" />
                 <Input 
                   type="email" 
                   name="email" 
-                  placeholder="you@example.com" 
+                  placeholder={t("auth.emailPlaceholder", "you@example.com")} 
                   autoComplete="email" 
                   required 
                   className="pl-12 h-14 rounded-2xl bg-muted/40 border-transparent hover:bg-muted/60 focus-visible:bg-transparent focus-visible:border-emerald-600 focus-visible:ring-emerald-600/20 text-base shadow-sm transition-all" 
@@ -92,8 +94,8 @@ const Login = () => {
 
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
-                <label className="text-sm font-bold text-foreground">Password</label>
-                <Link to="#" className="text-sm text-emerald-600 hover:text-emerald-700 font-bold hover:underline transition-colors">Forgot password?</Link>
+                <label className="text-sm font-bold text-foreground">{t("auth.password", "Password")}</label>
+                <Link to="#" className="text-sm text-emerald-600 hover:text-emerald-700 font-bold hover:underline transition-colors">{t("auth.forgot", "Forgot password?")}</Link>
               </div>
               <div className="relative group">
                 <Lock className="h-5 w-5 absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-emerald-600 transition-colors" />
@@ -115,14 +117,14 @@ const Login = () => {
               disabled={loading} 
               className="w-full h-14 mt-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 hover:-translate-y-0.5 text-base font-bold shadow-[0_0_20px_-5px_rgba(5,150,105,0.4)] hover:shadow-[0_0_25px_-5px_rgba(5,150,105,0.6)] transition-all duration-300"
             >
-              {loading ? "Authenticating..." : "Sign in to account"}
+              {loading ? t("auth.authenticating", "Authenticating...") : t("auth.signInBtn", "Sign in to account")}
             </Button>
             
           </motion.form>
           
           <motion.div variants={fadeUp} className="mt-10 text-center text-sm font-medium text-muted-foreground">
-            Don't have an account yet?{" "}
-            <Link to="/signUp" className="text-emerald-600 hover:text-emerald-700 font-bold hover:underline ml-1 transition-colors">Create one now</Link>
+            {t("auth.noAccount", "Don't have an account yet?")}{" "}
+            <Link to="/signUp" className="text-emerald-600 hover:text-emerald-700 font-bold hover:underline ml-1 transition-colors">{t("auth.createOne", "Create one now")}</Link>
           </motion.div>
         </motion.div>
       </div>
@@ -157,21 +159,21 @@ const Login = () => {
           <div className="flex gap-4 mb-8">
             <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/10 shadow-2xl">
                <ShieldCheck className="h-8 w-8 text-emerald-400 mb-2" />
-               <h3 className="text-white font-bold leading-none mb-1">Secure</h3>
-               <p className="text-white/60 text-xs">Bank-grade encryption</p>
+               <h3 className="text-white font-bold leading-none mb-1">{t("auth.secure", "Secure")}</h3>
+               <p className="text-white/60 text-xs">{t("auth.encryption", "Bank-grade encryption")}</p>
             </div>
             <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/10 shadow-2xl">
                <Sparkles className="h-8 w-8 text-amber-400 mb-2" />
-               <h3 className="text-white font-bold leading-none mb-1">Premium</h3>
-               <p className="text-white/60 text-xs">Curated experiences</p>
+               <h3 className="text-white font-bold leading-none mb-1">{t("auth.premium", "Premium")}</h3>
+               <p className="text-white/60 text-xs">{t("auth.curated", "Curated experiences")}</p>
             </div>
           </div>
           
           <h2 className="text-4xl xl:text-5xl text-white font-black leading-tight mb-4 tracking-tight">
-            Unlock the door to your <span className="text-emerald-400">new lifestyle.</span>
+            {t("auth.promoTitleStart", "Unlock the door to your")} <span className="text-emerald-400">{t("auth.promoTitleEnd", "new lifestyle.")}</span>
           </h2>
           <p className="text-lg xl:text-xl text-white/70 font-medium">
-            Join thousands of verified renters discovering incredible spaces around the globe.
+            {t("auth.promoDesc", "Join thousands of verified renters discovering incredible spaces around the globe.")}
           </p>
         </motion.div>
       </div>

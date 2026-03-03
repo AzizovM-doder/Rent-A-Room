@@ -2,34 +2,36 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Home, Building2, Tent, ArrowRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const FeaturedCategories = () => {
+  const { t } = useTranslation();
   const categories = [
     {
-      title: "Luxury Flats",
-      desc: "City-center apartments with premium amenities.",
+      title: t("categories.flats.title", "Luxury Flats"),
+      desc: t("categories.flats.desc", "City-center apartments with premium amenities."),
       icon: Building2,
-      count: "320+ Properties",
+      count: t("categories.flats.count", "320+ Properties"),
       image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       link: "/search?type=apartment",
       color: "text-emerald-500",
       bg: "bg-emerald-500/10"
     },
     {
-      title: "Private Houses",
-      desc: "Spacious suburban homes perfect for families.",
+      title: t("categories.houses.title", "Private Houses"),
+      desc: t("categories.houses.desc", "Spacious suburban homes perfect for families."),
       icon: Home,
-      count: "150+ Properties",
+      count: t("categories.houses.count", "150+ Properties"),
       image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       link: "/search?type=house",
       color: "text-blue-500",
       bg: "bg-blue-500/10"
     },
     {
-      title: "Country Dachas",
-      desc: "Escape the city for a quiet countryside retreat.",
+      title: t("categories.dachas.title", "Country Dachas"),
+      desc: t("categories.dachas.desc", "Escape the city for a quiet countryside retreat."),
       icon: Tent,
-      count: "80+ Properties",
+      count: t("categories.dachas.count", "80+ Properties"),
       image: "https://images.unsplash.com/photo-1587061949409-02df41d5e562?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       link: "/search?type=dacha",
       color: "text-amber-500",
@@ -53,12 +55,12 @@ const FeaturedCategories = () => {
           className="w-full flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16"
         >
           <div className="flex flex-col max-w-2xl">
-            <span className="text-emerald-600 dark:text-emerald-400 font-bold tracking-widest uppercase text-sm mb-3">Curated Collections</span>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">Property Types</h2>
+            <span className="text-emerald-600 dark:text-emerald-400 font-bold tracking-widest uppercase text-sm mb-3">{t("categories.badge", "Curated Collections")}</span>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">{t("categories.title", "Property Types")}</h2>
           </div>
           <Link to="/#listings">
             <button className="flex items-center gap-2 group text-sm font-bold hover:text-emerald-600 transition-colors bg-white/50 dark:bg-black/20 backdrop-blur-md px-5 py-2.5 rounded-full border shadow-sm">
-              View All Types <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              {t("categories.viewAll", "View All Types")} <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </Link>
         </motion.div>
@@ -92,7 +94,7 @@ const FeaturedCategories = () => {
                   </p>
                   
                   <div className="mt-6 flex items-center gap-2 text-white font-bold opacity-0 -translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100">
-                    Explore <ArrowRight className="h-4 w-4" />
+                    {t("categories.explore", "Explore")} <ArrowRight className="h-4 w-4" />
                   </div>
                 </div>
               </div>

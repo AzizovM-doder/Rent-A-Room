@@ -12,6 +12,7 @@ import { Plus, Pencil, Trash2, RefreshCw, MessageSquare, Home as HomeIcon, Users
 import { messagesApi, usersApi } from "../../api/listingsAPI";
 import { getUserToken } from "../../utils/url";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const STATUS_CONFIG = {
   PENDING:  { label: "Pending",  icon: Clock,       cls: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400 border-amber-200 dark:border-amber-900", dot: "bg-amber-500" },
@@ -22,6 +23,7 @@ const STATUS_CONFIG = {
 const empty = { id: "", nameEn: "", nameRu: "", nameTj: "", locationEn: "", locationRu: "", locationTj: "", typeEn: "", typeRu: "", typeTj: "", rooms: "", price: "", about: "" };
 
 const AdminListings = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { items = [], loading, saving, deletingId, error } = useSelector((s) => s.listings || {});
 
@@ -55,7 +57,7 @@ const AdminListings = () => {
 
   const deleteMessage = async (id) => {
     try {
-      if (!confirm("Are you sure you want to delete this booking request forever?")) return;
+      if (!confirm(t("admin.deleteConfirm", "Are you sure you want to delete this booking request forever?"))) return;
       await messagesApi.remove(id);
       setMessages(ms => ms.filter(m => m.id !== id));
     } catch {}
@@ -123,8 +125,8 @@ const AdminListings = () => {
                 <Lock className="h-10 w-10 text-rose-500" />
               </div>
               <div>
-                <p className="text-3xl font-black tracking-tight mt-2 mb-2">Access Denied</p>
-                <p className="text-base text-muted-foreground font-medium">This area is highly restricted. Only platform administrators may enter.</p>
+                <p className="text-3xl font-black tracking-tight mt-2 mb-2">{t("admin.accessDenied", "Access Denied")}</p>
+                <p className="text-base text-muted-foreground font-medium">{t("admin.accessDeniedDesc", "This area is highly restricted. Only platform administrators may enter.")}</p>
               </div>
             </CardContent>
           </Card>
@@ -134,9 +136,9 @@ const AdminListings = () => {
   }
 
   const TABS = [
-    { id: "listings", label: "Properties", icon: HomeIcon, count: items.length },
-    { id: "messages", label: "Bookings", icon: MessageSquare, count: messages.length },
-    { id: "users", label: "Accounts", icon: Users, count: users.length },
+    { id: "listings", label: t("admin.tabs.properties", "Properties"), icon: HomeIcon, count: items.length },
+    { id: "messages", label: t("admin.tabs.bookings", "Bookings"), icon: MessageSquare, count: messages.length },
+    { id: "users", label: t("admin.tabs.accounts", "Accounts"), icon: Users, count: users.length },
   ];
 
   return (
@@ -154,16 +156,16 @@ const AdminListings = () => {
               <KeyRound className="h-10 w-10 text-amber-400 group-hover:scale-110 transition-transform duration-500" />
             </div>
             <div className="flex flex-col gap-2 pt-2">
-              <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-none text-white">Admin Command Center</h1>
-              <p className="text-amber-100/70 font-medium text-lg">Platform management & analytics for Rent-A-Room</p>
+              <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-none text-white">{t("admin.heroTitle", "Admin Command Center")}</h1>
+              <p className="text-amber-100/70 font-medium text-lg">{t("admin.heroDesc", "Platform management & analytics for Rent-A-Room")}</p>
             </div>
           </div>
           
           <div className="relative flex gap-4 overflow-x-auto pb-4 scrollbar-none flex-nowrap w-full lg:w-auto z-10 lg:self-end">
             {[
-              { label: "Active Properties", icon: HomeIcon, count: items.length },
-              { label: "Total Bookings", icon: MessageSquare, count: messages.length, loading: msgsLoading && tab !== 'messages' },
-              { label: "Registered Users", icon: Users, count: users.length, loading: usersLoading && tab !== 'users' },
+              { label: t("admin.stats.activeProps", "Active Properties"), icon: HomeIcon, count: items.length },
+              { label: t("admin.stats.totalBookings", "Total Bookings"), icon: MessageSquare, count: messages.length, loading: msgsLoading && tab !== 'messages' },
+              { label: t("admin.stats.registeredUsers", "Registered Users"), icon: Users, count: users.length, loading: usersLoading && tab !== 'users' },
             ].map((stat, i) => (
               <div key={i} className="flex flex-col bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 min-w-[150px] transition-all hover:bg-white/10 hover:-translate-y-1 shadow-lg shrink-0">
                 <div className="flex items-center gap-2 text-amber-400 mb-2">
@@ -202,11 +204,11 @@ const AdminListings = () => {
           
           <div className="flex gap-3 shrink-0">
             <Button variant="outline" onClick={() => { dispatch(fetchListings()); if (tab === "messages") loadMessages(); if (tab === "users") loadUsers(); }} className="gap-2 rounded-xl h-12 px-6 border-border/50 shadow-sm hover:bg-muted font-bold transition-all">
-              <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} /> Refresh Data
+              <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} /> {t("admin.refresh", "Refresh Data")}
             </Button>
             {tab === "listings" && (
               <Button onClick={openCreate} className="bg-amber-500 hover:bg-amber-600 text-white gap-2 rounded-xl h-12 px-6 shadow-lg shadow-amber-500/20 font-bold transition-all hover:-translate-y-0.5 border-0">
-                <Plus className="h-5 w-5" /> New Property
+                <Plus className="h-5 w-5" /> {t("admin.newProperty", "New Property")}
               </Button>
             )}
           </div>
@@ -217,7 +219,7 @@ const AdminListings = () => {
             <Card className="rounded-2xl border-rose-200 bg-rose-50 dark:bg-rose-950/20 shadow-none">
               <CardContent className="p-4 flex justify-between items-center gap-3">
                 <p className="text-sm text-rose-600 font-bold">{error}</p>
-                <Button variant="ghost" size="sm" onClick={() => dispatch(clearError())} className="text-rose-700 hover:bg-rose-100 focus:ring-0">Dismiss</Button>
+                <Button variant="ghost" size="sm" onClick={() => dispatch(clearError())} className="text-rose-700 hover:bg-rose-100 focus:ring-0">{t("admin.dismiss", "Dismiss")}</Button>
               </CardContent>
             </Card>
           </motion.div>
@@ -231,7 +233,7 @@ const AdminListings = () => {
             {tab === "listings" && (
               <motion.div key="listings" variants={staggerContainer} initial="hidden" animate="visible" exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.2 }}>
                 {items.length === 0 && !loading ? (
-                  <Card className="rounded-[2.5rem] border-dashed border-2 bg-muted/20 backdrop-blur-sm"><CardContent className="py-32 flex flex-col items-center justify-center text-center"><HomeIcon className="h-16 w-16 text-amber-500 mb-6" /><p className="font-black text-2xl tracking-tight">No properties yet</p><p className="text-base text-muted-foreground font-medium mb-8 max-w-sm mt-2">Your property catalog is empty. Click the button above to add your very first listing to the platform.</p><Button onClick={openCreate} className="bg-amber-500 hover:bg-amber-600 rounded-2xl h-14 px-8 font-bold text-lg shadow-xl shadow-amber-500/20 border-0">Create First Property</Button></CardContent></Card>
+                  <Card className="rounded-[2.5rem] border-dashed border-2 bg-muted/20 backdrop-blur-sm"><CardContent className="py-32 flex flex-col items-center justify-center text-center"><HomeIcon className="h-16 w-16 text-amber-500 mb-6" /><p className="font-black text-2xl tracking-tight">{t("admin.emptyProps.title", "No properties yet")}</p><p className="text-base text-muted-foreground font-medium mb-8 max-w-sm mt-2">{t("admin.emptyProps.desc", "Your property catalog is empty. Click the button above to add your very first listing to the platform.")}</p><Button onClick={openCreate} className="bg-amber-500 hover:bg-amber-600 rounded-2xl h-14 px-8 font-bold text-lg shadow-xl shadow-amber-500/20 border-0">{t("admin.emptyProps.btn", "Create First Property")}</Button></CardContent></Card>
                 ) : (
                   <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                     {items.map((x) => (
@@ -249,19 +251,19 @@ const AdminListings = () => {
                           </div>
                           <CardContent className="p-6 flex flex-col gap-5">
                             <div>
-                              <p className="font-black text-xl leading-tight truncate">{x?.name?.en || "Untitled Property"}</p>
+                              <p className="font-black text-xl leading-tight truncate">{x?.name?.en || t("admin.untitled", "Untitled Property")}</p>
                               <div className="flex items-center gap-2 mt-2">
-                                <Badge variant="secondary" className="text-[10px] uppercase font-bold text-muted-foreground bg-muted tracking-wider">{x?.location?.en || "Unknown"}</Badge>
-                                <Badge variant="secondary" className="text-[10px] uppercase font-bold text-muted-foreground bg-muted tracking-wider">{x.rooms} Rooms</Badge>
+                                <Badge variant="secondary" className="text-[10px] uppercase font-bold text-muted-foreground bg-muted tracking-wider">{x?.location?.en || t("admin.unknown", "Unknown")}</Badge>
+                                <Badge variant="secondary" className="text-[10px] uppercase font-bold text-muted-foreground bg-muted tracking-wider">{x.rooms} {t("admin.roomsLabel", "Rooms")}</Badge>
                               </div>
                             </div>
                             
                             <div className="flex gap-3 pt-2">
                               <Button variant="secondary" className="flex-1 gap-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-700 dark:bg-amber-950/30 dark:hover:bg-amber-900/50 dark:text-amber-400 border-0 h-11 font-bold shadow-sm" onClick={() => openEdit(x)}>
-                                <Pencil className="h-4 w-4" /> Edit
+                                <Pencil className="h-4 w-4" /> {t("admin.edit", "Edit")}
                               </Button>
                               <Button variant="ghost" className="flex-1 gap-2 rounded-xl hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/30 text-rose-500 border-0 h-11 font-bold" onClick={() => dispatch(deleteListing(x.id))} disabled={String(deletingId) === String(x.id)}>
-                                {String(deletingId) === String(x.id) ? "Deleting..." : <><Trash2 className="h-4 w-4" /> Delete</>}
+                                {String(deletingId) === String(x.id) ? t("admin.deleting", "Deleting...") : <><Trash2 className="h-4 w-4" /> {t("admin.delete", "Delete")}</>}
                               </Button>
                             </div>
                           </CardContent>
@@ -277,11 +279,11 @@ const AdminListings = () => {
             {tab === "messages" && (
               <motion.div key="messages" variants={staggerContainer} initial="hidden" animate="visible" exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.2 }}>
                 <Card className="rounded-[2.5rem] shadow-2xl border-border/40 bg-card/80 backdrop-blur-xl overflow-hidden">
-                  <div className="p-8 border-b border-border/50"><h2 className="text-2xl font-black">Booking Requests ({messages.length})</h2></div>
+                  <div className="p-8 border-b border-border/50"><h2 className="text-2xl font-black">{t("admin.bookingsTitle", "Booking Requests")} ({messages.length})</h2></div>
                   <div className="p-0">
                     {msgsLoading ? <div className="py-24 flex justify-center"><RefreshCw className="h-10 w-10 animate-spin text-amber-500" /></div>
                       : messages.length === 0 ? (
-                        <div className="py-32 flex flex-col items-center justify-center text-center"><MessageSquare className="h-16 w-16 text-amber-500 mb-6" /><p className="font-black text-2xl tracking-tight">No requests yet</p><p className="text-base font-medium text-muted-foreground mt-2 max-w-sm">When users book a property, their requests will appear here for you to approve or reject.</p></div>
+                        <div className="py-32 flex flex-col items-center justify-center text-center"><MessageSquare className="h-16 w-16 text-amber-500 mb-6" /><p className="font-black text-2xl tracking-tight">{t("admin.emptyBookings.title", "No requests yet")}</p><p className="text-base font-medium text-muted-foreground mt-2 max-w-sm">{t("admin.emptyBookings.desc", "When users book a property, their requests will appear here for you to approve or reject.")}</p></div>
                       ) : (
                         <div className="flex flex-col divide-y divide-border/50">
                           {messages.map((m, i) => {
@@ -314,14 +316,14 @@ const AdminListings = () => {
                                 
                                 <div className="md:w-72 flex flex-col justify-between gap-6 shrink-0 bg-muted/20 md:bg-transparent p-5 rounded-2xl md:p-0 md:rounded-none border border-border/50 md:border-none">
                                   <div className="flex flex-col gap-3">
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground border-b border-border/50 pb-2">Target Property</span>
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground border-b border-border/50 pb-2">{t("admin.targetProp", "Target Property")}</span>
                                     <div className="flex items-center gap-3">
                                       <div className="p-2 bg-amber-500/10 rounded-lg text-amber-600"><HomeIcon className="h-5 w-5 shrink-0" /></div>
-                                      <span className="font-bold text-base truncate">{m.listing?.nameEn || `Listing #${m.listingId}`}</span>
+                                      <span className="font-bold text-base truncate">{m.listing?.nameEn || `${t("admin.listingHash", "Listing #")}${m.listingId}`}</span>
                                     </div>
                                     <div className="flex flex-col gap-1 mt-1">
-                                      <span className="text-sm font-medium text-muted-foreground flex items-center gap-2"><Clock className="h-4 w-4 text-emerald-500" /> Booking for <strong className="text-foreground">{m.days} days</strong></span>
-                                      <span className="text-sm font-medium text-muted-foreground flex items-center gap-2"><TrendingUp className="h-4 w-4 text-sky-500" /> Received <strong className="text-foreground">{new Date(m.createdAt).toLocaleDateString()}</strong></span>
+                                      <span className="text-sm font-medium text-muted-foreground flex items-center gap-2"><Clock className="h-4 w-4 text-emerald-500" /> {t("admin.bookingFor", "Booking for")} <strong className="text-foreground">{m.days} {t("admin.days", "days")}</strong></span>
+                                      <span className="text-sm font-medium text-muted-foreground flex items-center gap-2"><TrendingUp className="h-4 w-4 text-sky-500" /> {t("admin.receivedOn", "Received")} <strong className="text-foreground">{new Date(m.createdAt).toLocaleDateString()}</strong></span>
                                     </div>
                                   </div>
                                   
@@ -329,12 +331,12 @@ const AdminListings = () => {
                                   <div className="flex gap-2 w-full">
                                     {m.status === "PENDING" && (
                                       <>
-                                        <Button size="sm" onClick={() => changeMessageStatus(m.id, "ACCEPTED")} className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl h-11 font-bold shadow-lg shadow-emerald-600/20 border-0 transition-all hover:-translate-y-0.5">Accept</Button>
-                                        <Button size="sm" variant="outline" onClick={() => changeMessageStatus(m.id, "REJECTED")} className="flex-1 rounded-xl h-11 font-bold text-rose-500 hover:bg-rose-50 hover:text-rose-600 border-rose-200 hover:border-rose-300">Reject</Button>
+                                        <Button size="sm" onClick={() => changeMessageStatus(m.id, "ACCEPTED")} className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl h-11 font-bold shadow-lg shadow-emerald-600/20 border-0 transition-all hover:-translate-y-0.5">{t("admin.accept", "Accept")}</Button>
+                                        <Button size="sm" variant="outline" onClick={() => changeMessageStatus(m.id, "REJECTED")} className="flex-1 rounded-xl h-11 font-bold text-rose-500 hover:bg-rose-50 hover:text-rose-600 border-rose-200 hover:border-rose-300">{t("admin.reject", "Reject")}</Button>
                                       </>
                                     )}
                                     {m.status !== "PENDING" && (
-                                      <Button size="sm" variant="outline" onClick={() => changeMessageStatus(m.id, "PENDING")} className="flex-1 rounded-xl h-11 font-bold text-amber-600 border-amber-200 hover:bg-amber-50 hover:border-amber-300">Set Pending</Button>
+                                      <Button size="sm" variant="outline" onClick={() => changeMessageStatus(m.id, "PENDING")} className="flex-1 rounded-xl h-11 font-bold text-amber-600 border-amber-200 hover:bg-amber-50 hover:border-amber-300">{t("admin.setPending", "Set Pending")}</Button>
                                     )}
                                     <Button size="icon" variant="secondary" className="h-11 w-11 shrink-0 rounded-xl hover:bg-rose-100 text-rose-500 hover:text-rose-600 dark:bg-rose-950/20 dark:hover:bg-rose-900/40 border-0" onClick={() => deleteMessage(m.id)}>
                                       <Trash2 className="h-5 w-5" />
@@ -357,13 +359,13 @@ const AdminListings = () => {
               <motion.div key="users" variants={staggerContainer} initial="hidden" animate="visible" exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.2 }}>
                 <Card className="rounded-[2.5rem] shadow-2xl border-border/40 bg-card/80 backdrop-blur-xl overflow-hidden">
                   <div className="p-8 border-b border-border/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <h2 className="text-2xl font-black">Registered Users ({users.length})</h2>
-                    <Badge variant="secondary" className="bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-400 px-4 py-1.5 font-bold shadow-sm rounded-lg text-sm">{users.filter(u => u.isAdmin).length} Admins Active</Badge>
+                    <h2 className="text-2xl font-black">{t("admin.usersTitle", "Registered Users")} ({users.length})</h2>
+                    <Badge variant="secondary" className="bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-400 px-4 py-1.5 font-bold shadow-sm rounded-lg text-sm">{users.filter(u => u.isAdmin).length} {t("admin.adminsActive", "Admins Active")}</Badge>
                   </div>
                   <div className="p-0">
                     {usersLoading ? <div className="py-24 flex justify-center"><RefreshCw className="h-10 w-10 animate-spin text-amber-500" /></div>
                       : users.length === 0 ? (
-                        <div className="py-32 flex flex-col items-center justify-center text-center"><Users className="h-16 w-16 text-amber-500 mb-6" /><p className="font-black text-2xl tracking-tight">No users found</p></div>
+                        <div className="py-32 flex flex-col items-center justify-center text-center"><Users className="h-16 w-16 text-amber-500 mb-6" /><p className="font-black text-2xl tracking-tight">{t("admin.emptyUsers", "No users found")}</p></div>
                       ) : (
                         <div className="flex flex-col divide-y divide-border/50">
                           {users.map((u) => (
@@ -376,8 +378,8 @@ const AdminListings = () => {
                                 <div className="flex flex-col gap-1.5">
                                   <div className="flex items-center gap-2 flex-wrap">
                                     <span className="font-black text-lg">{u.name}</span>
-                                    {u.isAdmin && <Badge className="bg-amber-500 hover:bg-amber-600 text-white border-0 text-[10px] font-black tracking-wider px-2 py-0.5 rounded-md shadow-sm"><KeyRound className="h-3 w-3 mr-1" /> ADMIN</Badge>}
-                                    {u.id === user?.id && <Badge variant="outline" className="text-[10px] uppercase font-black tracking-wider px-2 py-0.5 rounded-md text-emerald-600 border-emerald-200 bg-emerald-50 dark:bg-emerald-950/30 dark:border-emerald-900">YOU</Badge>}
+                                    {u.isAdmin && <Badge className="bg-amber-500 hover:bg-amber-600 text-white border-0 text-[10px] font-black tracking-wider px-2 py-0.5 rounded-md shadow-sm"><KeyRound className="h-3 w-3 mr-1" /> {t("admin.adminBadge", "ADMIN")}</Badge>}
+                                    {u.id === user?.id && <Badge variant="outline" className="text-[10px] uppercase font-black tracking-wider px-2 py-0.5 rounded-md text-emerald-600 border-emerald-200 bg-emerald-50 dark:bg-emerald-950/30 dark:border-emerald-900">{t("admin.youBadge", "YOU")}</Badge>}
                                   </div>
                                   <span className="text-sm font-medium text-muted-foreground flex items-center gap-2"><Mail className="h-4 w-4" /> {u.email}</span>
                                 </div>
@@ -385,7 +387,7 @@ const AdminListings = () => {
                               
                               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 shrink-0 bg-muted/20 md:bg-transparent p-5 rounded-2xl md:p-0 md:rounded-none border border-border/50 md:border-none">
                                 <div className="flex flex-col gap-1">
-                                  <span className="text-[10px] uppercase font-black text-muted-foreground tracking-widest pl-1">Joined Date</span>
+                                  <span className="text-[10px] uppercase font-black text-muted-foreground tracking-widest pl-1">{t("admin.joinedDate", "Joined Date")}</span>
                                   <span className="text-base font-bold bg-background md:bg-transparent px-3 py-1 md:p-0 rounded-lg">{new Date(u.createdAt).toLocaleDateString()}</span>
                                 </div>
                                 
@@ -394,7 +396,7 @@ const AdminListings = () => {
                                 <div className="flex items-center gap-3 w-full sm:w-auto">
                                   <Button size="sm" variant={u.isAdmin ? "outline" : "secondary"} className={`rounded-xl h-11 flex-1 sm:flex-initial font-bold shadow-sm ${u.isAdmin ? "hover:bg-rose-50 hover:text-rose-600 hover:border-rose-300 text-rose-500 border-border" : "bg-card border border-border"}`}
                                     onClick={() => toggleAdmin(u)} disabled={u.id === user?.id}>
-                                    {u.isAdmin ? <><ShieldOff className="h-4 w-4 mr-2" /> Revoke</> : <><ShieldCheck className="h-4 w-4 mr-2 text-emerald-500" /> Make Admin</>}
+                                    {u.isAdmin ? <><ShieldOff className="h-4 w-4 mr-2" /> {t("admin.revoke", "Revoke")}</> : <><ShieldCheck className="h-4 w-4 mr-2 text-emerald-500" /> {t("admin.makeAdmin", "Make Admin")}</>}
                                   </Button>
                                   
                                   <Button size="icon" variant="secondary" className="h-11 w-11 rounded-xl hover:bg-rose-100 hover:text-rose-600 text-muted-foreground bg-background border border-border/50 shrink-0"
@@ -424,7 +426,7 @@ const AdminListings = () => {
                 <div className="h-12 w-12 rounded-xl bg-amber-500/10 flex items-center justify-center">
                   {mode === "create" ? <Plus className="h-6 w-6 text-amber-500" /> : <Pencil className="h-6 w-6 text-amber-500" />}
                 </div>
-                {mode === "create" ? "Add New Property" : "Edit Property"}
+                {mode === "create" ? t("admin.form.addTitle", "Add New Property") : t("admin.form.editTitle", "Edit Property")}
               </DialogTitle>
             </DialogHeader>
             <form onSubmit={submit} className="grid gap-8 lg:grid-cols-5">
@@ -440,7 +442,7 @@ const AdminListings = () => {
                     <div className="h-16 w-16 rounded-3xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center shadow-lg border border-amber-200 dark:border-amber-800 mb-2 group-hover:scale-110 transition-transform">
                       <ImagePlus className="h-8 w-8 text-amber-600 dark:text-amber-500" />
                     </div>
-                    <span className="text-sm font-bold text-center bg-background/80 backdrop-blur-md px-4 py-2 rounded-xl border border-border/50 shadow-sm">{imageFile ? imageFile.name : "Select property cover"}</span>
+                    <span className="text-sm font-bold text-center bg-background/80 backdrop-blur-md px-4 py-2 rounded-xl border border-border/50 shadow-sm">{imageFile ? imageFile.name : t("admin.form.selectCover", "Select property cover")}</span>
                   </div>
                   <Input type="file" accept="image/*" className="hidden" onChange={e => setImageFile(e.target.files?.[0] || null)} />
                 </label>
@@ -452,11 +454,11 @@ const AdminListings = () => {
                 
                 <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-black uppercase text-muted-foreground tracking-widest pl-1">Price per night ($)</label>
+                    <label className="text-xs font-black uppercase text-muted-foreground tracking-widest pl-1">{t("admin.form.price", "Price per night ($)")}</label>
                     <Input className="h-14 rounded-2xl bg-muted/40 border-transparent hover:bg-muted/60 focus-visible:bg-transparent focus-visible:border-amber-500 transition-colors font-bold text-lg px-4" type="number" value={form.price} onChange={e => setForm(p => ({ ...p, price: e.target.value }))} placeholder="150" />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs font-black uppercase text-muted-foreground tracking-widest pl-1">Total Rooms</label>
+                    <label className="text-xs font-black uppercase text-muted-foreground tracking-widest pl-1">{t("admin.form.rooms", "Total Rooms")}</label>
                     <Input className="h-14 rounded-2xl bg-muted/40 border-transparent hover:bg-muted/60 focus-visible:bg-transparent focus-visible:border-amber-500 transition-colors font-bold text-lg px-4" type="number" value={form.rooms} onChange={e => setForm(p => ({ ...p, rooms: e.target.value }))} placeholder="3" />
                   </div>
                 </div>
@@ -464,7 +466,7 @@ const AdminListings = () => {
               
               <div className="flex flex-col gap-8 lg:col-span-3">
                 <div className="p-8 rounded-[2.5rem] bg-muted/20 border border-border/50 flex flex-col gap-8 shadow-inner">
-                  {[["Title", "nameEn", "nameRu", "nameTj"], ["Location", "locationEn", "locationRu", "locationTj"], ["Property Type", "typeEn", "typeRu", "typeTj"]].map(([label, en, ru, tj], idx) => (
+                  {[[t("admin.form.titleLabel", "Title"), "nameEn", "nameRu", "nameTj"], [t("admin.form.locationLabel", "Location"), "locationEn", "locationRu", "locationTj"], [t("admin.form.typeLabel", "Property Type"), "typeEn", "typeRu", "typeTj"]].map(([label, en, ru, tj], idx) => (
                     <div key={label} className="flex flex-col gap-4">
                       <p className="text-xs font-black tracking-widest uppercase text-foreground/80 border-b border-border/50 pb-2 flex items-center gap-2">
                         <span className="flex items-center justify-center bg-muted text-muted-foreground rounded-full h-5 w-5 text-[10px]">{idx + 1}</span> {label}
@@ -482,15 +484,15 @@ const AdminListings = () => {
                   
                   <div className="flex flex-col gap-2 mt-2">
                     <label className="text-xs font-black uppercase text-muted-foreground tracking-widest pl-1 border-b border-border/50 pb-2 flex items-center gap-2">
-                       <span className="flex items-center justify-center bg-muted text-muted-foreground rounded-full h-5 w-5 text-[10px]">4</span> Description
+                       <span className="flex items-center justify-center bg-muted text-muted-foreground rounded-full h-5 w-5 text-[10px]">4</span> {t("admin.form.descLabel", "Description")}
                     </label>
-                    <Textarea placeholder="Share details that highlight the property's best features..." className="form-textarea mt-1 min-h-[140px] rounded-2xl bg-background border-border/50 hover:border-amber-500/50 focus-visible:ring-1 focus-visible:ring-amber-500 shadow-sm resize-y text-base p-4 font-medium" value={form.about} onChange={e => setForm(p => ({ ...p, about: e.target.value }))} />
+                    <Textarea placeholder={t("admin.form.descPlaceholder", "Share details that highlight the property's best features...")} className="form-textarea mt-1 min-h-[140px] rounded-2xl bg-background border-border/50 hover:border-amber-500/50 focus-visible:ring-1 focus-visible:ring-amber-500 shadow-sm resize-y text-base p-4 font-medium" value={form.about} onChange={e => setForm(p => ({ ...p, about: e.target.value }))} />
                   </div>
                 </div>
                 
                 <div className="flex flex-wrap sm:flex-nowrap gap-4 mt-auto">
-                  <Button type="button" variant="ghost" className="w-full sm:flex-1 rounded-2xl h-14 font-bold text-base hover:bg-rose-50 hover:text-rose-600 transition-colors" onClick={() => setOpen(false)}>Cancel Edit</Button>
-                  <Button type="submit" disabled={saving} className="w-full sm:flex-[2] bg-amber-500 hover:bg-amber-600 border-0 rounded-2xl h-14 font-black shadow-xl shadow-amber-500/20 text-white text-base transition-all hover:-translate-y-0.5">{saving ? "Saving Property..." : "Save Property to Platform"}</Button>
+                  <Button type="button" variant="ghost" className="w-full sm:flex-1 rounded-2xl h-14 font-bold text-base hover:bg-rose-50 hover:text-rose-600 transition-colors" onClick={() => setOpen(false)}>{t("admin.form.cancel", "Cancel Edit")}</Button>
+                  <Button type="submit" disabled={saving} className="w-full sm:flex-[2] bg-amber-500 hover:bg-amber-600 border-0 rounded-2xl h-14 font-black shadow-xl shadow-amber-500/20 text-white text-base transition-all hover:-translate-y-0.5">{saving ? t("admin.form.saving", "Saving Property...") : t("admin.form.save", "Save Property to Platform")}</Button>
                 </div>
               </div>
 

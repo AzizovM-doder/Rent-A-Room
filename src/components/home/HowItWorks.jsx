@@ -6,22 +6,22 @@ const HowItWorks = ({ t }) => {
   const steps = [
     {
       icon: SearchIcon,
-      title: "Discover",
-      desc: "Use our smart filters to find listings that perfectly match your preferences and budget in seconds.",
+      title: t("howItWorks.step1.title", "Discover"),
+      desc: t("howItWorks.step1.desc", "Use our smart filters to find listings that perfectly match your preferences and budget in seconds."),
       color: "text-blue-500",
       bg: "bg-blue-500/10 border-blue-500/20"
     },
     {
       icon: Shield,
-      title: "Book Securely",
-      desc: "Connect directly with verified hosts through our secure messaging and payment systems.",
+      title: t("howItWorks.step2.title", "Book Securely"),
+      desc: t("howItWorks.step2.desc", "Connect directly with verified hosts through our secure messaging and payment systems."),
       color: "text-emerald-500",
       bg: "bg-emerald-500/10 border-emerald-500/20"
     },
     {
       icon: Key,
-      title: "Move In",
-      desc: "Get your keys and enjoy your new premium space with 24/7 dedicated support.",
+      title: t("howItWorks.step3.title", "Move In"),
+      desc: t("howItWorks.step3.desc", "Get your keys and enjoy your new premium space with 24/7 dedicated support."),
       color: "text-amber-500",
       bg: "bg-amber-500/10 border-amber-500/20"
     }
@@ -43,9 +43,9 @@ const HowItWorks = ({ t }) => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16 md:mb-24 flex flex-col items-center max-w-2xl"
         >
-          <span className="px-4 py-1.5 rounded-full bg-muted text-muted-foreground text-sm font-bold uppercase tracking-widest mb-4 inline-block">Simple Process</span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6">How it works</h2>
-          <p className="text-muted-foreground text-lg sm:text-xl font-medium">We've engineered the perfect platform for seamless property hunting without the traditional headaches.</p>
+          <span className="px-4 py-1.5 rounded-full bg-muted text-muted-foreground text-sm font-bold uppercase tracking-widest mb-4 inline-block">{t("howItWorks.badge", "Simple Process")}</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight mb-6">{t("howItWorks.title", "How it works")}</h2>
+          <p className="text-muted-foreground text-lg sm:text-xl font-medium">{t("howItWorks.subtitle", "We've engineered the perfect platform for seamless property hunting without the traditional headaches.")}</p>
         </motion.div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 w-full relative">

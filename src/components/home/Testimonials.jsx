@@ -3,27 +3,29 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Star, Quote, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 
 const Testimonials = () => {
+  const { t } = useTranslation();
   const reviews = [
     {
       name: "Sabina",
       location: "Dushanbe, TJ",
-      text: "The easiest way I've ever found to rent a place. The interface is stunning and the hosts are verified. Felt completely safe.",
+      text: t("testimonials.review1", "The easiest way I've ever found to rent a place. The interface is stunning and the hosts are verified. Felt completely safe."),
       rating: 5,
       avatar: "https://i.pravatar.cc/150?u=1"
     },
     {
       name: "Marcus",
       location: "London, UK",
-      text: "Booked a luxury flat for my business trip. The photos matched reality perfectly. Communication was seamless.",
+      text: t("testimonials.review2", "Booked a luxury flat for my business trip. The photos matched reality perfectly. Communication was seamless."),
       rating: 5,
       avatar: "https://i.pravatar.cc/150?u=2"
     },
     {
       name: "Alisher",
       location: "Khujand, TJ",
-      text: "I was skeptical at first, but the booking process is flawless. Found an amazing dacha for the weekend in minutes.",
+      text: t("testimonials.review3", "I was skeptical at first, but the booking process is flawless. Found an amazing dacha for the weekend in minutes."),
       rating: 5,
       avatar: "https://i.pravatar.cc/150?u=3"
     }
@@ -44,9 +46,9 @@ const Testimonials = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16 md:mb-24 flex flex-col items-center max-w-2xl"
         >
-          <span className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4">Real Experiences</span>
-          <h2 className="text-4xl md:text-5xl lg:text-5xl font-black tracking-tight mb-6">Don't just take our word for it.</h2>
-          <p className="text-muted-foreground text-lg sm:text-xl font-medium">Thousands of renters trust us to find their next home. Here's what they have to say.</p>
+          <span className="text-blue-500 font-bold tracking-widest uppercase text-sm mb-4">{t("testimonials.badge", "Real Experiences")}</span>
+          <h2 className="text-4xl md:text-5xl lg:text-5xl font-black tracking-tight mb-6">{t("testimonials.title", "Don't just take our word for it.")}</h2>
+          <p className="text-muted-foreground text-lg sm:text-xl font-medium">{t("testimonials.subtitle", "Thousands of renters trust us to find their next home. Here's what they have to say.")}</p>
         </motion.div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 w-full">

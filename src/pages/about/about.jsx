@@ -30,10 +30,10 @@ const About = () => {
   ];
 
   const TIMELINE = [
-    { year: "2024", title: "The Concept", desc: "Started as a small project to help people find reliable, affordable rooms across Tajikistan." },
-    { year: "2024", title: "Beta Launch", desc: "Rolled out the first functional version featuring live listings, authentication, and secure messaging." },
-    { year: "2025", title: "The Evolution", desc: "Complete platform overhaul: JWT architecture, premium Framer Motion UX, and elite property scaling." },
-    { year: "2026", title: "Global Vision", desc: "Expanding outside regional borders with multi-language integrations and robust scaling features." },
+    { year: "2024", title: t("about.timeline.concept.title", "The Concept"), desc: t("about.timeline.concept.desc", "Started as a small project to help people find reliable, affordable rooms across Tajikistan.") },
+    { year: "2024", title: t("about.timeline.beta.title", "Beta Launch"), desc: t("about.timeline.beta.desc", "Rolled out the first functional version featuring live listings, authentication, and secure messaging.") },
+    { year: "2025", title: t("about.timeline.evolution.title", "The Evolution"), desc: t("about.timeline.evolution.desc", "Complete platform overhaul: JWT architecture, premium Framer Motion UX, and elite property scaling.") },
+    { year: "2026", title: t("about.timeline.global.title", "Global Vision"), desc: t("about.timeline.global.desc", "Expanding outside regional borders with multi-language integrations and robust scaling features.") },
   ];
 
   const staggerContainer = {
@@ -56,7 +56,7 @@ const About = () => {
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-[100px] pointer-events-none translate-y-1/2 -translate-x-1/2" />
           
           <Badge className="w-fit bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 px-4 py-1.5 text-xs font-bold uppercase tracking-widest shadow-sm gap-2">
-            <Sparkles className="h-3.5 w-3.5" /> Our Story
+            <Sparkles className="h-3.5 w-3.5" /> {t("about.ourStory", "Our Story")}
           </Badge>
 
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8 z-10 text-center md:text-left">
@@ -75,10 +75,10 @@ const About = () => {
         {stats && (
           <motion.section variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 z-10">
             {[
-              { icon: Building2, value: stats.total, label: "Total Properties", color: "text-emerald-500" },
-              { icon: MapPin, value: stats.cities?.length || 0, label: "Active Cities", color: "text-sky-500" },
-              { icon: TrendingUp, value: stats.types?.length || 0, label: "Property Types", color: "text-violet-500" },
-              { icon: Home, value: `$${stats.minPrice}–$${stats.maxPrice}`, label: "Pricing Range", color: "text-amber-500" },
+              { icon: Building2, value: stats.total, label: t("about.stats.total", "Total Properties"), color: "text-emerald-500" },
+              { icon: MapPin, value: stats.cities?.length || 0, label: t("about.stats.cities", "Active Cities"), color: "text-sky-500" },
+              { icon: TrendingUp, value: stats.types?.length || 0, label: t("about.stats.types", "Property Types"), color: "text-violet-500" },
+              { icon: Home, value: `$${stats.minPrice}–$${stats.maxPrice}`, label: t("about.stats.pricing", "Pricing Range"), color: "text-amber-500" },
             ].map(({ icon: Icon, value, label, color }, i) => (
               <div key={label} className="group rounded-[2rem] border border-border/50 bg-card/60 backdrop-blur p-6 md:p-8 flex flex-col items-center gap-3 text-center shadow-lg hover:shadow-2xl hover:-translate-y-1 hover:border-emerald-500/30 transition-all duration-300 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-muted/50 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -95,8 +95,8 @@ const About = () => {
         {/* ── Features Grid ───────────────────────────────────────── */}
         <motion.section variants={fadeUp} className="flex flex-col gap-10 z-10">
           <div className="flex flex-col gap-2 max-w-2xl">
-            <h2 className="text-3xl md:text-4xl font-black tracking-tight">The Rent-A-Room Advantage</h2>
-            <p className="text-muted-foreground font-medium text-lg text-balance">We built this platform from the ground up to solve the most frustrating parts of modern renting.</p>
+            <h2 className="text-3xl md:text-4xl font-black tracking-tight">{t("about.advantage.title", "The Rent-A-Room Advantage")}</h2>
+            <p className="text-muted-foreground font-medium text-lg text-balance">{t("about.advantage.desc", "We built this platform from the ground up to solve the most frustrating parts of modern renting.")}</p>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {FEATURES.map((e, i) => (
@@ -116,8 +116,8 @@ const About = () => {
         {/* ── Timeline ───────────────────────────────────────── */}
         <motion.section variants={fadeUp} className="flex flex-col gap-10 md:flex-row md:items-start md:gap-20 z-10 bg-muted/30 rounded-[3rem] p-8 md:p-16 border border-border/40">
           <div className="md:w-1/3 flex flex-col gap-4 shrink-0 sticky top-32">
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-none">Our evolutionary journey.</h2>
-            <p className="text-muted-foreground font-medium text-lg">From a local hackathon concept to a premium ecosystem.</p>
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-none">{t("about.journey.title", "Our evolutionary journey.")}</h2>
+            <p className="text-muted-foreground font-medium text-lg">{t("about.journey.desc", "From a local hackathon concept to a premium ecosystem.")}</p>
           </div>
           
           <div className="md:w-2/3 relative pl-10 md:pl-12 border-l-2 border-emerald-500/20 flex flex-col gap-12">
@@ -141,7 +141,7 @@ const About = () => {
           
           <div className="relative flex flex-col gap-8 max-w-4xl z-10 text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start gap-3 text-emerald-400 font-bold uppercase tracking-widest text-sm">
-              <CheckCircle2 className="h-5 w-5" /> Our Mission
+              <CheckCircle2 className="h-5 w-5" /> {t("about.mission.label", "Our Mission")}
             </div>
             <h2 className="text-3xl md:text-5xl font-black leading-tight text-white">
                {t("about.mission.title", "Making renting a frictionless, safe, and beautiful experience.")}

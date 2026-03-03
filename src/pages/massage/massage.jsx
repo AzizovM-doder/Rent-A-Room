@@ -45,7 +45,7 @@ const Message = () => {
       days: Number(fd.get("days")),
     };
     if (!data.name || !data.phone || !data.message) {
-      toast.error("Please fill all fields");
+      toast.error(t("message.fillFields", "Please fill all fields"));
       return;
     }
     setSending(true);
@@ -53,7 +53,7 @@ const Message = () => {
       await messagesApi.send(data);
       setSent(true);
     } catch (err) {
-      toast.error(err.message || "Failed to send");
+      toast.error(err.message || t("message.sendFailed", "Failed to send"));
     } finally {
       setSending(false);
     }
@@ -88,18 +88,18 @@ const Message = () => {
             <div className="h-16 w-16 rounded-2xl bg-white shadow-lg flex items-center justify-center">
               <CheckCircle className="h-8 w-8 text-emerald-600" />
             </div>
-            <h2 className="text-xl font-bold">Message sent!</h2>
-            <p className="text-sm text-muted-foreground">The property owner will get back to you soon.</p>
+            <h2 className="text-xl font-bold">{t("message.sent", "Message sent!")}</h2>
+            <p className="text-sm text-muted-foreground">{t("message.sentDesc", "The property owner will get back to you soon.")}</p>
             <div className="rounded-xl border p-3 w-full text-left">
-              <p className="text-xs text-muted-foreground">Listing</p>
-              <p className="text-sm font-medium">{getText(item.name)} — ${totalCost} for {days} night{days !== 1 ? "s" : ""}</p>
+              <p className="text-xs text-muted-foreground">{t("message.listing", "Listing")}</p>
+              <p className="text-sm font-medium">{getText(item.name)} — ${totalCost} {t("message.for", "for")} {days} {t("message.night", "night")}{days !== 1 ? "s" : ""}</p>
             </div>
             <div className="flex gap-3 w-full">
               <Button asChild variant="outline" className="flex-1">
-                <Link to={`/explore/${item.id}`}>View listing</Link>
+                <Link to={`/explore/${item.id}`}>{t("message.viewListing", "View listing")}</Link>
               </Button>
               <Button asChild className="flex-1 bg-emerald-600 hover:bg-emerald-700">
-                <Link to="/">Browse more</Link>
+                <Link to="/">{t("message.browseMore", "Browse more")}</Link>
               </Button>
             </div>
           </CardContent>
@@ -129,7 +129,7 @@ const Message = () => {
                 <p className="text-white text-xl font-bold leading-tight">{getText(item.name)}</p>
                 <div className="flex flex-wrap items-center gap-2 text-xs text-white/80 mt-1">
                   <span className="flex items-center gap-1"><MapPin className="h-3.5 w-3.5" />{getText(item.location)}</span>
-                  <span className="flex items-center gap-1"><Bed className="h-3.5 w-3.5" />{item.rooms} rooms</span>
+                  <span className="flex items-center gap-1"><Bed className="h-3.5 w-3.5" />{item.rooms} {t("message.rooms", "rooms")}</span>
                   <span className="flex items-center gap-1 capitalize"><HomeIcon className="h-3.5 w-3.5" />{getText(item.type)}</span>
                 </div>
               </div>
@@ -151,11 +151,11 @@ const Message = () => {
             <div className="rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 p-4 text-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-xs text-white/70">Estimated total</p>
+                  <p className="text-xs text-white/70">{t("message.estimate", "Estimated total")}</p>
                   <p className="text-2xl font-extrabold">${totalCost}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs text-white/70">${item.price} × {days} night{days !== 1 ? "s" : ""}</p>
+                  <p className="text-xs text-white/70">${item.price} × {days} {t("message.night", "night")}{days !== 1 ? "s" : ""}</p>
                   <DollarSign className="h-8 w-8 text-white/30 ml-auto" />
                 </div>
               </div>
@@ -174,7 +174,7 @@ const Message = () => {
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="flex flex-col gap-1.5">
                   <Label>{t("message.yourName", "Your name")} *</Label>
-                  <Input name="reqName" required defaultValue={user?.name || ""} placeholder="Your name" />
+                  <Input name="reqName" required defaultValue={user?.name || ""} placeholder={t("message.yourName", "Your name")} />
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <Label>{t("message.yourPhone", "Phone number")} *</Label>
@@ -191,21 +191,21 @@ const Message = () => {
               </div>
 
               <div className="flex flex-col gap-1.5">
-                <Label>How many nights? (min 1)</Label>
+                <Label>{t("message.howManyNights", "How many nights? (min 1)")}</Label>
                 <Input name="days" type="number" required value={days} onChange={(e) => setDays(Math.max(1, Number(e.target.value)))} min={1} />
               </div>
 
               <div className="rounded-xl border p-3 bg-muted/30 flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium">Total estimate</p>
-                  <p className="text-xs text-muted-foreground">${item.price} × {days} night{days !== 1 ? "s" : ""}</p>
+                  <p className="text-sm font-medium">{t("message.totalEstimate", "Total estimate")}</p>
+                  <p className="text-xs text-muted-foreground">${item.price} × {days} {t("message.night", "night")}{days !== 1 ? "s" : ""}</p>
                 </div>
                 <p className="text-emerald-600 font-extrabold text-xl">${totalCost}</p>
               </div>
 
               <Button type="submit" disabled={sending} className="bg-emerald-600 hover:bg-emerald-700 gap-2 h-11 shadow-lg shadow-emerald-600/20">
                 {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-                {sending ? "Sending..." : t("message.sendBtn", "Send message")}
+                {sending ? t("message.sending", "Sending...") : t("message.sendBtn", "Send message")}
               </Button>
               <p className="text-xs text-muted-foreground text-center">{t("message.respect", "By sending, you agree to communicate respectfully.")}</p>
             </form>

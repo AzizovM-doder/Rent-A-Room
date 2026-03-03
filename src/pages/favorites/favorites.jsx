@@ -19,7 +19,7 @@ const Favorites = () => {
   const remove = (item) => {
     removeUserFav(item.id);
     setFavorites(getUserFav());
-    toast("Removed from saved", { icon: "💔" });
+    toast(t("favorites.removedToast", "Removed from saved"), { icon: "💔" });
   };
 
   const containerVariants = {
@@ -58,7 +58,7 @@ const Favorites = () => {
             </Badge>
           </h1>
           <p className="text-sm font-medium text-muted-foreground mt-1">
-            {favorites.length === 0 ? "Start saving homes you like to see them here" : `You have ${favorites.length} saved property${favorites.length !== 1 ? "s" : ""} waiting for you`}
+            {favorites.length === 0 ? t("favorites.emptySubtitle", "Start saving homes you like to see them here") : t("favorites.count", "You have {{count}} saved properties waiting for you").replace('{{count}}', favorites.length)}
           </p>
         </div>
       </div>
@@ -120,7 +120,7 @@ const Favorites = () => {
                     
                     {/* Price Badge */}
                     <div className="absolute bottom-4 left-4 rounded-xl bg-emerald-500/90 backdrop-blur-md px-3 py-1.5 text-sm font-black text-white shadow-lg border border-white/20">
-                      ${e.price} <span className="text-xs font-medium text-white/80 shrink-0">/ night</span>
+                      ${e.price} <span className="text-xs font-medium text-white/80 shrink-0">{t("favorites.night", "/ night")}</span>
                     </div>
 
                     {/* Un-Favorite Button */}
@@ -137,7 +137,7 @@ const Favorites = () => {
                   <CardContent className="p-5 flex flex-col gap-3 flex-1 justify-between">
                     <div>
                       <h3 className="font-bold text-lg leading-tight group-hover:text-emerald-600 transition-colors line-clamp-1">
-                        {getText(e.name) || "Beautiful Listing"}
+                        {getText(e.name) || t("favorites.defaultListingName", "Beautiful Listing")}
                       </h3>
                       <div className="flex items-center gap-1.5 text-sm text-muted-foreground mt-1 line-clamp-1">
                         <MapPin className="h-4 w-4 shrink-0 text-emerald-500/70" />

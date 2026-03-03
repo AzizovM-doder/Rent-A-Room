@@ -6,8 +6,10 @@ import { UserPlus, Eye, EyeOff, User, Mail, Phone, Lock, Sparkles, ArrowLeft, Ho
 import toast from "react-hot-toast";
 import { authApi, saveAuth } from "../../../api/listingsAPI";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const SignUp = () => {
+  const { t } = useTranslation();
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -20,15 +22,15 @@ const SignUp = () => {
       phone: e.target.phone.value.trim(),
       password: e.target.password.value,
     };
-    if (data.password.length < 6) return toast.error("Password must be at least 6 characters");
+    if (data.password.length < 6) return toast.error(t("auth.minPassLength", "Password must be at least 6 characters"));
     setLoading(true);
     try {
       const result = await authApi.register(data);
       saveAuth(result);
-      toast.success(`Welcome to Rent-A-Room, ${result.user.name}! 🎉`);
+      toast.success(t("auth.signupSuccess", { name: result.user.name, defaultValue: `Welcome to Rent-A-Room, ${result.user.name}! 🎉` }));
       navigate("/");
     } catch (err) {
-      toast.error(err.message || "Registration failed");
+      toast.error(err.message || t("auth.signupFailed", "Registration failed"));
     } finally {
       setLoading(false);
     }
@@ -77,21 +79,21 @@ const SignUp = () => {
           <div className="flex gap-4 mb-8">
             <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/10 shadow-2xl">
                <UserPlus className="h-8 w-8 text-emerald-400 mb-2" />
-               <h3 className="text-white font-bold leading-none mb-1">Join Fast</h3>
-               <p className="text-white/60 text-xs">Less than 2 minutes</p>
+               <h3 className="text-white font-bold leading-none mb-1">{t("auth.joinFast", "Join Fast")}</h3>
+               <p className="text-white/60 text-xs">{t("auth.joinTime", "Less than 2 minutes")}</p>
             </div>
             <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/10 shadow-2xl">
                <Sparkles className="h-8 w-8 text-amber-400 mb-2" />
-               <h3 className="text-white font-bold leading-none mb-1">Endless</h3>
-               <p className="text-white/60 text-xs">Vast property catalog</p>
+               <h3 className="text-white font-bold leading-none mb-1">{t("auth.endless", "Endless")}</h3>
+               <p className="text-white/60 text-xs">{t("auth.catalog", "Vast property catalog")}</p>
             </div>
           </div>
           
           <h2 className="text-4xl xl:text-5xl text-white font-black leading-tight mb-4 tracking-tight">
-            Start your journey with <span className="text-emerald-400">confidence.</span>
+            {t("auth.promoTitleStart2", "Start your journey with")} <span className="text-emerald-400">{t("auth.promoTitleEnd2", "confidence.")}</span>
           </h2>
           <p className="text-lg xl:text-xl text-white/70 font-medium">
-            Create an account to save your favorite listings and contact hosts instantly.
+            {t("auth.promoDesc2", "Create an account to save your favorite listings and contact hosts instantly.")}
           </p>
         </motion.div>
       </div>
@@ -105,7 +107,7 @@ const SignUp = () => {
             <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-colors">
               <ArrowLeft className="h-4 w-4 rotate-180" />
             </div>
-            Back to Home
+            {t("auth.backHome", "Back to Home")}
           </Link>
         </motion.div>
 
@@ -120,17 +122,17 @@ const SignUp = () => {
             <div className="inline-flex items-center justify-center p-3 rounded-2xl bg-emerald-500/10 mb-6 ring-1 ring-emerald-500/20 shadow-inner">
                <Sparkles className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
             </div>
-            <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2">Create Account_</h1>
-            <p className="text-muted-foreground text-lg font-medium">Join us and find your dream space.</p>
+            <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-2">{t("auth.signupTitle", "Create Account_")}</h1>
+            <p className="text-muted-foreground text-lg font-medium">{t("auth.signupDesc", "Join us and find your dream space.")}</p>
           </motion.div>
 
           {/* Form */}
           <motion.form variants={fadeUp} onSubmit={handleSubmit} className="flex flex-col gap-5">
             
             {[
-              { icon: User, name: "fullname", label: "Full Name", type: "text", placeholder: "John Doe", autoComplete: "name" },
-              { icon: Mail, name: "email", label: "Email Address", type: "email", placeholder: "you@example.com", autoComplete: "email" },
-              { icon: Phone, name: "phone", label: "Phone Number", type: "tel", placeholder: "+992 90 000 0000", autoComplete: "tel" },
+              { icon: User, name: "fullname", label: t("auth.fullName", "Full Name"), type: "text", placeholder: "John Doe", autoComplete: "name" },
+              { icon: Mail, name: "email", label: t("auth.email", "Email Address"), type: "email", placeholder: t("auth.emailPlaceholder", "you@example.com"), autoComplete: "email" },
+              { icon: Phone, name: "phone", label: t("auth.phone", "Phone Number"), type: "tel", placeholder: "+992 90 000 0000", autoComplete: "tel" },
             ].map(({ icon: Icon, name, label, type, placeholder, autoComplete }) => (
               <div key={name} className="flex flex-col gap-1.5">
                 <label className="text-sm font-bold text-foreground">{label}</label>
@@ -149,13 +151,13 @@ const SignUp = () => {
             ))}
 
             <div className="flex flex-col gap-1.5 pt-1">
-              <label className="text-sm font-bold text-foreground">Choose a Password</label>
+              <label className="text-sm font-bold text-foreground">{t("auth.choosePass", "Choose a Password")}</label>
               <div className="relative group">
                 <Lock className="h-5 w-5 absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-emerald-600 transition-colors" />
                 <Input 
                   name="password" 
                   type={showPass ? "text" : "password"} 
-                  placeholder="Min. 6 characters" 
+                  placeholder={t("auth.minPass", "Min. 6 characters")} 
                   required 
                   autoComplete="new-password" 
                   minLength={6}
@@ -171,14 +173,14 @@ const SignUp = () => {
               disabled={loading} 
               className="w-full h-14 mt-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 hover:-translate-y-0.5 text-base font-bold shadow-[0_0_20px_-5px_rgba(5,150,105,0.4)] hover:shadow-[0_0_25px_-5px_rgba(5,150,105,0.6)] transition-all duration-300"
             >
-              {loading ? "Creating..." : "Create account"}
+              {loading ? t("auth.creating", "Creating...") : t("auth.createBtn", "Create account")}
             </Button>
             
           </motion.form>
           
           <motion.div variants={fadeUp} className="mt-8 text-center text-sm font-medium text-muted-foreground">
-            Already have an account?{" "}
-            <Link to="/login" className="text-emerald-600 hover:text-emerald-700 font-bold hover:underline ml-1 transition-colors">Sign in here</Link>
+            {t("auth.hasAccount", "Already have an account?")}{" "}
+            <Link to="/login" className="text-emerald-600 hover:text-emerald-700 font-bold hover:underline ml-1 transition-colors">{t("auth.signInHere", "Sign in here")}</Link>
           </motion.div>
         </motion.div>
       </div>

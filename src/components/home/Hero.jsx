@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Sparkles, MapPin, Heart, Users, Building2 } from "lucide-react";
+import { Sparkles, MapPin, Heart, Users, Building2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "react-i18next";
 
 const Hero = ({ liveStats, user }) => {
   const { scrollY } = useScroll();
+  const { t } = useTranslation();
   const y1 = useTransform(scrollY, [0, 1000], [0, 150]);
   const y2 = useTransform(scrollY, [0, 1000], [0, -100]);
   const yArtwork = useTransform(scrollY, [0, 1000], [0, 100]);
@@ -58,21 +60,21 @@ const Hero = ({ liveStats, user }) => {
           {/* Live Pill */}
           <motion.div variants={fadeInUp} className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-md px-5 py-2 text-sm font-semibold text-emerald-800 dark:text-emerald-300 shadow-sm">
             <Sparkles className="h-4 w-4 text-emerald-500" />
-            <span>{liveStats ? `${liveStats.total} Premium Properties Available` : "Welcome to the future of housing"}</span>
+            <span>{liveStats ? `${liveStats.total} ${t("hero.premiumLive", "Premium Properties Available")}` : t("hero.welcome", "Welcome to the future of housing")}</span>
           </motion.div>
 
           {/* Title */}
           <motion.h1 variants={fadeInUp} className="text-5xl sm:text-6xl lg:text-[5.5rem] xl:text-[6.5rem] font-black leading-[1.08] tracking-tight text-foreground">
-            Find your <br className="hidden sm:block" />
+            {t("hero.findYour", "Find your")} <br className="hidden sm:block" />
             <span className="relative inline-block mt-2 mb-2 w-fit">
-              <span className="relative z-10 bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-400 bg-clip-text text-transparent pb-3 pr-2">perfect space.</span>
+              <span className="relative z-10 bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-400 bg-clip-text text-transparent pb-3 pr-2">{t("hero.perfectSpace", "perfect space.")}</span>
               <span className="absolute bottom-4 left-0 w-full h-5 bg-emerald-500/20 -z-0 -rotate-1 skew-x-12" />
             </span>
           </motion.h1>
 
           {/* Description */}
           <motion.p variants={fadeInUp} className="text-lg sm:text-xl lg:text-2xl text-muted-foreground/90 max-w-xl leading-relaxed font-medium">
-            Discover curated luxury apartments, cozy studios, and sprawling villas worldwide. Renting has never looked this good.
+            {t("hero.desc", "Discover curated luxury apartments, cozy studios, and sprawling villas worldwide. Renting has never looked this good.")}
           </motion.p>
 
           {/* CTAs */}
@@ -80,12 +82,12 @@ const Hero = ({ liveStats, user }) => {
             <Button size="lg" className="h-14 w-full sm:w-auto rounded-full px-10 text-lg bg-emerald-600 hover:bg-emerald-700 text-white gap-3 shadow-[0_0_30px_-5px_rgba(5,150,105,0.4)] hover:shadow-[0_0_40px_-5px_rgba(5,150,105,0.6)] hover:-translate-y-0.5 transition-all duration-300 font-bold group" onClick={() => {
               document.getElementById('search-section')?.scrollIntoView({ behavior: 'smooth' });
             }}>
-              Start Exploring <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              {t("hero.startExploring", "Start Exploring")} <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             {!user && (
               <Link to="/login" className="w-full sm:w-auto">
                 <Button size="lg" variant="outline" className="h-14 w-full sm:w-auto rounded-full px-10 text-lg border-emerald-500/30 hover:bg-emerald-500/10 font-bold transition-all backdrop-blur-md">
-                  Become a Host
+                  {t("hero.becomeHost", "Become a Host")}
                 </Button>
               </Link>
             )}
@@ -107,7 +109,7 @@ const Hero = ({ liveStats, user }) => {
               <div className="flex gap-1 text-amber-400">
                 {[1,2,3,4,5].map(i => <svg key={i} className="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>)}
               </div>
-              <span className="text-base font-semibold text-muted-foreground mt-0.5">Highly trusted community</span>
+              <span className="text-base font-semibold text-muted-foreground mt-0.5">{t("hero.trusted", "Highly trusted community")}</span>
             </div>
           </motion.div>
         </motion.div>
@@ -137,13 +139,13 @@ const Hero = ({ liveStats, user }) => {
                     </div>
 
                     <div className="absolute bottom-6 left-6 right-6 flex flex-col gap-2">
-                      <Badge className="bg-white text-black hover:bg-white font-bold w-fit mb-1 border-0 shadow-lg px-3 py-1">Featured Villa</Badge>
-                      <h3 className="text-white text-3xl font-black leading-none drop-shadow-md">Emerald Estate</h3>
-                      <p className="text-white/80 text-base flex items-center gap-1.5 font-medium"><MapPin className="h-4 w-4"/> Beverly Hills, CA</p>
+                      <Badge className="bg-white text-black hover:bg-white font-bold w-fit mb-1 border-0 shadow-lg px-3 py-1">{t("hero.cardBadge", "Featured Villa")}</Badge>
+                      <h3 className="text-white text-3xl font-black leading-none drop-shadow-md">{t("hero.cardTitle", "Emerald Estate")}</h3>
+                      <p className="text-white/80 text-base flex items-center gap-1.5 font-medium"><MapPin className="h-4 w-4"/> {t("hero.cardLocation", "Beverly Hills, CA")}</p>
                       <div className="mt-4 flex items-center justify-between">
                         <div className="flex flex-col">
-                          <span className="text-white/70 text-xs font-bold uppercase tracking-wider">Price</span>
-                          <span className="text-white font-black text-3xl">$4,500<span className="text-sm font-medium opacity-70"> /mo</span></span>
+                          <span className="text-white/70 text-xs font-bold uppercase tracking-wider">{t("hero.price", "Price")}</span>
+                          <span className="text-white font-black text-3xl">$4,500<span className="text-sm font-medium opacity-70"> /{t("hero.mo", "mo")}</span></span>
                         </div>
                         <div className="h-14 w-14 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg hover:scale-105 transition-transform cursor-pointer">
                           <ArrowRight className="h-6 w-6 text-white" />
@@ -164,7 +166,7 @@ const Hero = ({ liveStats, user }) => {
                   <Building2 className="h-8 w-8 text-white" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Total Properties</p>
+                  <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{t("hero.totalProperties", "Total Properties")}</p>
                   <p className="text-3xl font-black">{liveStats?.total || "500+"}</p>
                 </div>
               </motion.div>
@@ -181,7 +183,7 @@ const Hero = ({ liveStats, user }) => {
                   <div className="h-14 w-14 rounded-full border-4 border-background bg-amber-100 flex items-center justify-center"><Heart className="h-6 w-6 text-amber-600" /></div>
                 </div>
                 <div className="pr-4 pl-2">
-                  <p className="text-base font-bold leading-tight">10k+ Happy<br/>Renters</p>
+                  <p className="text-base font-bold leading-tight">{t("hero.happyRenters", "10k+ Happy Renters").split("Happy").map((t,i) => i===0 ? <span key={i}>{t}Happy<br/></span> : t)}</p>
                 </div>
               </motion.div>
             </motion.div>

@@ -11,8 +11,10 @@ import { createListing, fetchListings } from "../../reducers/listingSlice";
 import toast from "react-hot-toast";
 import { getUserToken } from "../../utils/url";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const Post = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { items = [], saving } = useSelector((s) => s.listings || {});
   const user = (() => { try { return JSON.parse(getUserToken()); } catch { return null; } })();
@@ -50,12 +52,12 @@ const Post = () => {
 
   const submit = async (ev) => {
     ev.preventDefault();
-    if (!imageFile) return toast.error("Please provide a cover image for your listing.");
-    if (!nameEn && !nameRu && !nameTj) return toast.error("A title is required.");
-    if (!location) return toast.error("Please select a location.");
-    if (!type) return toast.error("Please select a property type.");
-    if (!rooms) return toast.error("Please specify the number of rooms.");
-    if (!price) return toast.error("Please set a nightly price.");
+    if (!imageFile) return toast.error(t("post.errors.image", "Please provide a cover image for your listing."));
+    if (!nameEn && !nameRu && !nameTj) return toast.error(t("post.errors.title", "A title is required."));
+    if (!location) return toast.error(t("post.errors.location", "Please select a location."));
+    if (!type) return toast.error(t("post.errors.type", "Please select a property type."));
+    if (!rooms) return toast.error(t("post.errors.rooms", "Please specify the number of rooms."));
+    if (!price) return toast.error(t("post.errors.price", "Please set a nightly price."));
 
     const fd = new FormData();
     fd.append("image", imageFile);
@@ -98,11 +100,11 @@ const Post = () => {
                 <CheckCircle className="h-10 w-10 text-emerald-600" />
               </div>
               <div>
-                <h2 className="text-3xl font-black tracking-tight mb-2">Listing Alive!</h2>
-                <p className="text-muted-foreground font-medium">Your spectacular space is now live for thousands of renters to discover.</p>
+                <h2 className="text-3xl font-black tracking-tight mb-2">{t("post.success.title", "Listing Alive!")}</h2>
+                <p className="text-muted-foreground font-medium">{t("post.success.desc", "Your spectacular space is now live for thousands of renters to discover.")}</p>
               </div>
               <Button className="w-full h-14 mt-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 font-bold shadow-xl shadow-emerald-500/20 text-base transition-all hover:-translate-y-0.5" onClick={reset}>
-                Post another listing
+                {t("post.success.btn", "Post another listing")}
               </Button>
             </CardContent>
           </Card>
@@ -128,8 +130,8 @@ const Post = () => {
               <Sparkles className="h-10 w-10 text-emerald-400" />
             </div>
             <div className="flex flex-col gap-2 pt-1">
-              <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">Post your space.</h1>
-              <p className="text-white/70 text-lg font-medium max-w-md">Reach an elite audience and start earning from your incredible properties today.</p>
+              <h1 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">{t("post.hero.title", "Post your space.")}</h1>
+              <p className="text-white/70 text-lg font-medium max-w-md">{t("post.hero.desc", "Reach an elite audience and start earning from your incredible properties today.")}</p>
             </div>
           </div>
           
@@ -139,10 +141,10 @@ const Post = () => {
                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                </span>
-               Network Status
+               {t("post.hero.networkStatus", "Network Status")}
             </span>
-            <span className="text-3xl font-black leading-none mb-1">Thousands</span>
-            <span className="text-sm font-medium text-white/60">of active renters waiting</span>
+            <span className="text-3xl font-black leading-none mb-1">{t("post.hero.thousands", "Thousands")}</span>
+            <span className="text-sm font-medium text-white/60">{t("post.hero.activeWait", "of active renters waiting")}</span>
           </div>
         </motion.div>
 
@@ -155,9 +157,9 @@ const Post = () => {
                 <div>
                   <h2 className="text-2xl font-black flex items-center gap-3">
                      <div className="p-2 bg-emerald-500/10 rounded-xl text-emerald-600"><PenLine className="h-6 w-6" /></div>
-                     Property Details
+                     {t("post.form.detailsTitle", "Property Details")}
                   </h2>
-                  <p className="text-base text-muted-foreground mt-2 font-medium">Please provide accurate information to attract the best guests.</p>
+                  <p className="text-base text-muted-foreground mt-2 font-medium">{t("post.form.detailsDesc", "Please provide accurate information to attract the best guests.")}</p>
                 </div>
                 
                 <form id="post-form" onSubmit={submit} className="flex flex-col gap-8">
@@ -165,7 +167,7 @@ const Post = () => {
                   {/* Image upload */}
                   <div className="flex flex-col gap-3">
                     <label className="text-sm font-bold border-b border-border/50 pb-2 flex justify-between">
-                       Media <span className="text-rose-500">*</span>
+                       {t("post.form.media", "Media")} <span className="text-rose-500">*</span>
                     </label>
                     <label className={`flex flex-col items-center justify-center gap-3 border-2 border-dashed rounded-3xl p-10 cursor-pointer overflow-hidden relative transition-all duration-300 ${previewUrl ? "border-emerald-500 bg-emerald-50/50 dark:bg-emerald-950/20" : "border-border hover:border-emerald-500 hover:bg-muted/50"}`}>
                       {previewUrl ? (
@@ -178,8 +180,8 @@ const Post = () => {
                            {previewUrl ? <ImageIcon className="h-8 w-8 text-emerald-600" /> : <Upload className="h-8 w-8 text-emerald-600" />}
                          </div>
                          <div className="text-center bg-background/80 backdrop-blur-md px-4 py-2 rounded-xl mt-2 border border-border/50 shadow-sm">
-                           <p className="text-sm font-bold text-foreground">{imageFile ? imageFile.name : "Click to upload your best photo"}</p>
-                           <p className="text-xs text-muted-foreground mt-0.5 font-medium">High res JPEG or PNG (Max 10MB)</p>
+                           <p className="text-sm font-bold text-foreground">{imageFile ? imageFile.name : t("post.form.uploadBtn", "Click to upload your best photo")}</p>
+                           <p className="text-xs text-muted-foreground mt-0.5 font-medium">{t("post.form.uploadHelp", "High res JPEG or PNG (Max 10MB)")}</p>
                          </div>
                       </div>
                       <Input name="image" type="file" accept="image/*" onChange={onPickImage} className="hidden" />
@@ -188,7 +190,7 @@ const Post = () => {
 
                   {/* Names */}
                   <div className="flex flex-col gap-3">
-                    <label className="text-sm font-bold border-b border-border/50 pb-2">Listing Titles <span className="text-rose-500">*</span></label>
+                    <label className="text-sm font-bold border-b border-border/50 pb-2">{t("post.form.titles", "Listing Titles")} <span className="text-rose-500">*</span></label>
                     <div className="grid gap-4 sm:grid-cols-3 pt-2">
                       {[
                         { lang: "EN", val: nameEn, setter: setNameEn, placeholder: "Luxury Villa" }, 
@@ -196,7 +198,7 @@ const Post = () => {
                         { lang: "TJ", val: nameTj, setter: setNameTj, placeholder: "Вилаи боҳашамат" }
                       ].map(({ lang, val, setter, placeholder }) => (
                         <div key={lang} className="flex flex-col gap-1.5 pl-2 border-l-[3px] border-muted focus-within:border-emerald-500 transition-colors">
-                          <label className="text-[11px] font-black text-muted-foreground uppercase tracking-widest">Title in {lang}</label>
+                          <label className="text-[11px] font-black text-muted-foreground uppercase tracking-widest">{t("post.form.titleIn", "Title in")} {lang}</label>
                           <Input placeholder={placeholder} value={val} onChange={e => setter(e.target.value)} className="h-12 rounded-xl bg-muted/40 border-transparent hover:bg-muted/60 focus-visible:bg-transparent focus-visible:border-emerald-500 shadow-sm transition-all text-sm font-medium" />
                         </div>
                       ))}
@@ -205,17 +207,17 @@ const Post = () => {
 
                   {/* Pricing & Rooms */}
                   <div className="flex flex-col gap-3">
-                    <label className="text-sm font-bold border-b border-border/50 pb-2">Core Information <span className="text-rose-500">*</span></label>
+                    <label className="text-sm font-bold border-b border-border/50 pb-2">{t("post.form.coreInfo", "Core Information")} <span className="text-rose-500">*</span></label>
                     <div className="grid gap-6 sm:grid-cols-2 pt-2">
                       <div className="flex flex-col gap-2">
-                        <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider pl-1">Price per night ($)</label>
+                        <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider pl-1">{t("post.form.price", "Price per night ($)")}</label>
                         <div className="relative group">
                           <DollarSign className="h-5 w-5 absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-emerald-600 transition-colors" />
                           <Input type="number" className="pl-12 h-14 rounded-2xl bg-muted/40 border-transparent hover:bg-muted/60 focus-visible:bg-transparent focus-visible:border-emerald-500 shadow-sm transition-all text-base font-bold" placeholder="150" value={price} onChange={e => setPrice(e.target.value)} min={1} />
                         </div>
                       </div>
                       <div className="flex flex-col gap-2">
-                        <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider pl-1">Number of rooms</label>
+                        <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider pl-1">{t("post.form.rooms", "Number of rooms")}</label>
                         <div className="relative group">
                           <Bed className="h-5 w-5 absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-emerald-600 transition-colors" />
                           <Input type="number" className="pl-12 h-14 rounded-2xl bg-muted/40 border-transparent hover:bg-muted/60 focus-visible:bg-transparent focus-visible:border-emerald-500 shadow-sm transition-all text-base font-bold" placeholder="3" value={rooms} onChange={e => setRooms(e.target.value)} min={1} />
@@ -227,14 +229,14 @@ const Post = () => {
                   {/* Location & Type */}
                   <div className="grid gap-6 sm:grid-cols-2 pt-2">
                     {[
-                      { label: "Location", val: location, setter: setLocation, opts: locations, icon: MapPin }, 
-                      { label: "Property Type", val: type, setter: setType, opts: types, icon: HomeIcon }
+                      { label: t("post.form.location", "Location"), val: location, setter: setLocation, opts: locations, icon: MapPin }, 
+                      { label: t("post.form.type", "Property Type"), val: type, setter: setType, opts: types, icon: HomeIcon }
                     ].map(({ label, val, setter, opts, icon: Icon }) => (
                       <div key={label} className="flex flex-col gap-2">
                         <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider pl-1">{label} <span className="text-rose-500">*</span></label>
                         <Select value={val} onValueChange={setter}>
                           <SelectTrigger className="h-14 rounded-2xl bg-muted/40 border-transparent hover:bg-muted/60 focus:bg-transparent focus:border-emerald-500 shadow-sm transition-all text-base font-medium">
-                            <div className="flex items-center gap-3"><Icon className="h-5 w-5 text-muted-foreground" /><SelectValue placeholder={`Choose ${label.toLowerCase()}`} /></div>
+                            <div className="flex items-center gap-3"><Icon className="h-5 w-5 text-muted-foreground" /><SelectValue placeholder={`${t("post.form.choose", "Choose")} ${label}`} /></div>
                           </SelectTrigger>
                           <SelectContent className="rounded-xl font-medium">{opts.map(o => <SelectItem key={o} value={o} className="rounded-lg cursor-pointer">{o}</SelectItem>)}</SelectContent>
                         </Select>
@@ -244,8 +246,8 @@ const Post = () => {
 
                   {/* About text */}
                   <div className="flex flex-col gap-2 pt-2">
-                    <label className="text-sm font-bold border-b border-border/50 pb-2">Description</label>
-                    <Textarea placeholder="Share what makes this place special. Mention cool amenities, the neighborhood, and anything guests should know..." value={about} onChange={e => setAbout(e.target.value)} className="min-h-40 rounded-2xl bg-muted/40 border-transparent hover:bg-muted/60 focus-visible:bg-transparent focus-visible:border-emerald-500 shadow-sm transition-all text-base p-5 resize-y font-medium leading-relaxed" />
+                    <label className="text-sm font-bold border-b border-border/50 pb-2">{t("post.form.descTitle", "Description")}</label>
+                    <Textarea placeholder={t("post.form.descPlaceholder", "Share what makes this place special. Mention cool amenities, the neighborhood, and anything guests should know...")} value={about} onChange={e => setAbout(e.target.value)} className="min-h-40 rounded-2xl bg-muted/40 border-transparent hover:bg-muted/60 focus-visible:bg-transparent focus-visible:border-emerald-500 shadow-sm transition-all text-base p-5 resize-y font-medium leading-relaxed" />
                   </div>
                 </form>
               </div>
@@ -259,9 +261,9 @@ const Post = () => {
               
               <div className="p-8 border-b border-border/40 flex items-center justify-between relative z-10">
                 <p className="font-extrabold text-lg flex items-center gap-2">
-                  <Eye className="h-5 w-5 text-emerald-500" /> Live Preview
+                  <Eye className="h-5 w-5 text-emerald-500" /> {t("post.preview.title", "Live Preview")}
                 </p>
-                {price ? <Badge className="bg-emerald-600 shadow-lg shadow-emerald-500/20 px-3 py-1 font-bold text-sm rounded-lg">${price}</Badge> : <Badge variant="secondary" className="px-3 py-1 rounded-lg">No price</Badge>}
+                {price ? <Badge className="bg-emerald-600 shadow-lg shadow-emerald-500/20 px-3 py-1 font-bold text-sm rounded-lg">${price}</Badge> : <Badge variant="secondary" className="px-3 py-1 rounded-lg">{t("post.preview.noPrice", "No price")}</Badge>}
               </div>
 
               <div className="p-8 flex flex-col gap-6 relative z-10">
@@ -275,7 +277,7 @@ const Post = () => {
                         <div className="h-16 w-16 rounded-[2rem] bg-emerald-100/50 dark:bg-emerald-900/30 flex items-center justify-center border border-emerald-200/50 dark:border-emerald-800/50 shadow-sm">
                            <ImagePlus className="h-8 w-8" />
                         </div>
-                        <span className="text-sm font-bold uppercase tracking-wider">Awaiting Image</span>
+                        <span className="text-sm font-bold uppercase tracking-wider">{t("post.preview.awaiting", "Awaiting Image")}</span>
                       </div>
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
@@ -285,18 +287,18 @@ const Post = () => {
                 {/* Text Preview */}
                 <div className="flex flex-col gap-3">
                   <h3 className="text-xl font-black leading-tight line-clamp-2">
-                     {nameEn || nameRu || nameTj || "Your Stunning Property"}
+                     {nameEn || nameRu || nameTj || t("post.preview.stunningMsg", "Your Stunning Property")}
                   </h3>
                   <div className="flex flex-wrap gap-2 text-xs font-bold text-muted-foreground uppercase tracking-wider">
-                    <span className="flex items-center gap-1.5 bg-muted/80 px-2.5 py-1.5 rounded-lg border border-border/50"><MapPin className="h-3.5 w-3.5 text-emerald-500" />{location || "City"}</span>
-                    <span className="flex items-center gap-1.5 bg-muted/80 px-2.5 py-1.5 rounded-lg border border-border/50"><Bed className="h-3.5 w-3.5 text-emerald-500" />{rooms ? `${rooms} rooms` : "Rooms"}</span>
-                    <span className="flex items-center gap-1.5 bg-muted/80 px-2.5 py-1.5 rounded-lg border border-border/50 capitalize"><HomeIcon className="h-3.5 w-3.5 text-emerald-500" />{type || "Type"}</span>
+                    <span className="flex items-center gap-1.5 bg-muted/80 px-2.5 py-1.5 rounded-lg border border-border/50"><MapPin className="h-3.5 w-3.5 text-emerald-500" />{location || t("post.preview.city", "City")}</span>
+                    <span className="flex items-center gap-1.5 bg-muted/80 px-2.5 py-1.5 rounded-lg border border-border/50"><Bed className="h-3.5 w-3.5 text-emerald-500" />{rooms ? `${rooms} ${t("post.preview.rooms", "rooms")}` : t("post.preview.roomsEmpty", "Rooms")}</span>
+                    <span className="flex items-center gap-1.5 bg-muted/80 px-2.5 py-1.5 rounded-lg border border-border/50 capitalize"><HomeIcon className="h-3.5 w-3.5 text-emerald-500" />{type || t("post.preview.type", "Type")}</span>
                   </div>
                   {about ? (
                     <p className="text-sm text-muted-foreground line-clamp-3 mt-1 font-medium leading-relaxed bg-muted/30 p-4 rounded-xl border border-border/30">{about}</p>
                   ) : (
                     <div className="h-20 w-full rounded-xl bg-muted/40 border border-dashed border-border/50 flex items-center justify-center mt-1">
-                       <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">No Description Yet</span>
+                       <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{t("post.preview.noDesc", "No Description Yet")}</span>
                     </div>
                   )}
                 </div>
@@ -305,7 +307,7 @@ const Post = () => {
                 
                 {user && (
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Host</span>
+                    <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{t("post.preview.host", "Host")}</span>
                     <span className="font-bold px-3 py-1.5 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-black shadow-md border border-border/50 flex items-center gap-2">
                       <div className="h-5 w-5 rounded-full bg-emerald-500 flex items-center justify-center text-[10px] text-white">R</div>
                       {user.name}
@@ -317,10 +319,10 @@ const Post = () => {
                 <div className="flex flex-col gap-3 pt-2">
                   <Button type="submit" form="post-form" disabled={!!saving} className="w-full h-14 rounded-2xl bg-emerald-600 hover:bg-emerald-700 font-bold shadow-xl shadow-emerald-500/20 text-base transition-all hover:-translate-y-0.5 border-0">
                     {saving ? <Loader2 className="h-5 w-5 mr-2 animate-spin" /> : <Upload className="h-5 w-5 mr-2" />}
-                    {saving ? "Publishing Space..." : "Publish To Production"}
+                    {saving ? t("post.publishing", "Publishing Space...") : t("post.publishBtn", "Publish To Production")}
                   </Button>
                   <Button type="button" variant="ghost" onClick={reset} className="w-full h-12 rounded-2xl hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/30 text-muted-foreground transition-colors font-bold">
-                    Clear Form
+                    {t("post.clearForm", "Clear Form")}
                   </Button>
                 </div>
               </div>

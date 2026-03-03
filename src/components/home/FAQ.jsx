@@ -2,24 +2,26 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { HelpCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const FAQ = () => {
+  const { t } = useTranslation();
   const faqs = [
     {
-      q: "How do I book a property?",
-      a: "Simply browse our listings, select your desired dates, and click 'Contact to Book'. The host will receive your request and respond shortly to confirm your stay."
+      q: t("faq.q1", "How do I book a property?"),
+      a: t("faq.a1", "Simply browse our listings, select your desired dates, and click 'Contact to Book'. The host will receive your request and respond shortly to confirm your stay.")
     },
     {
-      q: "Are the hosts verified?",
-      a: "Yes, every host on Rent-A-Room undergoes a strict verification process including identity checks and property assessments to ensure your safety and comfort."
+      q: t("faq.q2", "Are the hosts verified?"),
+      a: t("faq.a2", "Yes, every host on Rent-A-Room undergoes a strict verification process including identity checks and property assessments to ensure your safety and comfort.")
     },
     {
-      q: "What payment methods are supported?",
-      a: "Currently, payments are handled directly between you and the host via our secure messaging system or upon arrival, depending on the host's policy."
+      q: t("faq.q3", "What payment methods are supported?"),
+      a: t("faq.a3", "Currently, payments are handled directly between you and the host via our secure messaging system or upon arrival, depending on the host's policy.")
     },
     {
-      q: "Can I cancel a booking?",
-      a: "Cancellation policies vary by host. You can view the specific cancellation terms on each property's detail page before making a booking."
+      q: t("faq.q4", "Can I cancel a booking?"),
+      a: t("faq.a4", "Cancellation policies vary by host. You can view the specific cancellation terms on each property's detail page before making a booking.")
     }
   ];
 
@@ -37,8 +39,8 @@ const FAQ = () => {
           <div className="h-14 w-14 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center mb-6 shadow-inner">
             <HelpCircle className="h-7 w-7" />
           </div>
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4">Frequently Asked Questions</h2>
-          <p className="text-muted-foreground text-lg font-medium">Everything you need to know about renting with us.</p>
+          <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4">{t("faq.title", "Frequently Asked Questions")}</h2>
+          <p className="text-muted-foreground text-lg font-medium">{t("faq.subtitle", "Everything you need to know about renting with us.")}</p>
         </motion.div>
         
         <motion.div 

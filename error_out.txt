@@ -1,0 +1,63 @@
+﻿node : file:///C:/Users
+/mk/Desktop/%D0%9E%D0%B
+1%D1%89%D0%B0%D1%8F/rea
+ct/react_month2/react_p
+rojects/idea%20project/
+app/extract_i18n.js:1
+строка:1 знак:1
++ node extract_i18n.js 
+2>&1 | Out-File -Encodi
+ng utf8 error_out.txt
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (file:///C:/Us   
+ er...tract_i18n.js    
+:1:String) [], Rem    o
+teException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+const fs = require('fs'
+);
+           ^
+
+ReferenceError: require
+ is not defined in ES m
+odule scope, you can us
+e import instead
+This file is being trea
+ted as an ES module bec
+ause it has a '.js' fil
+e extension and 'C:\Use
+rs\mk\Desktop\╨Ю╨▒╤Й╨░╤
+П\react\react_month2\re
+act_projects\idea proje
+ct\app\package.json' co
+ntains "type": "module"
+. To treat it as a Comm
+onJS script, rename it 
+to use the '.cjs' file 
+extension.
+    at file:///C:/Users
+/mk/Desktop/%D0%9E%D0%B
+1%D1%89%D0%B0%D1%8F/rea
+ct/react_month2/react_p
+rojects/idea%20project/
+app/extract_i18n.js:1:1
+2
+    at ModuleJob.run (n
+ode:internal/modules/es
+m/module_job:343:25)
+    at async onImport.t
+racePromise.__proto__ (
+node:internal/modules/e
+sm/loader:665:26)
+    at async asyncRunEn
+tryPointWithESMLoader (
+node:internal/modules/r
+un_main:117:5)
+
+Node.js v22.22.0

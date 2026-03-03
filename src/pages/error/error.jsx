@@ -4,18 +4,20 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { AlertOctagon, ArrowLeft, Home, RefreshCw, Bug } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const Error = () => {
   const err = useRouteError();
+  const { t } = useTranslation();
 
   const status = err?.status || err?.response?.status || 500;
   const title =
-    status === 404 ? "Page not found" : status === 401 ? "Unauthorized access" : "Something went wrong";
+    status === 404 ? t("error.notFound", "Page not found") : status === 401 ? t("error.unauthorized", "Unauthorized access") : t("error.generic", "Something went wrong");
 
   const message =
     err?.statusText ||
     err?.message ||
-    "We couldn't load this page. Try again or go back home.";
+    t("error.defaultMsg", "We couldn't load this page. Try again or go back home.");
 
   return (
     <div className="min-h-[85vh] flex items-center justify-center px-4 py-12 animate-fade-in relative overflow-hidden">
@@ -36,7 +38,7 @@ const Error = () => {
 
             <div className="relative z-10 flex flex-col items-center gap-3">
               <Badge className="bg-white/20 hover:bg-white/30 text-white border-white/20 text-sm px-4 py-1.5 shadow-sm">
-                Error Code: {status}
+                {t("error.code", "Error Code")}: {status}
               </Badge>
               <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
                 {title}
@@ -51,17 +53,17 @@ const Error = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild className="h-14 rounded-2xl px-6 bg-rose-600 hover:bg-rose-700 text-base font-bold shadow-lg shadow-rose-600/25 transition-all text-white flex-1 sm:max-w-xs">
                 <Link to="/">
-                  <Home className="h-5 w-5 mr-2" /> Return to Home
+                  <Home className="h-5 w-5 mr-2" /> {t("error.returnHome", "Return to Home")}
                 </Link>
               </Button>
 
               <div className="flex gap-4 flex-1 sm:max-w-xs">
                 <Button variant="outline" className="h-14 rounded-2xl flex-1 border-border/60 hover:bg-muted font-bold transition-colors" onClick={() => window.location.reload()}>
-                  <RefreshCw className="h-5 w-5 mr-2" /> Reload
+                  <RefreshCw className="h-5 w-5 mr-2" /> {t("error.reload", "Reload")}
                 </Button>
 
                 <Button variant="outline" className="h-14 rounded-2xl flex-1 border-border/60 hover:bg-muted font-bold transition-colors" onClick={() => window.history.back()}>
-                  <ArrowLeft className="h-5 w-5 mr-2" /> Go back
+                  <ArrowLeft className="h-5 w-5 mr-2" /> {t("error.goBack", "Go back")}
                 </Button>
               </div>
             </div>
@@ -70,7 +72,7 @@ const Error = () => {
             <div className="rounded-2xl border bg-muted/30 p-5 mt-2 transition-all hover:bg-muted/50">
               <div className="flex items-center gap-2 mb-2">
                 <Bug className="h-4 w-4 text-muted-foreground" />
-                <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider">Technical Details</p>
+                <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider">{t("error.techDetails", "Technical Details")}</p>
               </div>
               <p className="text-xs text-muted-foreground font-mono bg-background p-3 rounded-xl border overflow-auto max-h-32">
                 {typeof err === "string" ? err : JSON.stringify(err, null, 2)}
