@@ -164,14 +164,16 @@
       "apartment": "Квартира",
       "dacha": "Дача"
     },
-    "rooms": "Ҳуҷраҳо",
+    "rooms": "Хуҷра",
     "anyRoomsLabel": "Ҳар чандто",
-    "anyRooms": "ҳар чанд ҳуҷра",
+    "anyRooms": "Ҳамаи хонаҳо",
     "rooms4plus": "4+ ҳуҷра",
-    "priceRange": "Диапазони нарх",
+    "4plus": "4+",
+    "priceRange": "Нарх",
     "results": "натиҷа",
+    "propertiesFound": "Ёфт шуд: {{count}}",
     "homes": "Хонаҳо",
-    "noResults": "Натиҷа нест",
+    "noResults": "Ҳеҷ чиз ёфт нашуд",
     "tryDifferent": "Филтрҳоро дигар кунед.",
     "resetFilters": "Филтрҳоро тоза кардан",
     "prev": "Қаблӣ",
@@ -223,10 +225,12 @@
     },
     "ourStory": "Our Story",
     "stats": {
-      "total": "Total Properties",
-      "cities": "Active Cities",
-      "types": "Property Types",
-      "pricing": "Pricing Range"
+      "total": "Ҳамаи хонаҳо",
+      "cities": "Шаҳрҳо",
+      "types": "Намуди амвол",
+      "pricing": "Диапазони нарх",
+      "satisfaction": "Қаноатмандӣ",
+      "support": "Дастгирии 24/7"
     },
     "advantage": {
       "title": "The Rent-A-Room Advantage",
@@ -235,47 +239,78 @@
     "journey": {
       "title": "Our evolutionary journey.",
       "desc": "From a local hackathon concept to a premium ecosystem."
-    }
-  },
-  "footer": {
-    "brand": {
-      "subtitle": "Дома • Дачи • Квартиры",
-      "desc": "Простая платформа для аренды домов, дач и квартир по всему Таджикистану. Чистые объявления. Без стресса."
-    },
-    "badges": {
-      "verified": "Проверенные объявления",
-      "support": "Поддержка 24/7"
-    },
-    "quickLinks": {
-      "title": "Быстрые ссылки",
-      "home": "Главная",
-      "about": "О нас",
-      "contact": "Контакты",
-      "login": "Войти"
-    },
-    "contact": {
-      "title": "Контакты",
-      "emailLabel": "Email",
-      "phoneLabel": "Телефон",
-      "locationLabel": "Адрес",
-      "locationValue": "Душанбе, Таджикистан"
-    },
-    "newsletter": {
-      "title": "Рассылка",
-      "desc": "Новые объявления и обновления. Без спама.",
-      "placeholder": "Ваш email",
-      "join": "Подписаться"
     },
     "cta": {
-      "title": "Хотите добавить своё жильё?",
-      "desc": "Создайте аккаунт и начните публиковать за пару минут.",
-      "button": "Начать"
+      "title": "Барои иловаи хона тайёр ҳастед?",
+      "desc": "Ба платформаи премиум ҳамроҳ шавед, ки иҷораро барои ҳазорон нафар осон мекунад."
+    }
+  },
+  "home": {
+    "discoverTitle": "Хонаи нави худро пайдо кунед",
+    "filterDesc": "Бо шаҳр, намуд ва нарх филтр кунед.",
+    "browseStats": "Дидани {{total}} хона дар {{cities}} шаҳр."
+  },
+  "footer": {
+    "tagline": "Зиндагии Премиум",
+    "description": "Пайдо кардани квартираҳои люкс, студияҳои ором ва виллаҳои васеъ дар саросари ҷаҳон. Иҷора гирифтан ҳеҷ қадар зебо набуд.",
+    "explore": "Ҷустуҷӯ",
+    "nav": {
+      "home": "Асосӣ",
+      "about": "Дар бораи мо", 
+      "contact": "Тамос",
+      "properties": "Мулкҳо"
+    },
+    "stayUpdated": "Навсозӣ шавед",
+    "newsletterDesc": "Ба рӯзномаи мо обуна шавед то хонаҳои премиум ва пешниҳодҳои махсусро гиред.",
+    "emailPlaceholder": "Суроғаи почтаи худро ворид кунед",
+    "emailError": "Лутфан суроғаи почтаи дурустро ворид кунед",
+    "alreadySubscribed": "Шумо алакай обуна шудаед!",
+    "subscribed": "Обуна шудед!",
+    "thanksSubscribing": "Ташаккур барои обуна шудан!",
+    "becomeHost": "Мизбон шавед",
+    "earnMoney": "Осон пул ба даст оред",
+    "platformName": "Платформаи Rent.A.Room",
+    "allRights": "Ҳама ҳуқуқҳо ҳифз шудаанд.",
+    "poweredBy": "Таъмин карда шуда аз ҷониби Премиум UI",
+    "builtWith": "Сохта шуда бо React",
+    "brand": {
+      "subtitle": "Хонаҳо • Дачаҳо • Квартираҳо",
+      "desc": "Платформаи оддӣ барои иҷораи хонаҳо, дачаҳо ва квартираҳо дар Тоҷикистон. Эълонҳои тоза. Бе ташвиш."
+    },
+    "badges": {
+      "verified": "Эълонҳои санҷидашуда",
+      "support": "Дастгирӣ 24/7"
+    },
+    "quickLinks": {
+      "title": "Пайвандҳои зуд",
+      "home": "Асосӣ",
+      "about": "Дар бораи мо",
+      "contact": "Тамос",
+      "login": "Даромадан"
+    },
+    "contact": {
+      "title": "Тамос",
+      "emailLabel": "Почта",
+      "phoneLabel": "Телефон",
+      "locationLabel": "Ҷойгиршавӣ",
+      "locationValue": "Душанбе, Тоҷикистон"
+    },
+    "newsletter": {
+      "title": "Рӯзнома",
+      "desc": "Эълонҳои нав ва навсозӣ. Бе спам.",
+      "placeholder": "Почтаи шумо",
+      "join": "Ҳамроҳ шудан"
+    },
+    "cta": {
+      "title": "Мехоҳед хонаи худро гузоред?",
+      "desc": "Аккаунт созед ва дар чанд дақиқа эълон гузоред.",
+      "button": "Оғоз кардан"
     },
     "bottom": {
-      "rights": "Все права защищены.",
-      "privacy": "Конфиденциальность",
-      "terms": "Условия",
-      "support": "Поддержка"
+      "rights": "Ҳама ҳуқуқҳо ҳифз шудаанд.",
+      "privacy": "Махфият",
+      "terms": "Қоидаҳо",
+      "support": "Дастгирӣ"
     }
   },
   "faq": {
@@ -292,24 +327,24 @@
   },
   "categories": {
     "flats": {
-      "title": "Luxury Flats",
-      "desc": "City-center apartments with premium amenities.",
-      "count": "320+ Properties"
+      "title": "Квартираҳо",
+      "desc": "Дар маркази шаҳр.",
+      "count": "320+ хона"
     },
     "houses": {
-      "title": "Private Houses",
-      "desc": "Spacious suburban homes perfect for families.",
-      "count": "150+ Properties"
+      "title": "Хонаҳо",
+      "desc": "Хонаҳои барҳаво.",
+      "count": "150+ хона"
     },
     "dachas": {
-      "title": "Country Dachas",
-      "desc": "Escape the city for a quiet countryside retreat.",
-      "count": "80+ Properties"
+      "title": "Дачаҳо",
+      "desc": "Барои истироҳат.",
+      "count": "80+ хона"
     },
-    "badge": "Curated Collections",
-    "title": "Property Types",
-    "viewAll": "View All Types",
-    "explore": "Explore"
+    "badge": "Коллексияҳо",
+    "title": "Намуди амвол",
+    "viewAll": "Тамоми намудҳо",
+    "explore": "Дидан"
   },
   "hero": {
     "premiumLive": "Premium Properties Available",
@@ -326,40 +361,56 @@
     "price": "Price",
     "mo": "mo",
     "totalProperties": "Total Properties",
-    "happyRenters": "10k+ Happy Renters"
+    "happyRenters": "10k+ Happy Renters",
+    "badge": "Хонаҳои премиум",
+    "titlePart1": "Амволи",
+    "titlePart2": "беҳтаринро гиред.",
+    "subtitle": "Ҷустуҷӯи хонаҳои боҳашамат ва шинам.",
+    "btnExplore": "Каталог",
+    "btnHost": "Соҳибхона шавед",
+    "stats": {
+      "properties": "Хонаҳо",
+      "cities": "Шаҳрҳо",
+      "starting": "Сар карда аз"
+    },
+    "card": {
+      "rating": "Баҳои аъло",
+      "status": "Ҳолат",
+      "verified": "Санҷидашуда"
+    }
   },
   "hostCta": {
-    "badge": "Earn With Us",
-    "title": "Put your unused space to work.",
-    "desc": "Join thousands of hosts earning passive income daily. We handle the marketing, payments, and security. You bring the keys.",
-    "button": "Become a Host",
-    "estimatedEarnings": "Estimated Earnings",
-    "mo": "mo"
+    "badge": "Даромад гиред",
+    "title": "Фазои худро ба кор андозед.",
+    "desc": "Даромад ҳар рӯз.",
+    "button": "Соҳибхона шавед",
+    "estimatedEarnings": "Даромади тахминӣ",
+    "mo": "моҳ"
   },
   "howItWorks": {
     "step1": {
-      "title": "Discover",
-      "desc": "Use our smart filters to find listings that perfectly match your preferences and budget in seconds."
+      "title": "Ҷустуҷӯ",
+      "desc": "Филтрҳо барои ёфтани хона."
     },
     "step2": {
-      "title": "Book Securely",
-      "desc": "Connect directly with verified hosts through our secure messaging and payment systems."
+      "title": "Бандкунӣ",
+      "desc": "Мустақиман бо соҳибон."
     },
     "step3": {
-      "title": "Move In",
-      "desc": "Get your keys and enjoy your new premium space with 24/7 dedicated support."
+      "title": "Ҷойгиршавӣ",
+      "desc": "Калидҳоро гиред бо бехатарӣ."
     },
-    "badge": "Simple Process",
-    "title": "How it works",
-    "subtitle": "We've engineered the perfect platform for seamless property hunting without the traditional headaches."
+    "badge": "Раванд",
+    "title": "Ин чӣ тавр кор мекунад",
+    "subtitle": "Беҳтарин платформа барои шумо."
   },
   "testimonials": {
-    "review1": "The easiest way I've ever found to rent a place. The interface is stunning and the hosts are verified. Felt completely safe.",
-    "review2": "Booked a luxury flat for my business trip. The photos matched reality perfectly. Communication was seamless.",
-    "review3": "I was skeptical at first, but the booking process is flawless. Found an amazing dacha for the weekend in minutes.",
-    "badge": "Real Experiences",
-    "title": "Don't just take our word for it.",
-    "subtitle": "Thousands of renters trust us to find their next home. Here's what they have to say."
+    "review1": "Осонтарин роҳ.",
+    "review2": "Квартираи боҳашамат.",
+    "review3": "Беҳтарин.",
+    "badge": "Таҷрибаҳо",
+    "title": "Бовар накунед.",
+    "subtitle": "Иҷорагирон чӣ мегӯянд."
   },
   "admin": {
     "deleteConfirm": "Are you sure you want to delete this booking request forever?",
@@ -370,8 +421,8 @@
       "bookings": "Bookings",
       "accounts": "Accounts"
     },
-    "heroTitle": "Admin Command Center",
-    "heroDesc": "Platform management & analytics for Rent-A-Room",
+    "heroTitle": "Маркази фармондеҳӣ",
+    "heroDesc": "Идоракунии платформа ва таҳлил барои Rent-A-Room",
     "stats": {
       "activeProps": "Active Properties",
       "totalBookings": "Total Bookings",
@@ -388,9 +439,9 @@
     "untitled": "Untitled Property",
     "unknown": "Unknown",
     "roomsLabel": "Rooms",
-    "edit": "Edit",
-    "deleting": "Deleting...",
-    "delete": "Delete",
+    "edit": "Иваз кардан",
+    "deleting": "Нест кардан...",
+    "delete": "Нест кардан",
     "bookingsTitle": "Booking Requests",
     "emptyBookings": {
       "title": "No requests yet",
@@ -401,17 +452,19 @@
     "bookingFor": "Booking for",
     "days": "days",
     "receivedOn": "Received",
-    "accept": "Accept",
-    "reject": "Reject",
-    "setPending": "Set Pending",
+    "accept": "Қабул",
+    "reject": "Рад кардан",
+    "setPending": "Аз нав",
     "usersTitle": "Registered Users",
     "adminsActive": "Admins Active",
     "emptyUsers": "No users found",
-    "adminBadge": "ADMIN",
-    "youBadge": "YOU",
-    "joinedDate": "Joined Date",
-    "revoke": "Revoke",
-    "makeAdmin": "Make Admin",
+    "adminBadge": "АДМИН",
+    "youBadge": "ШУМО",
+    "joinedDate": "Санаи вуруд",
+    "revoke": "Гирифтани Админ",
+    "makeAdmin": "Додани Админ",
+    "deleteConfirmTitle": "Дархостро нест мекунед?",
+    "deleteConfirmDesc": "Ин амал бекор карда намешавад. Дархости бандкунӣ ҳамешагӣ нест мешавад.",
     "form": {
       "addTitle": "Add New Property",
       "editTitle": "Edit Property",
@@ -500,120 +553,120 @@
     "academy": "Softclub Academy, Dushanbe"
   },
   "error": {
-    "notFound": "Page not found",
-    "unauthorized": "Unauthorized access",
-    "generic": "Something went wrong",
-    "defaultMsg": "We couldn't load this page. Try again or go back home.",
-    "code": "Error Code",
-    "returnHome": "Return to Home",
-    "reload": "Reload",
-    "goBack": "Go back",
-    "techDetails": "Technical Details"
+    "notFound": "Саҳифа ёфт нашуд",
+    "unauthorized": "Дастрасӣ манъ аст",
+    "generic": "Хатогӣ шуд",
+    "defaultMsg": "Мо натавонистем ин саҳифаро бор кунем. Хато.",
+    "code": "Рамзи хато",
+    "returnHome": "Асосӣ",
+    "reload": "Азнавсозӣ",
+    "goBack": "Бозгашт",
+    "techDetails": "Тафсилот"
   },
   "post": {
     "errors": {
-      "image": "Please provide a cover image for your listing.",
-      "title": "A title is required.",
-      "location": "Please select a location.",
-      "type": "Please select a property type.",
-      "rooms": "Please specify the number of rooms.",
-      "price": "Please set a nightly price."
+      "image": "Расм интихоб кунед.",
+      "title": "Ном ҳатмист.",
+      "location": "Ҷой интихоб кунед.",
+      "type": "Намуд интихоб кунед.",
+      "rooms": "Шумораи ҳуҷраҳоро муайян кунед.",
+      "price": "Нархро нависед."
     },
     "success": {
-      "title": "Listing Alive!",
-      "desc": "Your spectacular space is now live for thousands of renters to discover.",
-      "btn": "Post another listing"
+      "title": "Эълон нашр шуд!",
+      "desc": "Фазои шумо дастрас аст.",
+      "btn": "Эълони дигар"
     },
     "hero": {
-      "title": "Post your space.",
-      "desc": "Reach an elite audience and start earning from your incredible properties today.",
-      "networkStatus": "Network Status",
-      "thousands": "Thousands",
-      "activeWait": "of active renters waiting"
+      "title": "Фазои худро илова кунед.",
+      "desc": "Бо шунавандагони беҳтарин тамос гиред.",
+      "networkStatus": "Ҳолати шабака",
+      "thousands": "Ҳазорон",
+      "activeWait": "иҷорагирон интизоранд"
     },
     "form": {
-      "detailsTitle": "Property Details",
-      "detailsDesc": "Please provide accurate information to attract the best guests.",
-      "media": "Media",
-      "uploadBtn": "Click to upload your best photo",
-      "uploadHelp": "High res JPEG or PNG (Max 10MB)",
-      "titles": "Listing Titles",
-      "titleIn": "Title in",
-      "coreInfo": "Core Information",
-      "price": "Price per night ($)",
-      "rooms": "Number of rooms",
-      "location": "Location",
-      "type": "Property Type",
-      "choose": "Choose",
-      "descTitle": "Description",
-      "descPlaceholder": "Share what makes this place special. Mention cool amenities, the neighborhood, and anything guests should know..."
+      "detailsTitle": "Тафсилоти амвол",
+      "detailsDesc": "Маълумоти дақиқ пешниҳод кунед.",
+      "media": "Медиа",
+      "uploadBtn": "Расм бор кардан",
+      "uploadHelp": "JPEG ё PNG",
+      "titles": "Номи эълон",
+      "titleIn": "Ном ба",
+      "coreInfo": "Маълумот",
+      "price": "Нарх ($)",
+      "rooms": "Ҳуҷраҳо",
+      "location": "Ҷой",
+      "type": "Намуд",
+      "choose": "Интихоб",
+      "descTitle": "Тавсиф",
+      "descPlaceholder": "Махсусиятҳо..."
     },
     "preview": {
-      "title": "Live Preview",
-      "noPrice": "No price",
-      "awaiting": "Awaiting Image",
-      "stunningMsg": "Your Stunning Property",
-      "city": "City",
-      "rooms": "rooms",
-      "roomsEmpty": "Rooms",
-      "type": "Type",
-      "noDesc": "No Description Yet",
-      "host": "Host"
+      "title": "Пешнамоиш",
+      "noPrice": "Нарх нест",
+      "awaiting": "Интизори расм",
+      "stunningMsg": "Амволи шумо",
+      "city": "Шаҳр",
+      "rooms": "ҳуҷра",
+      "roomsEmpty": "Ҳуҷраҳо",
+      "type": "Намуд",
+      "noDesc": "Тавсиф нест",
+      "host": "Соҳиб"
     },
-    "publishing": "Publishing Space...",
-    "publishBtn": "Publish To Production",
-    "clearForm": "Clear Form"
+    "publishing": "Нашр...",
+    "publishBtn": "Нашр кардан",
+    "clearForm": "Тоза"
   },
   "profile": {
-    "updateSuccess": "Profile updated seamlessly",
-    "updateFail": "Failed to update",
+    "updateSuccess": "Муваффақият",
+    "updateFail": "Нашуд",
     "badges": {
-      "admin": "Administrator",
-      "verified": "Verified Profile"
+      "admin": "Администратор",
+      "verified": "Тасдиқшуда"
     },
-    "joined": "Joined",
-    "recently": "recently",
-    "signOut": "Sign Out",
-    "registeredEmail": "Registered Email",
-    "contactPhone": "Contact Phone",
-    "addPhone": "Please add a phone number",
+    "joined": "Хамроҳ шуд",
+    "recently": "ба наздикӣ",
+    "signOut": "Баромад",
+    "registeredEmail": "Почта",
+    "contactPhone": "Телефон",
+    "addPhone": "Рақамро илова кунед",
     "tabs": {
-      "dashboard": "Dashboard",
-      "settings": "Account Settings"
+      "dashboard": "Панел",
+      "settings": "Танзимот"
     },
     "stats": {
-      "saved": "Saved Listings",
-      "active": "Active Posts",
-      "reviews": "Total Reviews",
-      "trust": "Trust Score"
+      "saved": "Нигоҳдошташуда",
+      "active": "Фаъол",
+      "reviews": "Назарҳо",
+      "trust": "Боварӣ"
     },
     "actions": {
-      "title": "Actions",
-      "manageFavs": "Manage Favorites",
-      "manageFavsDesc": "View and edit your saved properties",
-      "createListing": "Create Listing",
-      "createListingDesc": "Start earning from your space",
-      "adminDash": "Admin Dashboard",
-      "adminDashDesc": "Manage platform resources"
+      "title": "Амалҳо",
+      "manageFavs": "Дӯстдоштаҳо",
+      "manageFavsDesc": "Дидан",
+      "createListing": "Иловаи эълон",
+      "createListingDesc": "Пул кор кунед",
+      "adminDash": "Маркази фармондеҳӣ",
+      "adminDashDesc": "Идоракунии платформа ва таҳлил"
     },
     "notifications": {
-      "title": "Notifications",
-      "notif1Title": "Profile verified successfully",
-      "notif1Desc": "Thanks for verifying your account. You can now rent and host properties on Rent-A-Room.",
-      "notif1Time": "2 Days ago",
-      "notif2Title": "Welcome to the community!",
-      "notif2Desc": "We are glad to have you here. Complete your profile to get the most out of the platform.",
-      "notif2Time": "1 Week ago"
+      "title": "Огоҳиҳо",
+      "notif1Title": "Тасдиқ шуд",
+      "notif1Desc": "Шумо метавонед иҷора гиред.",
+      "notif1Time": "2 рӯз пеш",
+      "notif2Title": "Хуш омадед!",
+      "notif2Desc": "Профили худро пурра кунед.",
+      "notif2Time": "1 ҳафта пеш"
     },
     "settings": {
-      "title": "Profile Settings",
-      "desc": "Update your personal information and how we can reach you.",
-      "fullName": "Full Name",
-      "phone": "Phone Number",
-      "emailLocked": "Email Address (Locked)",
-      "cancel": "Cancel",
-      "saving": "Saving Changes...",
-      "save": "Save Changes"
+      "title": "Танзимот",
+      "desc": "Маълумотро нав кунед.",
+      "fullName": "Ном",
+      "phone": "Телефон",
+      "emailLocked": "Почта (Қулф)",
+      "cancel": "Бекор",
+      "saving": "Сабт...",
+      "save": "Сабт"
     }
   }
 }

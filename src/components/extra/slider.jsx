@@ -29,8 +29,7 @@ const Slider = () => {
   const next = () => setActive((p) => (p + 1) % safeLen);
   const prev = () => setActive((p) => (p - 1 + safeLen) % safeLen);
 
-  const thumbAt = (offset) => slides[(active + offset) % safeLen];
-  const thumbIndex = (offset) => (active + offset) % safeLen;
+
 
   useEffect(() => {
     dispatch(fetchListings());

@@ -12,8 +12,37 @@ import Profile from "./pages/profile/profile";
 import Favorites from "./pages/favorites/favorites";
 import Massage from "./pages/massage/massage";
 import Post from "./pages/post/post";
+import { getUserToken } from "./utils/url";
 import AdminListings from "./pages/admin/adminListing";
 import Error from "./pages/error/error";
+import { Navigate } from "react-router-dom";
+const ProtectedRoute = ({ children }) => {
+  const user = (() => {
+    try {
+      const u = getUserToken();
+      return u ? JSON.parse(u) : null;
+    } catch {
+      return null;
+    }
+  })();
+  
+  if (!user) return <Navigate to="/login" replace />;
+  return children;
+};
+
+const GuestRoute = ({ children }) => {
+  const user = (() => {
+    try {
+      const u = getUserToken();
+      return u ? JSON.parse(u) : null;
+    } catch {
+      return null;
+    }
+  })();
+  
+  if (user) return <Navigate to="/" replace />;
+  return children;
+};
 
 const App = () => {
   const router = createBrowserRouter([
@@ -36,11 +65,11 @@ const App = () => {
         },
         {
           path: "login",
-          element: <Login />,
+          element: <GuestRoute><Login /></GuestRoute>,
         },
         {
           path: "signUp",
-          element: <SignUp />,
+          element: <GuestRoute><SignUp /></GuestRoute>,
         },
         {
           path: "profile",
@@ -51,19 +80,19 @@ const App = () => {
           element: <Favorites />,
         },
         {
-          path : "/massage/:id",
+          path : "massage/:id",
           element : <Massage/>
         },
         {
           path : "post",
-          element :<Post/>
+          element : <ProtectedRoute><Post/></ProtectedRoute>
         },
         {
           path : "admin",
           element :<AdminListings/>
         },
         {
-          path: "/explore/:id",
+          path: "explore/:id",
           element: <Info />,
         },
       ],

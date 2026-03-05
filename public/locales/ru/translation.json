@@ -168,10 +168,12 @@
     "anyRoomsLabel": "Любое количество",
     "anyRooms": "любые комнаты",
     "rooms4plus": "4+ комнаты",
+    "4plus": "4+",
     "priceRange": "Диапазон цен",
     "results": "результатов",
-    "homes": "Жильё",
-    "noResults": "Нет результатов",
+    "propertiesFound": "Найдено объектов: {{count}}",
+    "homes": "Объекты",
+    "noResults": "Ничего не найдено",
     "tryDifferent": "Попробуйте изменить фильтры.",
     "resetFilters": "Сбросить фильтры",
     "prev": "Назад",
@@ -223,10 +225,12 @@
     },
     "ourStory": "Our Story",
     "stats": {
-      "total": "Total Properties",
-      "cities": "Active Cities",
-      "types": "Property Types",
-      "pricing": "Pricing Range"
+      "total": "Всего объектов",
+      "cities": "Городов",
+      "types": "Типы недвижимости",
+      "pricing": "Диапазон цен",
+      "satisfaction": "Уровень удовлетворенности",
+      "support": "Служба поддержки"
     },
     "advantage": {
       "title": "The Rent-A-Room Advantage",
@@ -235,47 +239,78 @@
     "journey": {
       "title": "Our evolutionary journey.",
       "desc": "From a local hackathon concept to a premium ecosystem."
-    }
-  },
-  "footer": {
-    "brand": {
-      "subtitle": "Хонаҳо • Дачаҳо • Квартираҳо",
-      "desc": "Платформаи оддӣ барои иҷораи хонаҳо, дачаҳо ва квартираҳо дар Тоҷикистон. Эълонҳои тоза. Бе ташвиш."
-    },
-    "badges": {
-      "verified": "Эълонҳои санҷидашуда",
-      "support": "Дастгирӣ 24/7"
-    },
-    "quickLinks": {
-      "title": "Пайвандҳои зуд",
-      "home": "Асосӣ",
-      "about": "Дар бораи мо",
-      "contact": "Тамос",
-      "login": "Даромадан"
-    },
-    "contact": {
-      "title": "Тамос",
-      "emailLabel": "Почта",
-      "phoneLabel": "Телефон",
-      "locationLabel": "Ҷойгиршавӣ",
-      "locationValue": "Душанбе, Тоҷикистон"
-    },
-    "newsletter": {
-      "title": "Хабарнома",
-      "desc": "Эълонҳои нав ва навсозӣ. Бе спам.",
-      "placeholder": "Почтаи шумо",
-      "join": "Ҳамроҳ шудан"
     },
     "cta": {
-      "title": "Мехоҳед хонаи худро гузоред?",
-      "desc": "Аккаунт созед ва дар чанд дақиқа эълон гузоред.",
-      "button": "Оғоз кардан"
+      "title": "Готовы разместить свое жилье?",
+      "desc": "Присоединяйтесь к премиум-платформе, с которой аренда становится легкой для тысяч пользователей."
+    }
+  },
+  "home": {
+    "discoverTitle": "Найдите свой следующий дом",
+    "filterDesc": "Фильтруйте по городу, типу и цене, чтобы найти идеальный вариант.",
+    "browseStats": "Просмотр {{total}} отобранных объектов в {{cities}} городах."
+  },
+  "footer": {
+    "tagline": "Премиум Жизнь",
+    "description": "Откройте для себя люксовые квартиры, уютные студии и просторные виллы по всему миру. Аренда никогда не выглядела так хорошо.",
+    "explore": "Исследовать",
+    "nav": {
+      "home": "Главная",
+      "about": "О нас", 
+      "contact": "Контакты",
+      "properties": "Недвижимость"
+    },
+    "stayUpdated": "Оставайтесь в курсе",
+    "newsletterDesc": "Подпишитесь на нашу рассылку, чтобы получать последние премиум-объекты и эксклюзивные предложения.",
+    "emailPlaceholder": "Введите ваш email адрес",
+    "emailError": "Пожалуйста, введите действительный email",
+    "alreadySubscribed": "Вы уже подписаны!",
+    "subscribed": "Подписано!",
+    "thanksSubscribing": "Спасибо за подписку!",
+    "becomeHost": "Стать хозяином",
+    "earnMoney": "Легко зарабатывайте деньги",
+    "platformName": "Платформа Rent.A.Room",
+    "allRights": "Все права защищены.",
+    "poweredBy": "Работает на Premium UI",
+    "builtWith": "Создано с помощью React",
+    "brand": {
+      "subtitle": "Дома • Дачи • Квартиры",
+      "desc": "Простая платформа для аренды домов, дач и квартир по всему Таджикистану. Чистые объявления. Без стресса."
+    },
+    "badges": {
+      "verified": "Проверенные объявления",
+      "support": "Поддержка 24/7"
+    },
+    "quickLinks": {
+      "title": "Быстрые ссылки",
+      "home": "Главная",
+      "about": "О нас",
+      "contact": "Контакты",
+      "login": "Войти"
+    },
+    "contact": {
+      "title": "Контакты",
+      "emailLabel": "Email",
+      "phoneLabel": "Телефон",
+      "locationLabel": "Адрес",
+      "locationValue": "Душанбе, Таджикистан"
+    },
+    "newsletter": {
+      "title": "Рассылка",
+      "desc": "Новые объявления и обновления. Без спама.",
+      "placeholder": "Ваш email",
+      "join": "Подписаться"
+    },
+    "cta": {
+      "title": "Хотите добавить своё жильё?",
+      "desc": "Создайте аккаунт и начните публиковать за пару минут.",
+      "button": "Начать"
     },
     "bottom": {
-      "rights": "Ҳама ҳуқуқҳо ҳифз шудаанд.",
-      "privacy": "Махфият",
-      "terms": "Қоидаҳо",
-      "support": "Дастгирӣ"
+      "rights": "Все права защищены.",
+      "privacy": "Конфиденциальность",
+      "terms": "Условия",
+      "support": "Поддержка"
     }
   },
   "faq": {
@@ -292,24 +327,24 @@
   },
   "categories": {
     "flats": {
-      "title": "Luxury Flats",
-      "desc": "City-center apartments with premium amenities.",
-      "count": "320+ Properties"
+      "title": "Квартиры",
+      "desc": "Квартиры в центре с удобствами.",
+      "count": "320+ объектов"
     },
     "houses": {
-      "title": "Private Houses",
-      "desc": "Spacious suburban homes perfect for families.",
-      "count": "150+ Properties"
+      "title": "Дома",
+      "desc": "Шикарные дома для семей.",
+      "count": "150+ объектов"
     },
     "dachas": {
-      "title": "Country Dachas",
-      "desc": "Escape the city for a quiet countryside retreat.",
-      "count": "80+ Properties"
+      "title": "Дачи",
+      "desc": "Тихий отдых на даче.",
+      "count": "80+ объектов"
     },
-    "badge": "Curated Collections",
-    "title": "Property Types",
-    "viewAll": "View All Types",
-    "explore": "Explore"
+    "badge": "Коллекции",
+    "title": "Типы",
+    "viewAll": "Все типы",
+    "explore": "Смотреть"
   },
   "hero": {
     "premiumLive": "Premium Properties Available",
@@ -326,40 +361,56 @@
     "price": "Price",
     "mo": "mo",
     "totalProperties": "Total Properties",
-    "happyRenters": "10k+ Happy Renters"
+    "happyRenters": "10k+ Happy Renters",
+    "badge": "Премиальные дома",
+    "titlePart1": "Арендуйте",
+    "titlePart2": "идеальное жилье.",
+    "subtitle": "Роскошные квартиры, студии и виллы по всему миру.",
+    "btnExplore": "Каталог",
+    "btnHost": "Стать хозяином",
+    "stats": {
+      "properties": "Объектов",
+      "cities": "Городов",
+      "starting": "Начиная от"
+    },
+    "card": {
+      "rating": "Супер рейтинг",
+      "status": "Статус",
+      "verified": "Проверено"
+    }
   },
   "hostCta": {
-    "badge": "Earn With Us",
-    "title": "Put your unused space to work.",
-    "desc": "Join thousands of hosts earning passive income daily. We handle the marketing, payments, and security. You bring the keys.",
-    "button": "Become a Host",
-    "estimatedEarnings": "Estimated Earnings",
-    "mo": "mo"
+    "badge": "Зарабатывайте",
+    "title": "Заставьте пространство работать.",
+    "desc": "Пассивный доход ежедневно.",
+    "button": "Присоединиться",
+    "estimatedEarnings": "Ожидаемый доход",
+    "mo": "мес"
   },
   "howItWorks": {
     "step1": {
-      "title": "Discover",
-      "desc": "Use our smart filters to find listings that perfectly match your preferences and budget in seconds."
+      "title": "Поиск",
+      "desc": "Умные фильтры для быстрого поиска."
     },
     "step2": {
-      "title": "Book Securely",
-      "desc": "Connect directly with verified hosts through our secure messaging and payment systems."
+      "title": "Бронирование",
+      "desc": "Напрямую с проверенными хозяевами."
     },
     "step3": {
-      "title": "Move In",
-      "desc": "Get your keys and enjoy your new premium space with 24/7 dedicated support."
+      "title": "Заселение",
+      "desc": "Получите ключи с поддержкой 24/7."
     },
-    "badge": "Simple Process",
-    "title": "How it works",
-    "subtitle": "We've engineered the perfect platform for seamless property hunting without the traditional headaches."
+    "badge": "Процесс",
+    "title": "Как это работает",
+    "subtitle": "Идеальная платформа для поиска недвижимости."
   },
   "testimonials": {
-    "review1": "The easiest way I've ever found to rent a place. The interface is stunning and the hosts are verified. Felt completely safe.",
-    "review2": "Booked a luxury flat for my business trip. The photos matched reality perfectly. Communication was seamless.",
-    "review3": "I was skeptical at first, but the booking process is flawless. Found an amazing dacha for the weekend in minutes.",
-    "badge": "Real Experiences",
-    "title": "Don't just take our word for it.",
-    "subtitle": "Thousands of renters trust us to find their next home. Here's what they have to say."
+    "review1": "Самый простой способ найти жилье.",
+    "review2": "Забронировал роскошную квартиру.",
+    "review3": "Процесс безупречен.",
+    "badge": "Опыт",
+    "title": "Не верьте нам на слово.",
+    "subtitle": "Отзывы наших клиентов."
   },
   "admin": {
     "deleteConfirm": "Are you sure you want to delete this booking request forever?",
@@ -370,8 +421,8 @@
       "bookings": "Bookings",
       "accounts": "Accounts"
     },
-    "heroTitle": "Admin Command Center",
-    "heroDesc": "Platform management & analytics for Rent-A-Room",
+    "heroTitle": "Командный центр",
+    "heroDesc": "Управление платформой и аналитика для Rent-A-Room",
     "stats": {
       "activeProps": "Active Properties",
       "totalBookings": "Total Bookings",
@@ -388,9 +439,9 @@
     "untitled": "Untitled Property",
     "unknown": "Unknown",
     "roomsLabel": "Rooms",
-    "edit": "Edit",
-    "deleting": "Deleting...",
-    "delete": "Delete",
+    "edit": "Редактировать",
+    "deleting": "Удаление...",
+    "delete": "Удалить",
     "bookingsTitle": "Booking Requests",
     "emptyBookings": {
       "title": "No requests yet",
@@ -401,17 +452,19 @@
     "bookingFor": "Booking for",
     "days": "days",
     "receivedOn": "Received",
-    "accept": "Accept",
-    "reject": "Reject",
-    "setPending": "Set Pending",
+    "accept": "Принять",
+    "reject": "Отклонить",
+    "setPending": "Сбросить статус",
     "usersTitle": "Registered Users",
     "adminsActive": "Admins Active",
     "emptyUsers": "No users found",
-    "adminBadge": "ADMIN",
-    "youBadge": "YOU",
-    "joinedDate": "Joined Date",
-    "revoke": "Revoke",
-    "makeAdmin": "Make Admin",
+    "adminBadge": "АДМИН",
+    "youBadge": "ВЫ",
+    "joinedDate": "Дата присоединения",
+    "revoke": "Удалить Админа",
+    "makeAdmin": "Сделать Админом",
+    "deleteConfirmTitle": "Удалить запрос на бронирование?",
+    "deleteConfirmDesc": "Это действие нельзя отменить. Запрос на бронирование будет удален навсегда.",
     "form": {
       "addTitle": "Add New Property",
       "editTitle": "Edit Property",
@@ -500,120 +553,120 @@
     "academy": "Softclub Academy, Dushanbe"
   },
   "error": {
-    "notFound": "Page not found",
-    "unauthorized": "Unauthorized access",
-    "generic": "Something went wrong",
-    "defaultMsg": "We couldn't load this page. Try again or go back home.",
-    "code": "Error Code",
-    "returnHome": "Return to Home",
-    "reload": "Reload",
-    "goBack": "Go back",
-    "techDetails": "Technical Details"
+    "notFound": "Страница не найдена",
+    "unauthorized": "Доступ запрещен",
+    "generic": "Что-то пошло не так",
+    "defaultMsg": "Мы не смогли загрузить эту страницу. Попробуйте еще раз или вернитесь на главную.",
+    "code": "Код ошибки",
+    "returnHome": "Вернуться на главную",
+    "reload": "Обновить",
+    "goBack": "Назад",
+    "techDetails": "Технические детали"
   },
   "post": {
     "errors": {
-      "image": "Please provide a cover image for your listing.",
-      "title": "A title is required.",
-      "location": "Please select a location.",
-      "type": "Please select a property type.",
-      "rooms": "Please specify the number of rooms.",
-      "price": "Please set a nightly price."
+      "image": "Пожалуйста, предоставьте обложку для вашего объявления.",
+      "title": "Требуется название.",
+      "location": "Пожалуйста, выберите местоположение.",
+      "type": "Пожалуйста, выберите тип недвижимости.",
+      "rooms": "Пожалуйста, укажите количество комнат.",
+      "price": "Пожалуйста, укажите цену за ночь."
     },
     "success": {
-      "title": "Listing Alive!",
-      "desc": "Your spectacular space is now live for thousands of renters to discover.",
-      "btn": "Post another listing"
+      "title": "Объявление опубликовано!",
+      "desc": "Ваше прекрасное пространство теперь доступно для тысяч арендаторов.",
+      "btn": "Добавить еще одно объявление"
     },
     "hero": {
-      "title": "Post your space.",
-      "desc": "Reach an elite audience and start earning from your incredible properties today.",
-      "networkStatus": "Network Status",
-      "thousands": "Thousands",
-      "activeWait": "of active renters waiting"
+      "title": "Опубликуйте свое жилье.",
+      "desc": "Свяжитесь с элитной аудиторией и начните зарабатывать на своей невероятной недвижимости...",
+      "networkStatus": "Статус сети",
+      "thousands": "Тысячи",
+      "activeWait": "активных арендаторов ждут"
     },
     "form": {
-      "detailsTitle": "Property Details",
-      "detailsDesc": "Please provide accurate information to attract the best guests.",
-      "media": "Media",
-      "uploadBtn": "Click to upload your best photo",
-      "uploadHelp": "High res JPEG or PNG (Max 10MB)",
-      "titles": "Listing Titles",
-      "titleIn": "Title in",
-      "coreInfo": "Core Information",
-      "price": "Price per night ($)",
-      "rooms": "Number of rooms",
-      "location": "Location",
-      "type": "Property Type",
-      "choose": "Choose",
-      "descTitle": "Description",
-      "descPlaceholder": "Share what makes this place special. Mention cool amenities, the neighborhood, and anything guests should know..."
+      "detailsTitle": "Детали недвижимости",
+      "detailsDesc": "Пожалуйста, предоставьте точную информацию, чтобы привлечь гостей.",
+      "media": "Медиа",
+      "uploadBtn": "Нажмите, чтобы загрузить фото",
+      "uploadHelp": "Высокое разрешение JPEG/PNG (до 10МБ)",
+      "titles": "Названия объявления",
+      "titleIn": "Название на",
+      "coreInfo": "Основная информация",
+      "price": "Цена за ночь ($)",
+      "rooms": "Количество комнат",
+      "location": "Местоположение",
+      "type": "Тип недвижимости",
+      "choose": "Выбрать",
+      "descTitle": "Описание",
+      "descPlaceholder": "Расскажите, что делает это место особенным..."
     },
     "preview": {
-      "title": "Live Preview",
-      "noPrice": "No price",
-      "awaiting": "Awaiting Image",
-      "stunningMsg": "Your Stunning Property",
-      "city": "City",
-      "rooms": "rooms",
-      "roomsEmpty": "Rooms",
-      "type": "Type",
-      "noDesc": "No Description Yet",
-      "host": "Host"
+      "title": "Предпросмотр",
+      "noPrice": "Нет цены",
+      "awaiting": "Ожидание фото",
+      "stunningMsg": "Ваша потрясающая недвижимость",
+      "city": "Город",
+      "rooms": "комнат(ы)",
+      "roomsEmpty": "Комнаты",
+      "type": "Тип",
+      "noDesc": "Пока нет описания",
+      "host": "Хозяин"
     },
-    "publishing": "Publishing Space...",
-    "publishBtn": "Publish To Production",
-    "clearForm": "Clear Form"
+    "publishing": "Публикация...",
+    "publishBtn": "Опубликовать",
+    "clearForm": "Очистить"
   },
   "profile": {
-    "updateSuccess": "Profile updated seamlessly",
-    "updateFail": "Failed to update",
+    "updateSuccess": "Профиль успешно обновлен",
+    "updateFail": "Не удалось обновить",
     "badges": {
-      "admin": "Administrator",
-      "verified": "Verified Profile"
+      "admin": "Администратор",
+      "verified": "Подтвержденный профиль"
     },
-    "joined": "Joined",
-    "recently": "recently",
-    "signOut": "Sign Out",
-    "registeredEmail": "Registered Email",
-    "contactPhone": "Contact Phone",
-    "addPhone": "Please add a phone number",
+    "joined": "Присоединился",
+    "recently": "недавно",
+    "signOut": "Выйти",
+    "registeredEmail": "Учтенный Email",
+    "contactPhone": "Контактный телефон",
+    "addPhone": "Добавьте номер телефона",
     "tabs": {
-      "dashboard": "Dashboard",
-      "settings": "Account Settings"
+      "dashboard": "Дашборд",
+      "settings": "Настройки аккаунта"
     },
     "stats": {
-      "saved": "Saved Listings",
-      "active": "Active Posts",
-      "reviews": "Total Reviews",
-      "trust": "Trust Score"
+      "saved": "Сохраненные",
+      "active": "Активные",
+      "reviews": "Отзывы",
+      "trust": "Уровень доверия"
     },
     "actions": {
-      "title": "Actions",
-      "manageFavs": "Manage Favorites",
-      "manageFavsDesc": "View and edit your saved properties",
-      "createListing": "Create Listing",
-      "createListingDesc": "Start earning from your space",
-      "adminDash": "Admin Dashboard",
-      "adminDashDesc": "Manage platform resources"
+      "title": "Действия",
+      "manageFavs": "Избранное",
+      "manageFavsDesc": "Просмотр сохраненных объектов",
+      "createListing": "Создать объявление",
+      "createListingDesc": "Начните зарабатывать на своем жилье",
+      "adminDash": "Командный центр",
+      "adminDashDesc": "Управление платформой и аналитикой"
     },
     "notifications": {
-      "title": "Notifications",
-      "notif1Title": "Profile verified successfully",
-      "notif1Desc": "Thanks for verifying your account. You can now rent and host properties on Rent-A-Room.",
-      "notif1Time": "2 Days ago",
-      "notif2Title": "Welcome to the community!",
-      "notif2Desc": "We are glad to have you here. Complete your profile to get the most out of the platform.",
-      "notif2Time": "1 Week ago"
+      "title": "Уведомления",
+      "notif1Title": "Профиль подтвержден",
+      "notif1Desc": "Вы можете сдавать и арендовать жилье.",
+      "notif1Time": "2 дня назад",
+      "notif2Title": "Добро пожаловать!",
+      "notif2Desc": "Заполните свой профиль.",
+      "notif2Time": "1 неделю назад"
     },
     "settings": {
-      "title": "Profile Settings",
-      "desc": "Update your personal information and how we can reach you.",
-      "fullName": "Full Name",
-      "phone": "Phone Number",
-      "emailLocked": "Email Address (Locked)",
-      "cancel": "Cancel",
-      "saving": "Saving Changes...",
-      "save": "Save Changes"
+      "title": "Настройки профиля",
+      "desc": "Обновите личную информацию.",
+      "fullName": "Полное имя",
+      "phone": "Телефон",
+      "emailLocked": "Email (заблокирован)",
+      "cancel": "Отмена",
+      "saving": "Сохранение...",
+      "save": "Сохранить"
     }
   }
 }

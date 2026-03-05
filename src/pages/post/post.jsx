@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ImagePlus, MapPin, Bed, Home as HomeIcon, DollarSign, CheckCircle, Upload, PenLine, Sparkles, Loader2, Image as ImageIcon } from "lucide-react";
+import { ImagePlus, MapPin, Bed, Home as HomeIcon, DollarSign, CheckCircle, Upload, PenLine, Sparkles, Loader2, Image as ImageIcon, Eye } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { createListing, fetchListings } from "../../reducers/listingSlice";
 import toast from "react-hot-toast";
@@ -100,8 +100,8 @@ const Post = () => {
                 <CheckCircle className="h-10 w-10 text-emerald-600" />
               </div>
               <div>
-                <h2 className="text-3xl font-black tracking-tight mb-2">{t("post.success.title", "Listing Alive!")}</h2>
-                <p className="text-muted-foreground font-medium">{t("post.success.desc", "Your spectacular space is now live for thousands of renters to discover.")}</p>
+                <h2 className="text-3xl font-black tracking-tight mb-2">{t("post.success.title", "Listing Submitted!")}</h2>
+                <p className="text-muted-foreground font-medium">{t("post.success.desc", "Your spectacular space has been sent to our administrators for review. Once approved, it will be live for thousands of renters to discover.")}</p>
               </div>
               <Button className="w-full h-14 mt-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 font-bold shadow-xl shadow-emerald-500/20 text-base transition-all hover:-translate-y-0.5" onClick={reset}>
                 {t("post.success.btn", "Post another listing")}

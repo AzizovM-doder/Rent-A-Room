@@ -20,10 +20,18 @@ export function isAuthenticated() {
 
 // FAVORITES
 export function getUserFav() {
-  return JSON.parse(localStorage.getItem("userFav")) || [];
+  try {
+    return JSON.parse(localStorage.getItem("userFav")) || [];
+  } catch {
+    return [];
+  }
 }
 export function getUserFavLength() {
-  return JSON.parse(localStorage.getItem("userFav"))?.length || 0
+  try {
+    return JSON.parse(localStorage.getItem("userFav"))?.length || 0;
+  } catch {
+    return 0;
+  }
 }
 
 export function addUserFav(item) {

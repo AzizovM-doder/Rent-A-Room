@@ -170,8 +170,9 @@
     "rooms4plus": "4+ rooms",
     "priceRange": "Price range",
     "results": "results",
+    "propertiesFound": "{{count}} properties found",
     "homes": "Homes",
-    "noResults": "No results",
+    "noResults": "No properties found",
     "tryDifferent": "Try different filters.",
     "resetFilters": "Reset filters",
     "prev": "Prev",
@@ -226,7 +227,9 @@
       "total": "Total Properties",
       "cities": "Active Cities",
       "types": "Property Types",
-      "pricing": "Pricing Range"
+      "pricing": "Pricing Range",
+      "satisfaction": "Satisfaction Rate",
+      "support": "Support Given"
     },
     "advantage": {
       "title": "The Rent-A-Room Advantage",
@@ -235,9 +238,40 @@
     "journey": {
       "title": "Our evolutionary journey.",
       "desc": "From a local hackathon concept to a premium ecosystem."
+    },
+    "cta": {
+      "title": "Ready to list your space?",
+      "desc": "Join the premium platform making renting a breeze for thousands of users."
     }
   },
+  "home": {
+    "discoverTitle": "Discover your next home",
+    "filterDesc": "Filter by city, type, and price to find the perfect fit.",
+    "browseStats": "Browse {{total}} handpicked properties across {{cities}} cities."
+  },
   "footer": {
+    "tagline": "Premium Living",
+    "description": "Discover curated luxury apartments, cozy studios, and sprawling villas worldwide. Renting has never looked this good.",
+    "explore": "Explore",
+    "nav": {
+      "home": "Home",
+      "about": "About", 
+      "contact": "Contact",
+      "properties": "Properties"
+    },
+    "stayUpdated": "Stay Updated",
+    "newsletterDesc": "Subscribe to our newsletter for latest premium properties and exclusive offers.",
+    "emailPlaceholder": "Enter your email address",
+    "emailError": "Please enter a valid email",
+    "alreadySubscribed": "You're already subscribed!",
+    "subscribed": "Subscribed!",
+    "thanksSubscribing": "Thanks for subscribing!",
+    "becomeHost": "Become a Host",
+    "earnMoney": "Earn money easily",
+    "platformName": "Rent.A.Room Platform",
+    "allRights": "All rights reserved.",
+    "poweredBy": "Powered by Premium UI",
+    "builtWith": "Built with React",
     "brand": {
       "subtitle": "Homes • Dachas • Apartments",
       "desc": "A simple platform to rent houses, dachas, and apartments across Tajikistan. Clean listings. No stress."
@@ -326,7 +360,23 @@
     "price": "Price",
     "mo": "mo",
     "totalProperties": "Total Properties",
-    "happyRenters": "10k+ Happy Renters"
+    "happyRenters": "10k+ Happy Renters",
+    "badge": "Premium Living Spaces",
+    "titlePart1": "Rent your",
+    "titlePart2": "perfect space.",
+    "subtitle": "Discover luxury apartments, cozy studios, and sprawling villas worldwide. Elevate your living standards with curated, top-tier properties.",
+    "btnExplore": "Explore Catalog",
+    "btnHost": "Become a Host",
+    "stats": {
+      "properties": "Properties",
+      "cities": "Cities Covered",
+      "starting": "Starting from"
+    },
+    "card": {
+      "rating": "Exceptional Rating",
+      "status": "Status",
+      "verified": "Verified Homes"
+    }
   },
   "hostCta": {
     "badge": "Earn With Us",
@@ -403,15 +453,17 @@
     "receivedOn": "Received",
     "accept": "Accept",
     "reject": "Reject",
-    "setPending": "Set Pending",
+    "setPending": "Reset Status",
     "usersTitle": "Registered Users",
     "adminsActive": "Admins Active",
     "emptyUsers": "No users found",
     "adminBadge": "ADMIN",
     "youBadge": "YOU",
     "joinedDate": "Joined Date",
-    "revoke": "Revoke",
+    "revoke": "Revoke Admin",
     "makeAdmin": "Make Admin",
+    "deleteConfirmTitle": "Delete Booking Request?",
+    "deleteConfirmDesc": "This action cannot be undone. This will permanently delete the booking request.",
     "form": {
       "addTitle": "Add New Property",
       "editTitle": "Edit Property",

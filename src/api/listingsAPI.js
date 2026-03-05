@@ -53,6 +53,8 @@ export const listingsApi = {
     { loading: "Posting...", success: "Listing posted!" }),
   update: (id, formData) => req(`${BASE}/${id}`, { method: "PUT", body: formData },
     { loading: "Updating...", success: "Updated!" }),
+  updateStatus: (id, status) => req(`${BASE}/${id}/status`, { method: "PATCH", body: JSON.stringify({ status }) },
+    { loading: "Updating status...", success: `Listing marked as ${status.toLowerCase()}!` }),
   remove: (id) => req(`${BASE}/${id}`, { method: "DELETE" },
     { loading: "Deleting...", success: "Deleted!" }),
 };

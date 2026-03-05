@@ -67,9 +67,9 @@ const Home = () => {
             <Badge className="mb-4 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-0 px-4 py-1.5 text-xs font-bold uppercase tracking-widest shadow-sm">
               {t("nav.home", "Explore Catalog")}
             </Badge>
-            <h2 className="text-4xl md:text-5xl lg:text-5xl font-black tracking-tight mb-6">Discover your next home</h2>
+            <h2 className="text-4xl md:text-5xl lg:text-5xl font-black tracking-tight mb-6">{t("home.discoverTitle", "Discover your next home")}</h2>
             <p className="text-muted-foreground text-lg sm:text-xl max-w-2xl mx-auto font-medium">
-              {liveStats ? `Browse ${liveStats.total} handpicked properties across ${liveStats.cities.length || 1} cities.` : "Filter by city, type, and price to find the perfect fit."}
+              {liveStats ? t("home.browseStats", { total: liveStats.total, cities: liveStats.cities.length || 1, defaultValue: `Browse ${liveStats.total} handpicked properties across ${liveStats.cities.length || 1} cities.` }) : t("home.filterDesc", "Filter by city, type, and price to find the perfect fit.")}
             </p>
           </motion.div>
 

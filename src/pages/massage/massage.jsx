@@ -61,7 +61,7 @@ const Message = () => {
 
   if (!item) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center px-4 animate-fade-up">
+      <div className="min-h-[60vh] lg:max-w-7xl m-auto flex items-center justify-center px-4 animate-fade-up">
         <Card className="max-w-md w-full rounded-3xl text-center overflow-hidden pt-0">
           <div className="h-28 bg-gradient-to-br from-emerald-600 to-teal-700" />
           <CardContent className="p-8 flex flex-col items-center gap-4 -mt-8">
@@ -81,7 +81,7 @@ const Message = () => {
 
   if (sent) {
     return (
-      <div className="min-h-[60vh] flex items-center justify-center px-4 animate-scale-in">
+      <div className="min-h-[60vh] lg:max-w-7xl m-auto flex items-center justify-center px-4 animate-scale-in">
         <Card className="max-w-md w-full rounded-3xl text-center overflow-hidden pt-0">
           <div className="h-28 bg-gradient-to-br from-emerald-600 to-teal-700" />
           <CardContent className="p-8 flex flex-col items-center gap-4 -mt-8">
@@ -109,7 +109,7 @@ const Message = () => {
   }
 
   return (
-    <div className="flex flex-col gap-6 animate-fade-up">
+    <div className="flex flex-col gap-6 lg:max-w-7xl m-auto animate-fade-up">
       <Button variant="ghost" asChild className="w-fit text-muted-foreground hover:text-foreground -ml-2">
         <Link to={`/explore/${item.id}`}><ArrowLeft className="h-4 w-4 mr-2" />{t("message.back", "Back to listing")}</Link>
       </Button>

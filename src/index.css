@@ -112,15 +112,50 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
-
+*{
+  scrollbar-width: none;
+}
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  /* ── Scrollbar Persistence Fix ─────────────────────────────────── */
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Prevent layout shift when dropdowns/modals open */
+  html {
+    scrollbar-gutter: stable;
+  }
+
   body {
     @apply bg-background text-foreground;
+    overscroll-behavior: none;
   }
 }
+
+/* ── Mobile Optimizations ─────────────────────────────────── */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ── Touch-friendly interactions ─────────────────────────── */
+@media (hover: none) and (pointer: coarse) {
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
 /* ── Targeted transitions (replaces over-broad * transition) ─── */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -133,31 +168,36 @@ button, a, [role="button"] {
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-/* ── Scrollbar ────────────────────────────────────────────────── */
+/* ── Smooth Page Transitions ─────────────────────────────── */
 * {
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary) transparent;
+  box-sizing: border-box;
 }
 
-*::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* Prevent layout shift during animations */
+.page-transition-container {
+  position: relative;
+  min-height: 100vh;
 }
 
-*::-webkit-scrollbar-track {
-  background: transparent;
+/* Enhanced transitions for interactive elements */
+button, a, [role="button"] {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+              box-shadow 0.2s ease, transform 0.15s ease, opacity 0.2s ease;
 }
 
-*::-webkit-scrollbar-thumb {
-  background-color: oklch(0.6 0.118 184.704 / 40%); /* Subtle emerald-600 match */
-  border-radius: 20px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
-  transition: background-color 0.2s ease;
+.card, [class*="rounded-"] {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-*::-webkit-scrollbar-thumb:hover {
-  background-color: oklch(0.6 0.118 184.704 / 80%); /* Darker emerald on hover */
+/* Dropdown and modal fixes */
+.dropdown-content, .popover-content {
+  scrollbar-gutter: stable;
+}
+
+/* Prevent body scroll when modal is open */
+.modal-open {
+  overflow: hidden;
+  padding-right: 8px; /* Compensate for scrollbar */
 }
 
 /* ── Keyframes ────────────────────────────────────────────────── */
@@ -240,8 +280,4 @@ button, a, [role="button"] {
 }
 .animate-ping {
   animation: ping 1.2s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-*{
-  transition: all .5s ease;
 }

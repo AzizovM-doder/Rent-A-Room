@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { User, Mail, Phone, ShieldCheck, LogOut, Heart, Home as HomeIcon, PenLine, Star, X, CalendarDays, KeyRound, Settings, Bell, ChevronRight } from "lucide-react";
+import { User, Mail, Phone, ShieldCheck, LogOut, Heart, Home as HomeIcon, PenLine, Star, X, CalendarDays, KeyRound, Settings, Bell, ChevronRight, Sparkles } from "lucide-react";
 import { getUserFavLength, getUserToken } from "../../utils/url";
 import { clearAuth, authApi } from "../../api/listingsAPI";
 import { useNavigate } from "react-router-dom";
@@ -208,20 +208,23 @@ const Profile = () => {
                     ))}
 
                     {user.isAdmin && (
-                      <Link to="/admin" className="group overflow-hidden rounded-[2rem] mt-2">
-                        <Card className="rounded-[2rem] border-amber-400/30 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 hover:border-amber-500/50 hover:shadow-xl hover:shadow-amber-500/10 transition-all duration-300 relative overflow-hidden">
-                          <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
+                      <Link to="/admin" className="group overflow-hidden rounded-[2rem] mt-2 block">
+                        <Card className="rounded-[2rem] border-indigo-500/30 bg-indigo-950 hover:border-indigo-400/50 hover:shadow-2xl hover:shadow-indigo-900/40 transition-all duration-300 relative overflow-hidden">
+                          {/* Decorative Orbs fitting Command Center */}
+                          <div className="absolute top-0 right-0 w-32 h-32 bg-sky-500/20 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
+                          <div className="absolute bottom-0 left-0 w-24 h-24 bg-indigo-500/30 rounded-full translate-y-1/2 -translate-x-1/2 blur-xl" />
+                          
                           <div className="p-6 flex items-center justify-between gap-4 relative z-10">
                             <div className="flex items-center gap-5">
-                              <div className="h-14 w-14 rounded-2xl bg-amber-500/20 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform">
-                                <KeyRound className="h-7 w-7 text-amber-600 dark:text-amber-400" />
+                              <div className="h-14 w-14 rounded-2xl bg-white/10 backdrop-blur-md ring-1 ring-white/20 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform duration-500">
+                                <KeyRound className="h-7 w-7 text-sky-400 group-hover:rotate-12 transition-transform duration-500" />
                               </div>
                               <div className="flex flex-col gap-1">
-                                <p className="font-bold text-[17px] leading-tight text-amber-800 dark:text-amber-200">{t("profile.actions.adminDash", "Admin Dashboard")}</p>
-                                <p className="text-sm font-medium text-amber-700/70 dark:text-amber-400/70">{t("profile.actions.adminDashDesc", "Manage platform resources")}</p>
+                                <p className="font-black text-[18px] leading-tight text-white tracking-tight">{t("profile.actions.adminDash", "Command Center")}</p>
+                                <p className="text-sm font-medium text-indigo-200/80">{t("profile.actions.adminDashDesc", "Manage platform resources & analytics")}</p>
                               </div>
                             </div>
-                            <ChevronRight className="h-5 w-5 text-amber-600 dark:text-amber-400 opacity-50 group-hover:opacity-100 transition-all group-hover:translate-x-1" />
+                            <ChevronRight className="h-6 w-6 text-sky-400 opacity-50 group-hover:opacity-100 transition-all group-hover:translate-x-1" />
                           </div>
                         </Card>
                       </Link>
